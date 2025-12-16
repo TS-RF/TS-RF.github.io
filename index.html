@@ -297,15 +297,18 @@
   </div>
 </section>
 
-<section class="section reveal" id="BibTeX">
+<section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
   <div class="container is-max-desktop content">
+    
+    <hr>
+
     <h2 class="title">BibTeX</h2>
     
     <div class="citation-prompt">
       <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
         <i class="fas fa-quote-left"></i>
       </span>
-      We appreciate it if you would cite the following paper if you found the work helpful:
+      If you find this work useful for your research, please consider citing:
     </div>
 
     <pre style="margin-bottom: 5px;"><code id="bibtex-source">@article{luo2025thermodynamic,
@@ -321,8 +324,6 @@
     
     <div class="level is-mobile" style="margin-top: 10px;">
       <div class="level-left">
-        </div>
-      <div class="level-left">
         <button class="button is-dark is-small is-rounded" onclick="copyBibtex(this)">
           <span class="icon is-small">
             <i class="fas fa-copy"></i>
@@ -330,6 +331,7 @@
           <span class="btn-text">Copy BibTeX</span>
         </button>
       </div>
+      <div class="level-right"></div>
     </div>
 
   </div>
@@ -346,8 +348,6 @@
     color: #4a4a4a;
     font-weight: 500;
   }
-  
-  /* 按钮点击后的过渡效果 */
   .button .icon, .button .btn-text {
     transition: all 0.2s ease;
   }
@@ -356,41 +356,30 @@
 <script>
   function copyBibtex(btn) {
     const bibtexText = document.getElementById('bibtex-source').innerText;
-    
     navigator.clipboard.writeText(bibtexText).then(() => {
-      // 1. 获取内部元素
       const icon = btn.querySelector('.fa-copy');
       const text = btn.querySelector('.btn-text');
-      
-      // 2. 更改样式为“Copied!”状态
       if(icon) {
         icon.classList.remove('fa-copy');
         icon.classList.add('fa-check');
       }
       if(text) text.innerText = "Copied!";
-      
-      // 更改按钮颜色为绿色
       btn.classList.remove('is-dark');
       btn.classList.add('is-success');
-      
-      // 3. 2秒后复原
       setTimeout(() => {
         if(icon) {
           icon.classList.remove('fa-check');
           icon.classList.add('fa-copy');
         }
         if(text) text.innerText = "Copy BibTeX";
-        
         btn.classList.remove('is-success');
         btn.classList.add('is-dark');
       }, 2000);
-      
     }).catch(err => {
       console.error('Failed to copy: ', err);
     });
   }
 </script>
-
 
 <footer class="footer">
   <div class="container">
@@ -424,23 +413,17 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // 创建一个观察器
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            // 当元素进入视口时
             if (entry.isIntersecting) {
-                // 添加 'active' 类，触发 CSS 动画
                 entry.target.classList.add('active');
                 
-                // 可选：如果希望动画只播放一次，取消注释下面这行
-                // observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.15 // 元素出现 15% 时触发
+        threshold: 0.15 
     });
-
-    // 选取所有带有 .reveal 和 .stagger-wrapper 的元素进行观察
+  
     document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
         observer.observe(el);
     });
