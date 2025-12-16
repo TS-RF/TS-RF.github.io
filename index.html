@@ -226,102 +226,27 @@
 
     <hr>
 
-<div class="columns is-centered">
+    <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Explainability Analysis</h2>
         <div class="content has-text-justified">
           <p>
-            A key innovation of our work is moving beyond "What is the fault?" to "Why is this the fault?". We demonstrated this capability using a specific case of <strong>Piston Ring Wear (F4)</strong>.
+            A key innovation of our work is moving beyond "What is the fault?" to "Why is this the fault?". We demonstrated this capability using a specific case of <strong>Piston Ring Wear (F4)</strong>:
           </p>
+          <ul>
+            <li><strong>Local Interpretation (Waterfall Plot):</strong> Our waterfall plot analysis explains specific predictions. For example, our model predicted "Ring Wear" because Blow-by Heat Flow (P06) and Blow-by Mass Flow (P07) had specific values that pushed the probability up. This aligns perfectly with physics: Ring wear destroys the seal, leading to gas leakage (blow-by).</li>
+            <li><strong>Global Interpretation (Beeswarm Plot):</strong> Our global analysis revealed the general rules the model learned. We found that low values of Pre-turbo Exhaust Pressure (P11) are strong indicators of Ring Wear. Physically, this is consistent: if rings are worn, gas leaks out of the cylinder, meaning less gas energy goes into the exhaust manifold to spin the turbine.</li>
+          </ul>
+        </div>
+
+        <div class="has-text-centered">
+            <img src="./static/images/fig11_shap.jpg" class="hover-card" alt="SHAP Analysis" style="width:100%; border-radius: 10px;">
+            <p class="subtitle is-6">
+                <strong>Figure 11:</strong> Our fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
+            </p>
         </div>
       </div>
     </div>
-
-    <div class="columns is-centered is-multiline" style="margin-top: 1rem;">
-      
-      <div class="column is-half">
-        <div class="box analysis-card hover-card">
-          <div class="card-header-icon">
-            <span class="icon is-large has-text-info">
-              <i class="fas fa-search-plus fa-2x"></i> </span>
-          </div>
-          <h3 class="title is-4 is-spaced">Local Interpretation</h3>
-          <h4 class="subtitle is-6 has-text-grey">(Waterfall Plot)</h4>
-          <div class="content is-small">
-            <p>
-              Our waterfall plot analysis explains specific predictions. For example, our model predicted <strong>"Ring Wear"</strong> because:
-            </p>
-            <ul>
-              <li><strong>Blow-by Heat Flow (P06)</strong></li>
-              <li><strong>Blow-by Mass Flow (P07)</strong></li>
-            </ul>
-            <p>
-              had specific values that pushed the probability up. This aligns perfectly with physics: <span class="has-text-weight-medium">Ring wear destroys the seal, leading to gas leakage (blow-by).</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="column is-half">
-        <div class="box analysis-card hover-card">
-          <div class="card-header-icon">
-            <span class="icon is-large has-text-info">
-              <i class="fas fa-project-diagram fa-2x"></i> </span>
-          </div>
-          <h3 class="title is-4 is-spaced">Global Interpretation</h3>
-          <h4 class="subtitle is-6 has-text-grey">(Beeswarm Plot)</h4>
-          <div class="content is-small">
-            <p>
-              Our global analysis revealed the general rules the model learned. We found that low values of:
-            </p>
-            <ul>
-              <li><strong>Pre-turbo Exhaust Pressure (P11)</strong></li>
-            </ul>
-            <p>
-              are strong indicators of Ring Wear. Physically, this is consistent: <span class="has-text-weight-medium">if rings are worn, gas leaks out of the cylinder, meaning less gas energy goes into the exhaust manifold to spin the turbine.</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="columns is-centered" style="margin-top: 2rem;">
-      <div class="column is-full-width has-text-centered">
-         <img src="./static/images/fig11_shap.jpg" class="hover-card" alt="SHAP Analysis" style="width:100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-         <p class="subtitle is-6" style="margin-top: 1rem;">
-            <strong>Figure 11:</strong> Our fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
-         </p>
-      </div>
-    </div>
-  
-  <style>
-  .analysis-card {
-    height: 100%; /* 让两个卡片高度一致 */
-    border-top: 4px solid #3273dc; /* 顶部加一条学术蓝的装饰线 */
-    border-radius: 8px;
-    padding: 2rem;
-    background-color: #fff;
-    transition: all 0.3s ease;
-  }
-  
-  /* 图标容器样式 */
-  .card-header-icon {
-    margin-bottom: 1rem;
-    text-align: center; /* 图标居中，如果不喜欢居中可以去掉这行 */
-  }
-
-  /* 列表微调 */
-  .analysis-card ul {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    padding-left: 1.5em; /* 稍微缩进 */
-  }
-  
-  /* 强调文字颜色 */
-  .has-text-info {
-    color: #3273dc !important;
-  }
-</style>
 
     <hr>
 
