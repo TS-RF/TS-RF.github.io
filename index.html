@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines.">
+  <meta name="keywords" content="Marine Diesel Engine, Fault Diagnosis, Random Forest, SHAP, Thermodynamic Model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TSRF: Explainable Fault Diagnosis for Marine Diesel Engines</title>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    
+<div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      
+      <a class="navbar-item" href="https://scholar.google.com/citations?hl=zh-CN&user=k82TzLwAAAAJ" target="_blank">
+        <span class="icon" style="margin-right: 0.3rem;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" alt="Google Scholar" style="height: 20px; width: 20px;">
+        </span>
+        <span>Minghang Zhao (Google Scholar)</span>
+      </a>
+
+    </div>
+    
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines</h1>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <strong>Congcong Luo</strong><sup>a</sup>,</span>
+            <span class="author-block">
+              <strong>Minghang Zhao</strong><sup>a,*</sup>,</span>
+            <span class="author-block">
+              <strong>Xuyun Fu</strong><sup>a</sup>,
+            </span>
+            <span class="author-block">
+              <strong>Shisheng Zhong</strong><sup>a</sup>,
+            </span>
+            <span class="author-block">
+              <strong>Song Fu</strong><sup>b</sup>,
+            </span>
+            <span class="author-block">
+              <strong>Kai Zhang</strong><sup>c</sup>,
+            </span>
+            <span class="author-block">
+              <strong>Xiaoxia Yu</strong><sup>d</sup>
+            </span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
+            <span class="author-block"><sup>a</sup>Department of Mechanical Engineering, Harbin Institute of Technology, Weihai 264209, China</span><br>
+            <span class="author-block"><sup>b</sup>School of Mechatronics Engineering, Harbin Institute of Technology, Harbin 150001, China</span><br>
+            <span class="author-block"><sup>c</sup>School of Mechanical Engineering, Southwest Jiaotong University, Chengdu 610031, China</span><br>
+            <span class="author-block"><sup>d</sup>College of Mechanical Engineering, Chongqing University of Technology, Chongqing 400054, China</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://doi.org/10.1016/j.measurement.2025.117252"
+                   class="button is-normal is-rounded is-dark"
+                   target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+                <span class="link-block">
+                <a href="https://github.com/815177491/TSRF.github.io/releases/tag/DATA"
+                   target="_blank"
+                   class="button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-csv"></i>
+                  </span>
+                  <span>Dataset</span>
+                  </a>
+                </span>
+                </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0rem; margin-top: -1rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a <strong>Thermodynamic Simulation-assisted Random Forest (TSRF)</strong>.
+          </p>
+          <p>
+            The method reveals fault characteristics through thermodynamic simulations and incorporates them as prior knowledge when designing the intelligent fault diagnosis model. Firstly, five thermodynamic fault models are developed by fine-tuning the essential system parameters to correspond with the distinct attributes of different faults. Then, potential thermodynamic indicators of combustion chamber component degradation are identified through numerical simulation results.
+          </p>
+          <p>
+            By calculating SHapley Additive explanations (SHAP) values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of 99.07% on the fault dataset.
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <img src="./static/images/fig1_structure.jpg" alt="Structure of TSRF" style="width:100%; height:auto;">
+      
+      <p class="subtitle is-6" style="margin-top: 1rem;">
+        <strong>Figure 1:</strong> The structure of the proposed Thermodynamic Simulation-assisted Random Forest (TSRF) method. It combines thermodynamic modeling with SHAP-based parameter selection for explainable fault diagnosis.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Fault Simulation & Modeling</h2>
+        <div class="content has-text-justified">
+          <p>
+            We established a one-dimensional thermodynamic model of a marine diesel engine and calibrated it using experimental data. By fine-tuning parameters, we simulated five specific fault states:
+            Head cracking (F1), Piston ablation (F2), Liner wear (F3), Ring wear (F4), and Ring sticking (F5).
+          </p>
+        </div>
+
+        <div class="has-text-centered">
+            <img src="./static/images/fig2_simulator.png" alt="Results of fault simulation" style="width:100%;">
+            <p class="subtitle is-6">
+                <strong>Figure 2:</strong> One-dimensional thermodynamic model of the diesel engine.
+            </p>
+        </div>
+        
+        <div class="has-text-centered" style="margin-top: 3rem;">
+            <img src="./static/images/fig6_simulation.jpg" alt="Results of fault simulation" style="width:100%;">
+            <p class="subtitle is-6">
+                <strong>Figure 6:</strong> Variations of thermodynamic parameters under various fault conditions (e.g., Cylinder Pressure, Heat Flow, Exhaust Temperature).
+            </p>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="columns is-centered" style="margin-top: 5rem;">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Explainability (SHAP Analysis)</h2>
+        <div class="content has-text-justified">
+          <p>
+            We utilized Tree SHAP to quantify parameter importance and interpret the model's decision-making process. 
+            The analysis includes local interpretation (Waterfall plots) and global interpretation (Beeswarm and Interaction plots).
+          </p>
+        </div>
+
+      <div class="columns is-centered">
+          <div class="column has-text-centered">
+             <img src="./static/images/fig11_shap.jpg" alt="SHAP Analysis" style="width:100%;">
+            <p class="subtitle is-6">
+                <strong>Figure 11:</strong> Fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{luo2025thermodynamic,
+  title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
+  author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
+  journal   = {Measurement},
+  volume    = {251},
+  pages     = {117252},
+  year      = {2025},
+  publisher = {Elsevier},
+  doi       = {10.1016/j.measurement.2025.117252},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://doi.org/10.1016/j.measurement.2025.117252">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="#" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+    Copyright © 2025 Congcong Luo et al. Published in <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">Measurement</a>.
+          </p>
+          <p>
+            This website is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
