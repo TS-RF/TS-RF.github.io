@@ -54,36 +54,12 @@
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
     }
 
-    /* 移除默认的列表样式 */
-    .highlight-list {
-      list-style: none; /* 去掉默认黑点 */
-      padding-left: 0;
-    }
-    
-    /* 卡片样式 + Flexbox 居中布局 */
     .highlight-list li {
-      background: #f8f9fa;
+      background: #f8f9fa; /* 轻微的灰底 */
       padding: 1.5rem;
       border-radius: 8px;
       margin-bottom: 1rem;
-      border-left: 4px solid #3273dc; /* 左侧蓝色竖线 */
-      
-      /* 核心修改：使用 Flex 布局 */
-      display: flex; 
-      align-items: center; /* 垂直方向居中 */
-      justify-content: flex-start;
-    }
-    
-    /* 自定义居中的圆点 */
-    .highlight-list li::before {
-      content: '';             /* 伪元素内容为空 */
-      display: block;
-      width: 6px;              /* 圆点宽度 */
-      height: 6px;             /* 圆点高度 */
-      background-color: #363636; /* 圆点颜色 (深灰/黑) */
-      border-radius: 50%;      /* 变圆 */
-      margin-right: 15px;      /* 圆点和文字的距离 */
-      flex-shrink: 0;          /* 防止圆点被文字挤扁 */
+      border-left: 4px solid #3273dc; /* 左侧加一条学术蓝的边框 */
     }
 
     .stagger-wrapper .stagger-item {
