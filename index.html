@@ -180,7 +180,7 @@
           <ol>
             <li><strong>Digital Twin Construction (Thermodynamic Modeling):</strong> Instead of relying solely on a physical test rig, <strong>we built a 1-D thermodynamic model</strong> of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under 5% for key parameters.</li>
             <li><strong>Fault Injection (Simulating the "Sickness"):</strong> With our calibrated model, <strong>we simulated five specific combustion chamber faults</strong> (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
-            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, <strong>we quantitatively assessed</strong> which of the 14 output parameters actually mattered for diagnosis. We identified that parameters like Exhaust Gas Temperature (P14) and Liner Wall Heat Flow (P05) are the most critical indicators.</li>
+            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, <strong>we quantitatively assessed</strong> which of the 14 output parameters actually mattered for diagnosis. .</li>
             <li><strong>Classification (The Diagnosis):</strong> <strong>We trained a Random Forest (RF) classifier</strong> using this physics-generated dataset. Our model achieved a mean accuracy of <strong>99.07%</strong>, significantly outperforming traditional methods like SVM and KNN.</li>
           </ol>
         </div>
