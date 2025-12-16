@@ -308,16 +308,7 @@
       If you find this work useful for your research, please consider citing:
     </div>
 
-    <div class="bibtex-container" style="position: relative;">
-      
-      <button class="button is-small is-light copy-btn" onclick="copyBibtex(this)">
-        <span class="icon is-small">
-          <i class="fas fa-copy"></i>
-        </span>
-        <span>Copy BibTeX</span>
-      </button>
-
-      <pre><code id="bibtex-source">@article{luo2025thermodynamic,
+    <pre style="margin-bottom: 5px;"><code id="bibtex-source">@article{luo2025thermodynamic,
   title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
   author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
   journal   = {Measurement},
@@ -327,12 +318,24 @@
   publisher = {Elsevier},
   doi       = {10.1016/j.measurement.2025.117252},
 }</code></pre>
+    
+    <div class="level is-mobile" style="margin-top: 10px;">
+      <div class="level-left">
+        </div>
+      <div class="level-right">
+        <button class="button is-dark is-small is-rounded" onclick="copyBibtex(this)">
+          <span class="icon is-small">
+            <i class="fas fa-copy"></i>
+          </span>
+          <span class="btn-text">Copy BibTeX</span>
+        </button>
+      </div>
     </div>
+
   </div>
 </section>
 
 <style>
-  /* 引用提示语样式 */
   .citation-prompt {
     background-color: #f5f5f5;
     border-left: 5px solid #3273dc;
@@ -343,54 +346,43 @@
     color: #4a4a4a;
     font-weight: 500;
   }
-
-  /* Copy 按钮的绝对定位 */
-  .copy-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
-    opacity: 0.8;
+  
+  /* 按钮点击后的过渡效果 */
+  .button .icon, .button .btn-text {
     transition: all 0.2s ease;
-    border: 1px solid #dbdbdb;
-  }
-
-  /* 鼠标悬停时更明显 */
-  .copy-btn:hover {
-    opacity: 1;
-    border-color: #3273dc;
-    color: #3273dc;
   }
 </style>
 
 <script>
   function copyBibtex(btn) {
-    // 获取 BibTeX 内容
     const bibtexText = document.getElementById('bibtex-source').innerText;
     
-    // 执行复制
     navigator.clipboard.writeText(bibtexText).then(() => {
-      // 1. 切换按钮样式为“成功状态”
+      // 1. 获取内部元素
       const icon = btn.querySelector('.fa-copy');
-      const text = btn.querySelector('span:last-child');
+      const text = btn.querySelector('.btn-text');
       
-      // 保存原始图标类名，以便复原
+      // 2. 更改样式为“Copied!”状态
       if(icon) {
         icon.classList.remove('fa-copy');
         icon.classList.add('fa-check');
       }
       if(text) text.innerText = "Copied!";
       
-      btn.classList.add('is-success'); // Bulma 的绿色成功样式
+      // 更改按钮颜色为绿色
+      btn.classList.remove('is-dark');
+      btn.classList.add('is-success');
       
-      // 2. 2秒后自动复原
+      // 3. 2秒后复原
       setTimeout(() => {
         if(icon) {
           icon.classList.remove('fa-check');
           icon.classList.add('fa-copy');
         }
         if(text) text.innerText = "Copy BibTeX";
+        
         btn.classList.remove('is-success');
+        btn.classList.add('is-dark');
       }, 2000);
       
     }).catch(err => {
