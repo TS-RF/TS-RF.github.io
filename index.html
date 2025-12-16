@@ -32,6 +32,26 @@
   <script src="./static/js/index.js"></script>
 
   <style>
+
+      .keyword-label {
+      font-weight: bold;
+      margin-right: 10px;
+      vertical-align: middle;
+      color: #363636;
+    }
+    
+    .tags .tag {
+      transition: all 0.2s ease;
+      font-size: 0.9rem; /* 稍微大一点，易读 */
+    }
+    
+    /* 鼠标悬停时变色并轻微上浮 */
+    .tags .tag:hover {
+      background-color: #3273dc; /* 学术蓝 */
+      color: #fff; /* 文字变白 */
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
+    }
     
     .reveal {
       opacity: 0;
