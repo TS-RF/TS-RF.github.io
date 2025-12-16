@@ -1,6 +1,6 @@
 # Thermodynamic simulation-assisted random forest
 
-This is the repository that contains source code for the [TSRF website](TS-RF.github.io).
+This is the repository that contains source code for the [TSRF website](https://ts-rf.github.io/).
 
 If you find Nerfies useful for your work please cite:
 ```
