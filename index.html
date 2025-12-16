@@ -223,7 +223,7 @@
             <li><strong>The "Black Box" Problem:</strong> While Deep Learning is popular, it lacks transparency. If an AI tells a chief engineer, "The cylinder liner is worn," but cannot explain <em>why</em> based on physical parameters, it is difficult to build trust. This lack of explainability is a major barrier to industry adoption.</li>
           </ul>
           <p>
-            <strong>Our Solution:</strong> To address these challenges, <strong>we propose a method called TSRF (Thermodynamic Simulation-assisted Random Forest)</strong>. We use a physics-based simulation to generate synthetic fault data (solving the scarcity problem) and employ SHAP (SHapley Additive exPlanations) to visualize the decision-making process, ensuring it aligns with thermodynamic principles.
+            To address these challenges, <strong>we propose a method called TSRF (Thermodynamic Simulation-assisted Random Forest)</strong>. We use a physics-based simulation to generate synthetic fault data (solving the scarcity problem) and employ SHAP (SHapley Additive exPlanations) to visualize the decision-making process, ensuring it aligns with thermodynamic principles.
           </p>
         </div>
       </div>
@@ -239,10 +239,10 @@
             Our workflow consists of four distinct stages as illustrated below:
           </p>
           <ol>
-            <li><strong>Digital Twin Construction (Thermodynamic Modeling):</strong> Instead of relying solely on a physical test rig, <strong>we built a 1-D thermodynamic model</strong> of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under 5% for key parameters.</li>
-            <li><strong>Fault Injection (Simulating the "Sickness"):</strong> With our calibrated model, <strong>we simulated five specific combustion chamber faults</strong> (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
-            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, <strong>we quantitatively assessed</strong> which of the 14 output parameters actually mattered for diagnosis. .</li>
-            <li><strong>Classification (The Diagnosis):</strong> <strong>We trained a Random Forest (RF) classifier</strong> using this physics-generated dataset. Our model achieved a mean accuracy of <strong>99.07%</strong>, significantly outperforming traditional methods like SVM and KNN.</li>
+            <li><strong>Digital Twin Construction (Thermodynamic Modeling):</strong> Instead of relying solely on a physical test rig, we built a 1-D thermodynamic model of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under 5% for key parameters.</li>
+            <li><strong>Fault Injection (Simulating the "Sickness"):</strong> With our calibrated model, we simulated five specific combustion chamber faults(e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
+            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, we quantitatively assessed which of the 14 output parameters actually mattered for diagnosis. .</li>
+            <li><strong>Classification (The Diagnosis):</strong>We trained a Random Forest (RF) classifier using this physics-generated dataset.</li>
           </ol>
         </div>
         
