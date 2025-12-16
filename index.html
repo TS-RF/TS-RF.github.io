@@ -16,9 +16,6 @@
     gtag('config', 'G-PYVRSFMDRL');
   </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
@@ -33,14 +30,6 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
-  
-  <script>
-    function copyBibtex() {
-      var copyText = document.getElementById("bibtex-content");
-      navigator.clipboard.writeText(copyText.textContent);
-      alert("BibTeX copied to clipboard!");
-    }
-  </script>
 </head>
 <body>
 
@@ -53,16 +42,21 @@
     </a>
   </div>
   <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+    
+<div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      
       <a class="navbar-item" href="https://scholar.google.com/citations?hl=zh-CN&user=k82TzLwAAAAJ" target="_blank">
         <span class="icon" style="margin-right: 0.3rem;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" alt="Google Scholar" style="height: 20px; width: 20px;">
         </span>
         <span>Minghang Zhao (Google Scholar)</span>
       </a>
+
     </div>
+    
   </div>
 </nav>
+
 
 <section class="hero">
   <div class="hero-body">
@@ -112,15 +106,7 @@
                   <span>Paper</span>
                 </a>
               </span>
-              <span class="link-block">
-                <a href="#" class="button is-normal is-rounded is-dark" disabled>
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code (Coming Soon)</span>
-                  </a>
-              </span>
-              <span class="link-block">
+                <span class="link-block">
                 <a href="https://github.com/815177491/TSRF.github.io/releases/tag/DATA"
                    target="_blank"
                    class="button is-normal is-rounded is-dark">
@@ -130,7 +116,9 @@
                   <span>Dataset</span>
                   </a>
                 </span>
+                </a>
             </div>
+
           </div>
         </div>
       </div>
@@ -138,18 +126,7 @@
   </div>
 </section>
 
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <img src="./static/images/fig1_structure.jpg" alt="Structure of TSRF" style="width:100%; border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
-      <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
-        <span class="dnerf">TSRF</span> combines <strong>Thermodynamic Modeling</strong> with <strong>SHAP-based Interpretation</strong> to achieve high-accuracy fault diagnosis ($99.07\%$) with full transparency.
-      </h2>
-    </div>
-  </div>
-</section>
-
-<section class="section">
+<section class="section" style="padding-top: 0rem; margin-top: -1rem;">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -159,202 +136,106 @@
             Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a <strong>Thermodynamic Simulation-assisted Random Forest (TSRF)</strong>.
           </p>
           <p>
-            The method reveals fault characteristics through thermodynamic simulations and incorporates them as prior knowledge. Firstly, five thermodynamic fault models are developed by fine-tuning the essential system parameters. Then, potential thermodynamic indicators are identified through numerical simulation results. By calculating <strong>SHapley Additive explanations (SHAP)</strong> values, a parameter selection process is conducted. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of <strong>99.07%</strong> on the fault dataset.
+            The method reveals fault characteristics through thermodynamic simulations and incorporates them as prior knowledge when designing the intelligent fault diagnosis model. Firstly, five thermodynamic fault models are developed by fine-tuning the essential system parameters to correspond with the distinct attributes of different faults. Then, potential thermodynamic indicators of combustion chamber component degradation are identified through numerical simulation results.
           </p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video Presentation</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-        <p class="is-size-6" style="margin-top:0.5rem"><i>(Placeholder for presentation video)</i></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Methodology & Workflow</h2>
-        <div class="content has-text-justified">
           <p>
-            The proposed TSRF framework integrates physics-based modeling with data-driven machine learning. Our workflow consists of four distinct stages:
+            By calculating SHapley Additive explanations (SHAP) values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of 99.07% on the fault dataset.
           </p>
         </div>
-        
-        <div class="columns is-vcentered">
-          <div class="column is-6">
-            <h4 class="title is-4">1. Digital Twin Construction</h4>
-            <div class="content has-text-justified">
-              <p>
-                We built a <strong>1-D thermodynamic model</strong> of a 6-cylinder marine diesel engine. 
-                Unlike black-box models, this allows us to understand the internal state of the engine.
-              </p>
-              <ul>
-                <li><strong>Calibration:</strong> Calibrated using real-world operational data.</li>
-                <li><strong>Accuracy:</strong> Simulation error maintained under <strong>5%</strong> for key parameters.</li>
-              </ul>
-            </div>
-            
-            <h4 class="title is-4">2. Fault Injection</h4>
-            <div class="content has-text-justified">
-              <p>
-                We simulated five specific combustion chamber faults by fine-tuning physical parameters (e.g., modifying heat transfer coefficients for <em>Head Cracking</em> or leakage rates for <em>Ring Wear</em>).
-              </p>
-            </div>
-          </div>
-          <div class="column is-6">
-             <img src="./static/images/fig2_simulator.png" alt="Simulation Model" style="width:100%; border: 1px solid #ddd; border-radius: 5px;">
-             <p class="subtitle is-7 has-text-centered"><strong>Figure 2:</strong> 1-D Thermodynamic Model Schematic.</p>
-          </div>
-        </div>
-
       </div>
     </div>
-  </div>
+    </div>
 </section>
 
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Quantitative Results</h2>
-    
-    <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-          <p>
-            We compared our TSRF method against traditional machine learning approaches (KNN, SVM) on both the original dataset and the optimized feature subset selected via SHAP.
-          </p>
-        </div>
-        
-        <div class="table-container">
-          <table class="table is-striped is-bordered is-hoverable is-fullwidth">
-            <thead>
-              <tr style="background-color: #363636; color: white;">
-                <th>Model</th>
-                <th>Feature Selection</th>
-                <th>Precision (%)</th>
-                <th>Recall (%)</th>
-                <th>Accuracy (%)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>KNN</td>
-                <td>Original</td>
-                <td>90.94</td>
-                <td>89.81</td>
-                <td>89.81</td>
-              </tr>
-              <tr>
-                <td>SVM</td>
-                <td>Original</td>
-                <td>92.91</td>
-                <td>92.13</td>
-                <td>92.13</td>
-              </tr>
-              <tr>
-                <td>RF (Baseline)</td>
-                <td>Original</td>
-                <td>94.66</td>
-                <td>94.44</td>
-                <td>94.44</td>
-              </tr>
-              <tr style="font-weight: bold; background-color: #e8f5e9;">
-                <td>TSRF (Ours)</td>
-                <td>SHAP-Optimized</td>
-                <td>99.12</td>
-                <td>99.07</td>
-                <td>99.07</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="subtitle is-6 has-text-centered">
-          <strong>Table 1:</strong> Performance comparison demonstrating the superiority of the TSRF method.
-        </p>
-      </div>
-    </div>
-    
-  </div>
-</section>
 
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Explainability: Why does it work?</h2>
+        <h2 class="title is-3">Motivation</h2>
         <div class="content has-text-justified">
           <p>
-            High accuracy is not enough. We use <strong>SHAP</strong> to open the "black box". 
-            The figure below analyzes a specific case of <strong>Piston Ring Wear (F4)</strong>.
+            In the field of marine engineering and Prognostics and Health Management (PHM), we constantly grapple with two significant bottlenecks:
+          </p>
+          <ul>
+            <li><strong>Data Scarcity:</strong> Marine diesel engines are expensive, critical assets. We rarely run them to failure just to collect data. Consequently, there is a severe lack of labeled "fault data" required to train robust machine learning models.</li>
+            <li><strong>The "Black Box" Problem:</strong> While Deep Learning is popular, it lacks transparency. If an AI tells a chief engineer, "The cylinder liner is worn," but cannot explain <em>why</em> based on physical parameters, it is difficult to build trust. This lack of explainability is a major barrier to industry adoption.</li>
+          </ul>
+          <p>
+            <strong>Our Solution:</strong> To address these challenges, <strong>we propose a method called TSRF (Thermodynamic Simulation-assisted Random Forest)</strong>. We use a physics-based simulation to generate synthetic fault data (solving the scarcity problem) and employ SHAP (SHapley Additive exPlanations) to visualize the decision-making process, ensuring it aligns with thermodynamic principles.
           </p>
         </div>
-
-        <div class="columns is-centered">
-          <div class="column is-10 has-text-centered">
-             <img src="./static/images/fig11_shap.jpg" alt="SHAP Analysis" style="width:100%; mix-blend-mode: multiply;">
-          </div>
-        </div>
-        
-        <div class="columns is-centered">
-            <div class="column is-8">
-                <div class="content">
-                  <ul>
-                    <li>
-                        <strong>Local Interpretation (Waterfall Plot):</strong> The model predicted "Ring Wear" because <em>Blow-by Heat Flow ($P_{06}$)</em> and <em>Mass Flow ($P_{07}$)</em> were abnormal. This aligns with the physical reality of gas leakage.
-                    </li>
-                    <li>
-                        <strong>Global Interpretation (Beeswarm Plot):</strong> Lower <em>Pre-turbo Pressure ($P_{11}$)</em> is a strong global indicator for this fault, consistent with thermodynamic principles (leakage $\rightarrow$ less energy for turbine).
-                    </li>
-                  </ul>
-                </div>
-            </div>
-        </div>
-
       </div>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Research Highlights</h2>
-    <div class="columns is-multiline">
-        <div class="column is-4">
-            <div class="box" style="height: 100%;">
-                <span class="icon is-large has-text-info">
-                  <i class="fas fa-database fa-2x"></i>
-                </span>
-                <h3 class="title is-4" style="margin-top: 10px;">Data Augmentation</h3>
-                <p>Overcoming data scarcity by generating high-fidelity fault data using a calibrated thermodynamic digital twin.</p>
-            </div>
+    <hr>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Methodology</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our workflow consists of four distinct stages as illustrated below:
+          </p>
+          <ol>
+            <li><strong>Digital Twin Construction (Thermodynamic Modeling):</strong> Instead of relying solely on a physical test rig, <strong>we built a 1-D thermodynamic model</strong> of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under 5% for key parameters.</li>
+            <li><strong>Fault Injection (Simulating the "Sickness"):</strong> With our calibrated model, <strong>we simulated five specific combustion chamber faults</strong> (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
+            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, <strong>we quantitatively assessed</strong> which of the 14 output parameters actually mattered for diagnosis. We identified that parameters like Exhaust Gas Temperature (P14) and Liner Wall Heat Flow (P05) are the most critical indicators.</li>
+            <li><strong>Classification (The Diagnosis):</strong> <strong>We trained a Random Forest (RF) classifier</strong> using this physics-generated dataset. Our model achieved a mean accuracy of <strong>99.07%</strong>, significantly outperforming traditional methods like SVM and KNN.</li>
+          </ol>
         </div>
-        <div class="column is-4">
-            <div class="box" style="height: 100%;">
-                <span class="icon is-large has-text-success">
-                  <i class="fas fa-search-plus fa-2x"></i>
-                </span>
-                <h3 class="title is-4" style="margin-top: 10px;">Explainable AI</h3>
-                <p>Using SHAP to visualize decision paths, ensuring the model's logic respects physical laws ($P_{06}, P_{14}$).</p>
-            </div>
+        
+        <div class="has-text-centered">
+          <img src="./static/images/fig1_structure.jpg" alt="Structure of TSRF" style="width:100%; height:auto;">
+          <p class="subtitle is-6">
+            <strong>Figure 1:</strong> The structure of our proposed TSRF method. It combines thermodynamic modeling with SHAP-based parameter selection.
+          </p>
         </div>
-        <div class="column is-4">
-            <div class="box" style="height: 100%;">
-                <span class="icon is-large has-text-warning">
-                  <i class="fas fa-check-circle fa-2x"></i>
-                </span>
-                <h3 class="title is-4" style="margin-top: 10px;">High Precision</h3>
-                <p>Achieving <strong>99.07%</strong> accuracy, significantly outperforming traditional SVM and KNN baselines.</p>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <hr>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Explainability Analysis</h2>
+        <div class="content has-text-justified">
+          <p>
+            A key innovation of our work is moving beyond "What is the fault?" to "Why is this the fault?". We demonstrated this capability using a specific case of <strong>Piston Ring Wear (F4)</strong>:
+          </p>
+          <ul>
+            <li><strong>Local Interpretation (Waterfall Plot):</strong> Our waterfall plot analysis explains specific predictions. For example, our model predicted "Ring Wear" because Blow-by Heat Flow (P06) and Blow-by Mass Flow (P07) had specific values that pushed the probability up. This aligns perfectly with physics: Ring wear destroys the seal, leading to gas leakage (blow-by).</li>
+            <li><strong>Global Interpretation (Beeswarm Plot):</strong> Our global analysis revealed the general rules the model learned. We found that low values of Pre-turbo Exhaust Pressure (P11) are strong indicators of Ring Wear. Physically, this is consistent: if rings are worn, gas leaks out of the cylinder, meaning less gas energy goes into the exhaust manifold to spin the turbine.</li>
+          </ul>
+        </div>
+
+        <div class="has-text-centered">
+            <img src="./static/images/fig11_shap.jpg" alt="SHAP Analysis" style="width:100%;">
+            <p class="subtitle is-6">
+                <strong>Figure 11:</strong> Our fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
+            </p>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Research Highlights</h2>
+        <div class="content has-text-justified">
+          <p>
+            We believe this work offers several key contributions to the field:
+          </p>
+          <ul>
+            <li><strong>Physics-Informed AI is Powerful:</strong> We demonstrate that "Big Data" is not the only path. By understanding the thermodynamic mechanism, we can effectively use simulations to augment data and train robust models.</li>
+            <li><strong>Explainability (XAI) is Mandatory:</strong> We show that high accuracy alone is insufficient. By using tools like SHAP, we "opened the black box," bridging the gap between advanced AI algorithms and practical engineering trust.</li>
+            <li><strong>Closed-Loop Validation:</strong> We established a robust methodology loop: Real Data &rarr; Model Calibration &rarr; Simulation &rarr; AI Training &rarr; Physics-based Validation. We believe this framework serves as a solid foundation for future PHM research.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -362,8 +243,7 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <p>If you find our work useful for your research, please consider citing:</p>
-    <pre><code id="bibtex-content">@article{luo2025thermodynamic,
+    <pre><code>@article{luo2025thermodynamic,
   title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
   author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
   journal   = {Measurement},
@@ -373,12 +253,6 @@
   publisher = {Elsevier},
   doi       = {10.1016/j.measurement.2025.117252},
 }</code></pre>
-    <button class="button is-small is-light" onclick="copyBibtex()">
-        <span class="icon is-small">
-          <i class="fas fa-copy"></i>
-        </span>
-        <span>Copy BibTeX</span>
-    </button>
   </div>
 </section>
 
@@ -389,7 +263,7 @@
       <a class="icon-link" href="https://doi.org/10.1016/j.measurement.2025.117252">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="https://github.com/815177491" class="external-link" disabled>
+      <a class="icon-link" href="#" class="external-link" disabled>
         <i class="fab fa-github"></i>
       </a>
     </div>
@@ -403,6 +277,9 @@
           </p>
           <p>
     Copyright © 2025 Congcong Luo et al. Published in <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">Measurement</a>.
+          </p>
+          <p>
+            This website is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template.
           </p>
         </div>
       </div>
