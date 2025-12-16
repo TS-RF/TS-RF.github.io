@@ -298,9 +298,10 @@
 </section>
 
 
-<section class="section reveal" id="BibTeX"> <div class="container is-max-desktop content">
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content scroll-reveal">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{luo2025thermodynamic,
+    <pre><code id="bibtex-content">@article{luo2025thermodynamic,
   title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
   author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
   journal   = {Measurement},
@@ -310,6 +311,12 @@
   publisher = {Elsevier},
   doi       = {10.1016/j.measurement.2025.117252},
 }</code></pre>
+    <button class="button is-small is-light" onclick="copyBibtex()">
+        <span class="icon is-small">
+          <i class="fas fa-copy"></i>
+        </span>
+        <span>Copy BibTeX</span>
+    </button>
   </div>
 </section>
 
