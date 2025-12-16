@@ -152,17 +152,17 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Part 1: The Motivation</h2>
+        <h2 class="title is-3">Motivation</h2>
         <div class="content has-text-justified">
           <p>
-            In the field of marine engineering and Prognostics and Health Management (PHM), researchers constantly grapple with two significant bottlenecks:
+            In the field of marine engineering and Prognostics and Health Management (PHM), we constantly grapple with two significant bottlenecks:
           </p>
           <ul>
             <li><strong>Data Scarcity:</strong> Marine diesel engines are expensive, critical assets. We rarely run them to failure just to collect data. Consequently, there is a severe lack of labeled "fault data" required to train robust machine learning models.</li>
-            <li><strong>The "Black Box" Problem:</strong> While Deep Learning (like CNNs) is popular, it lacks transparency. If an AI tells a chief engineer, "The cylinder liner is worn," but cannot explain <em>why</em> based on physical parameters, the engineer will not trust it. This lack of explainability is a major barrier to industry adoption.</li>
+            <li><strong>The "Black Box" Problem:</strong> While Deep Learning is popular, it lacks transparency. If an AI tells a chief engineer, "The cylinder liner is worn," but cannot explain <em>why</em> based on physical parameters, it is difficult to build trust. This lack of explainability is a major barrier to industry adoption.</li>
           </ul>
           <p>
-            <strong>The Solution:</strong> The authors propose a method called <strong>TSRF (Thermodynamic Simulation-assisted Random Forest)</strong>. Essentially, they use a physics-based simulation to generate synthetic fault data (solving the scarcity problem) and employ SHAP (SHapley Additive exPlanations) to visualize the decision-making process, ensuring it aligns with thermodynamic principles (solving the black box problem).
+            <strong>Our Solution:</strong> To address these challenges, <strong>we propose a method called TSRF (Thermodynamic Simulation-assisted Random Forest)</strong>. We use a physics-based simulation to generate synthetic fault data (solving the scarcity problem) and employ SHAP (SHapley Additive exPlanations) to visualize the decision-making process, ensuring it aligns with thermodynamic principles.
           </p>
         </div>
       </div>
@@ -172,23 +172,23 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Part 2: The Methodology (The Workflow)</h2>
+        <h2 class="title is-3">Methodology</h2>
         <div class="content has-text-justified">
           <p>
-            The workflow consists of four distinct stages as illustrated below:
+            Our workflow consists of four distinct stages as illustrated below:
           </p>
           <ol>
-            <li><strong>Digital Twin Construction (Thermodynamic Modeling):</strong> Instead of relying solely on a physical test rig, the authors built a 1-D thermodynamic model of a 6-cylinder marine diesel engine. They calibrated the model using real-world operational data, keeping simulation error under 5% for key parameters.</li>
-            <li><strong>Fault Injection (Simulating the "Sickness"):</strong> With a calibrated model, the authors simulated five specific combustion chamber faults (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This generated a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
-            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, the authors quantitatively assessed which of the 14 output parameters actually mattered for diagnosis. They identified that parameters like Exhaust Gas Temperature (P14) and Liner Wall Heat Flow (P05) are the most critical indicators.</li>
-            <li><strong>Classification (The Diagnosis):</strong> They trained a Random Forest (RF) classifier using this physics-generated dataset. The model achieved a mean accuracy of <strong>99.07%</strong>, significantly outperforming traditional methods like SVM and KNN.</li>
+            <li><strong>Digital Twin Construction (Thermodynamic Modeling):</strong> Instead of relying solely on a physical test rig, <strong>we built a 1-D thermodynamic model</strong> of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under 5% for key parameters.</li>
+            <li><strong>Fault Injection (Simulating the "Sickness"):</strong> With our calibrated model, <strong>we simulated five specific combustion chamber faults</strong> (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
+            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, <strong>we quantitatively assessed</strong> which of the 14 output parameters actually mattered for diagnosis. We identified that parameters like Exhaust Gas Temperature (P14) and Liner Wall Heat Flow (P05) are the most critical indicators.</li>
+            <li><strong>Classification (The Diagnosis):</strong> <strong>We trained a Random Forest (RF) classifier</strong> using this physics-generated dataset. Our model achieved a mean accuracy of <strong>99.07%</strong>, significantly outperforming traditional methods like SVM and KNN.</li>
           </ol>
         </div>
         
         <div class="has-text-centered">
           <img src="./static/images/fig1_structure.jpg" alt="Structure of TSRF" style="width:100%; height:auto;">
           <p class="subtitle is-6">
-            <strong>Figure 1:</strong> The structure of the proposed TSRF method. It combines thermodynamic modeling with SHAP-based parameter selection.
+            <strong>Figure 1:</strong> The structure of our proposed TSRF method. It combines thermodynamic modeling with SHAP-based parameter selection.
           </p>
         </div>
       </div>
@@ -198,21 +198,21 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Part 3: The "Explainability" (Bridging AI and Physics)</h2>
+        <h2 class="title is-3">Explainability Analysis</h2>
         <div class="content has-text-justified">
           <p>
-            This is the most novel part of the paper. It moves beyond "What is the fault?" to "Why is this the fault?". The authors demonstrated this using a specific case of <strong>Piston Ring Wear (F4)</strong>:
+            A key innovation of our work is moving beyond "What is the fault?" to "Why is this the fault?". We demonstrated this capability using a specific case of <strong>Piston Ring Wear (F4)</strong>:
           </p>
           <ul>
-            <li><strong>Local Interpretation (Waterfall Plot):</strong> Imagine looking at a single patient's chart. The waterfall plot explains a specific prediction. For example, the model predicted "Ring Wear" because Blow-by Heat Flow (P06) and Blow-by Mass Flow (P07) had specific values that pushed the probability up. This aligns with physics: Ring wear destroys the seal, leading to gas leakage (blow-by).</li>
-            <li><strong>Global Interpretation (Beeswarm Plot):</strong> This shows the general rules the model learned across all samples. The analysis revealed that low values of Pre-turbo Exhaust Pressure (P11) are strong indicators of Ring Wear. Physically, this checks out: if rings are worn, gas leaks out of the cylinder, meaning less gas energy goes into the exhaust manifold to spin the turbine.</li>
+            <li><strong>Local Interpretation (Waterfall Plot):</strong> Our waterfall plot analysis explains specific predictions. For example, our model predicted "Ring Wear" because Blow-by Heat Flow (P06) and Blow-by Mass Flow (P07) had specific values that pushed the probability up. This aligns perfectly with physics: Ring wear destroys the seal, leading to gas leakage (blow-by).</li>
+            <li><strong>Global Interpretation (Beeswarm Plot):</strong> Our global analysis revealed the general rules the model learned. We found that low values of Pre-turbo Exhaust Pressure (P11) are strong indicators of Ring Wear. Physically, this is consistent: if rings are worn, gas leaks out of the cylinder, meaning less gas energy goes into the exhaust manifold to spin the turbine.</li>
           </ul>
         </div>
 
         <div class="has-text-centered">
             <img src="./static/images/fig11_shap.jpg" alt="SHAP Analysis" style="width:100%;">
             <p class="subtitle is-6">
-                <strong>Figure 11:</strong> Fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
+                <strong>Figure 11:</strong> Our fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
             </p>
         </div>
       </div>
@@ -222,15 +222,15 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Part 4: Key Takeaways for Your Research</h2>
+        <h2 class="title is-3">Research Highlights</h2>
         <div class="content has-text-justified">
           <p>
-            As a graduate student, here is what you should take away from this paper:
+            We believe this work offers several key contributions to the field:
           </p>
           <ul>
-            <li><strong>Physics-Informed AI is Powerful:</strong> You don't always need "Big Data." If you understand the mechanism (thermodynamics), you can use simulations to augment your data. This is a very popular research direction.</li>
-            <li><strong>Explainability (XAI) is Mandatory:</strong> It is no longer enough to just have high accuracy. You must prove <em>why</em> your model works. Tools like SHAP are standard for "opening the black box."</li>
-            <li><strong>The "Loop" of Validation:</strong> The methodology follows a robust loop: Real Data &rarr; Model Calibration &rarr; Simulation &rarr; AI Training &rarr; Physics-based Validation. This is a solid framework for a Master's or PhD thesis.</li>
+            <li><strong>Physics-Informed AI is Powerful:</strong> We demonstrate that "Big Data" is not the only path. By understanding the thermodynamic mechanism, we can effectively use simulations to augment data and train robust models.</li>
+            <li><strong>Explainability (XAI) is Mandatory:</strong> We show that high accuracy alone is insufficient. By using tools like SHAP, we "opened the black box," bridging the gap between advanced AI algorithms and practical engineering trust.</li>
+            <li><strong>Closed-Loop Validation:</strong> We established a robust methodology loop: Real Data &rarr; Model Calibration &rarr; Simulation &rarr; AI Training &rarr; Physics-based Validation. We believe this framework serves as a solid foundation for future PHM research.</li>
           </ul>
         </div>
       </div>
