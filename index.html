@@ -16,9 +16,6 @@
     gtag('config', 'G-PYVRSFMDRL');
   </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
@@ -35,76 +32,73 @@
   <script src="./static/js/index.js"></script>
 
   <style>
-    /* 1. 滚动渐显 (Scroll Reveal) */
-    .scroll-reveal {
+    /* 1. 渐变流光文字 (Gradient Text Flow) */
+    .gradient-text {
+      background: linear-gradient(90deg, #209cff, #68e0cf, #209cff);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      animation: gradient-flow 3s linear infinite;
+    }
+
+    @keyframes gradient-flow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* 2. 滚动渐显 (Scroll Reveal) 基础状态 */
+    .reveal {
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); /* 使用贝塞尔曲线让运动更丝滑 */
     }
-    .scroll-reveal.is-visible {
+
+    /* 激活状态：由 JS 添加 */
+    .reveal.active {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* 2. 卡片悬浮特效 (Hover Card) */
+    /* 3. 卡片悬浮特效 (Hover Lift) */
     .hover-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: default;
-      border-radius: 8px; /* 圆角让视觉更柔和 */
+      will-change: transform; /* 性能优化 */
     }
+    
     .hover-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
     }
 
-    /* 3. 渐变文字 (用于标题强调) */
-    .gradient-text {
-      background: linear-gradient(45deg, #3273dc, #00d1b2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
+    /* 专门为 Highlights 列表做的卡片化样式，为了让 Hover 效果更好看 */
+    .highlight-list li {
+      background: #f8f9fa; /* 轻微的灰底 */
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #3273dc; /* 左侧加一条学术蓝的边框 */
     }
 
-    /* 4. 交错动画延迟 */
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
-
-    /* 图片容器美化 */
-    .image-container {
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    /* 4. 交错进场 (Staggered Animation) */
+    /* 当父元素被激活(.active)时，子元素按顺序出现 */
+    .stagger-wrapper .stagger-item {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s ease-out;
     }
+
+    .stagger-wrapper.active .stagger-item {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* 设置延迟 */
+    .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+    .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
+    .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
+
   </style>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-      };
-
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-
-      const elements = document.querySelectorAll('.scroll-reveal');
-      elements.forEach(el => observer.observe(el));
-    });
-
-    function copyBibtex() {
-      var copyText = document.getElementById("bibtex-content");
-      navigator.clipboard.writeText(copyText.textContent);
-      alert("BibTeX copied to clipboard!");
-    }
-  </script>
 </head>
 <body>
 
@@ -129,33 +123,20 @@
 </nav>
 
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop scroll-reveal">
+<section class="hero reveal"> <div class="hero-body">
+    <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines</h1>
           
           <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <strong>Congcong Luo</strong><sup>a</sup>,</span>
-            <span class="author-block">
-              <strong>Minghang Zhao</strong><sup>a,*</sup>,</span>
-            <span class="author-block">
-              <strong>Xuyun Fu</strong><sup>a</sup>,
-            </span>
-            <span class="author-block">
-              <strong>Shisheng Zhong</strong><sup>a</sup>,
-            </span>
-            <span class="author-block">
-              <strong>Song Fu</strong><sup>b</sup>,
-            </span>
-            <span class="author-block">
-              <strong>Kai Zhang</strong><sup>c</sup>,
-            </span>
-            <span class="author-block">
-              <strong>Xiaoxia Yu</strong><sup>d</sup>
-            </span>
+            <span class="author-block"><strong>Congcong Luo</strong><sup>a</sup>,</span>
+            <span class="author-block"><strong>Minghang Zhao</strong><sup>a,*</sup>,</span>
+            <span class="author-block"><strong>Xuyun Fu</strong><sup>a</sup>,</span>
+            <span class="author-block"><strong>Shisheng Zhong</strong><sup>a</sup>,</span>
+            <span class="author-block"><strong>Song Fu</strong><sup>b</sup>,</span>
+            <span class="author-block"><strong>Kai Zhang</strong><sup>c</sup>,</span>
+            <span class="author-block"><strong>Xiaoxia Yu</strong><sup>d</sup></span>
           </div>
 
           <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
@@ -169,7 +150,7 @@
             <div class="publication-links">
               <span class="link-block">
                 <a href="https://doi.org/10.1016/j.measurement.2025.117252"
-                   class="button is-normal is-rounded is-dark"
+                   class="button is-normal is-rounded is-dark hover-card" 
                    target="_blank">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -177,10 +158,10 @@
                   <span>Paper</span>
                 </a>
               </span>
-                <span class="link-block">
+              <span class="link-block">
                 <a href="https://github.com/815177491/TSRF.github.io/releases/tag/DATA"
                    target="_blank"
-                   class="button is-normal is-rounded is-dark">
+                   class="button is-normal is-rounded is-dark hover-card">
                   <span class="icon">
                       <i class="fas fa-file-csv"></i>
                   </span>
@@ -197,20 +178,20 @@
   </div>
 </section>
 
-<section class="section" style="padding-top: 0rem; margin-top: -1rem;">
-  <div class="container is-max-desktop">
+<section class="section reveal" style="padding-top: 0rem; margin-top: -1rem;"> <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths scroll-reveal">
+      <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a <strong class="gradient-text">Thermodynamic Simulation-assisted Random Forest (TSRF)</strong>.
+            Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a 
+            <strong>Thermodynamic Simulation-assisted Random Forest <span class="gradient-text">(TSRF)</span></strong>.
           </p>
           <p>
             The method reveals fault characteristics through thermodynamic simulations and incorporates them as prior knowledge when designing the intelligent fault diagnosis model. Firstly, five thermodynamic fault models are developed by fine-tuning the essential system parameters to correspond with the distinct attributes of different faults. Then, potential thermodynamic indicators of combustion chamber component degradation are identified through numerical simulation results.
           </p>
           <p>
-            By calculating <strong>SHapley Additive explanations (SHAP)</strong> values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of <strong>99.07%</strong> on the fault dataset.
+            By calculating SHapley Additive explanations (SHAP) values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of 99.07% on the fault dataset.
           </p>
         </div>
       </div>
@@ -218,11 +199,10 @@
     </div>
 </section>
 
-<section class="section">
-  <div class="container is-max-desktop">
+<section class="section reveal"> <div class="container is-max-desktop">
 
     <div class="columns is-centered">
-      <div class="column is-full-width scroll-reveal">
+      <div class="column is-full-width">
         <h2 class="title is-3">Motivation</h2>
         <div class="content has-text-justified">
           <p>
@@ -233,7 +213,7 @@
             <li><strong>The "Black Box" Problem:</strong> While Deep Learning is popular, it lacks transparency. If an AI tells a chief engineer, "The cylinder liner is worn," but cannot explain <em>why</em> based on physical parameters, it is difficult to build trust. This lack of explainability is a major barrier to industry adoption.</li>
           </ul>
           <p>
-            <strong>Our Solution:</strong> To address these challenges, we propose a method called <strong class="gradient-text">TSRF</strong>. We use a physics-based simulation to generate synthetic fault data (solving the scarcity problem) and employ SHAP to visualize the decision-making process, ensuring it aligns with thermodynamic principles.
+            <strong>Our Solution:</strong> To address these challenges, <strong>we propose a method called TSRF (Thermodynamic Simulation-assisted Random Forest)</strong>. We use a physics-based simulation to generate synthetic fault data (solving the scarcity problem) and employ SHAP (SHapley Additive exPlanations) to visualize the decision-making process, ensuring it aligns with thermodynamic principles.
           </p>
         </div>
       </div>
@@ -242,23 +222,23 @@
     <hr>
 
     <div class="columns is-centered">
-      <div class="column is-full-width scroll-reveal">
+      <div class="column is-full-width">
         <h2 class="title is-3">Methodology</h2>
         <div class="content has-text-justified">
           <p>
             Our workflow consists of four distinct stages as illustrated below:
           </p>
           <ol>
-            <li><strong>Digital Twin Construction:</strong> Instead of relying solely on a physical test rig, <strong>we built a 1-D thermodynamic model</strong> of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under <strong>5%</strong> for key parameters.</li>
-            <li><strong>Fault Injection:</strong> With our calibrated model, <strong>we simulated five specific combustion chamber faults</strong> (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
-            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, <strong>we quantitatively assessed</strong> which of the 14 output parameters actually mattered for diagnosis.</li>
-            <li><strong>Classification:</strong> <strong>We trained a Random Forest (RF) classifier</strong> using this physics-generated dataset. Our model achieved a mean accuracy of <strong>99.07%</strong>, significantly outperforming traditional methods like SVM and KNN.</li>
+            <li><strong>Digital Twin Construction (Thermodynamic Modeling):</strong> Instead of relying solely on a physical test rig, <strong>we built a 1-D thermodynamic model</strong> of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under 5% for key parameters.</li>
+            <li><strong>Fault Injection (Simulating the "Sickness"):</strong> With our calibrated model, <strong>we simulated five specific combustion chamber faults</strong> (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
+            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, <strong>we quantitatively assessed</strong> which of the 14 output parameters actually mattered for diagnosis. .</li>
+            <li><strong>Classification (The Diagnosis):</strong> <strong>We trained a Random Forest (RF) classifier</strong> using this physics-generated dataset. Our model achieved a mean accuracy of <strong>99.07%</strong>, significantly outperforming traditional methods like SVM and KNN.</li>
           </ol>
         </div>
         
-        <div class="has-text-centered image-container hover-card" style="padding: 10px; background: white;">
-          <img src="./static/images/fig1_structure.jpg" alt="Structure of TSRF" style="width:100%; height:auto;">
-          <p class="subtitle is-6" style="margin-top: 10px;">
+        <div class="has-text-centered">
+          <img src="./static/images/fig1_structure.jpg" class="hover-card" alt="Structure of TSRF" style="width:100%; height:auto; border-radius: 10px;">
+          <p class="subtitle is-6">
             <strong>Figure 1:</strong> The structure of our proposed TSRF method. It combines thermodynamic modeling with SHAP-based parameter selection.
           </p>
         </div>
@@ -268,21 +248,21 @@
     <hr>
 
     <div class="columns is-centered">
-      <div class="column is-full-width scroll-reveal">
+      <div class="column is-full-width">
         <h2 class="title is-3">Explainability Analysis</h2>
         <div class="content has-text-justified">
           <p>
             A key innovation of our work is moving beyond "What is the fault?" to "Why is this the fault?". We demonstrated this capability using a specific case of <strong>Piston Ring Wear (F4)</strong>:
           </p>
           <ul>
-            <li><strong>Local Interpretation (Waterfall Plot):</strong> Our waterfall plot analysis explains specific predictions. For example, our model predicted "Ring Wear" because Blow-by Heat Flow ($P_{06}$) and Blow-by Mass Flow ($P_{07}$) had specific values that pushed the probability up. This aligns perfectly with physics: Ring wear destroys the seal, leading to gas leakage (blow-by).</li>
-            <li><strong>Global Interpretation (Beeswarm Plot):</strong> Our global analysis revealed the general rules the model learned. We found that low values of Pre-turbo Exhaust Pressure ($P_{11}$) are strong indicators of Ring Wear. Physically, this is consistent: if rings are worn, gas leaks out of the cylinder, meaning less gas energy goes into the exhaust manifold to spin the turbine.</li>
+            <li><strong>Local Interpretation (Waterfall Plot):</strong> Our waterfall plot analysis explains specific predictions. For example, our model predicted "Ring Wear" because Blow-by Heat Flow (P06) and Blow-by Mass Flow (P07) had specific values that pushed the probability up. This aligns perfectly with physics: Ring wear destroys the seal, leading to gas leakage (blow-by).</li>
+            <li><strong>Global Interpretation (Beeswarm Plot):</strong> Our global analysis revealed the general rules the model learned. We found that low values of Pre-turbo Exhaust Pressure (P11) are strong indicators of Ring Wear. Physically, this is consistent: if rings are worn, gas leaks out of the cylinder, meaning less gas energy goes into the exhaust manifold to spin the turbine.</li>
           </ul>
         </div>
 
-        <div class="has-text-centered image-container hover-card" style="padding: 10px; background: white;">
-            <img src="./static/images/fig11_shap.jpg" alt="SHAP Analysis" style="width:100%;">
-            <p class="subtitle is-6" style="margin-top: 10px;">
+        <div class="has-text-centered">
+            <img src="./static/images/fig11_shap.jpg" class="hover-card" alt="SHAP Analysis" style="width:100%; border-radius: 10px;">
+            <p class="subtitle is-6">
                 <strong>Figure 11:</strong> Our fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
             </p>
         </div>
@@ -291,61 +271,36 @@
 
     <hr>
 
-    <section class="section" style="padding: 0;">
-      <div class="columns is-centered">
-        <div class="column is-full-width">
-           <h2 class="title is-3 has-text-centered scroll-reveal">Research Highlights</h2>
-           <p class="has-text-centered scroll-reveal" style="margin-bottom: 2rem;">We believe this work offers several key contributions to the field:</p>
-           
-           <div class="columns is-multiline">
-              <div class="column is-4 scroll-reveal delay-1">
-                  <div class="box hover-card" style="height: 100%;">
-                      <span class="icon is-large has-text-info">
-                        <i class="fas fa-microchip fa-2x"></i>
-                      </span>
-                      <h3 class="title is-4 is-size-5" style="margin-top: 15px;">Physics-Informed AI</h3>
-                      <p>
-                        We demonstrate that "Big Data" is not the only path. By understanding the thermodynamic mechanism, we can effectively use simulations to augment data and train robust models.
-                      </p>
-                  </div>
-              </div>
-              
-              <div class="column is-4 scroll-reveal delay-2">
-                  <div class="box hover-card" style="height: 100%;">
-                      <span class="icon is-large has-text-success">
-                        <i class="fas fa-search-plus fa-2x"></i>
-                      </span>
-                      <h3 class="title is-4 is-size-5" style="margin-top: 15px;">Explainability (XAI)</h3>
-                      <p>
-                        High accuracy alone is insufficient. By using tools like SHAP, we "opened the black box," bridging the gap between advanced AI algorithms and practical engineering trust.
-                      </p>
-                  </div>
-              </div>
-
-              <div class="column is-4 scroll-reveal delay-3">
-                  <div class="box hover-card" style="height: 100%;">
-                      <span class="icon is-large has-text-warning">
-                        <i class="fas fa-sync-alt fa-2x"></i>
-                      </span>
-                      <h3 class="title is-4 is-size-5" style="margin-top: 15px;">Closed-Loop Validation</h3>
-                      <p>
-                        Real Data &rarr; Calibration &rarr; Simulation &rarr; AI Training &rarr; Validation. This framework serves as a solid foundation for future PHM research.
-                      </p>
-                  </div>
-              </div>
-           </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Research Highlights</h2>
+        <div class="content has-text-justified">
+          <p>
+            We believe this work offers several key contributions to the field:
+          </p>
+          
+          <ul class="highlight-list stagger-wrapper reveal"> 
+            <li class="stagger-item hover-card">
+                <strong>Physics-Informed AI is Powerful:</strong> We demonstrate that "Big Data" is not the only path. By understanding the thermodynamic mechanism, we can effectively use simulations to augment data and train robust models.
+            </li>
+            <li class="stagger-item hover-card">
+                <strong>Explainability (XAI) is Mandatory:</strong> We show that high accuracy alone is insufficient. By using tools like SHAP, we "opened the black box," bridging the gap between advanced AI algorithms and practical engineering trust.
+            </li>
+            <li class="stagger-item hover-card">
+                <strong>Closed-Loop Validation:</strong> We established a robust methodology loop: Real Data &rarr; Model Calibration &rarr; Simulation &rarr; AI Training &rarr; Physics-based Validation. We believe this framework serves as a solid foundation for future PHM research.
+            </li>
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
 
   </div>
 </section>
 
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content scroll-reveal">
+<section class="section reveal" id="BibTeX"> <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code id="bibtex-content">@article{luo2025thermodynamic,
+    <pre><code>@article{luo2025thermodynamic,
   title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
   author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
   journal   = {Measurement},
@@ -355,12 +310,6 @@
   publisher = {Elsevier},
   doi       = {10.1016/j.measurement.2025.117252},
 }</code></pre>
-    <button class="button is-small is-light" onclick="copyBibtex()">
-        <span class="icon is-small">
-          <i class="fas fa-copy"></i>
-        </span>
-        <span>Copy BibTeX</span>
-    </button>
   </div>
 </section>
 
@@ -394,6 +343,31 @@
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 创建一个观察器
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // 当元素进入视口时
+            if (entry.isIntersecting) {
+                // 添加 'active' 类，触发 CSS 动画
+                entry.target.classList.add('active');
+                
+                // 可选：如果希望动画只播放一次，取消注释下面这行
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15 // 元素出现 15% 时触发
+    });
+
+    // 选取所有带有 .reveal 和 .stagger-wrapper 的元素进行观察
+    document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
 
 </body>
 </html>
