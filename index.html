@@ -231,7 +231,7 @@
 
     <hr>
 
-    <div class="columns is-centered">
+   <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Methodology</h2>
         <div class="content has-text-justified">
@@ -239,10 +239,10 @@
             Our workflow consists of four distinct stages as illustrated below:
           </p>
           <ol>
-            <li><strong>Digital Twin Construction (Thermodynamic Modeling):</strong> Instead of relying solely on a physical test rig, we built a 1-D thermodynamic model of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under 5% for key parameters.</li>
-            <li><strong>Fault Injection (Simulating the "Sickness"):</strong> With our calibrated model, we simulated five specific combustion chamber faults(e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
-            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, we quantitatively assessed which of the 14 output parameters actually mattered for diagnosis. .</li>
-            <li><strong>Classification (The Diagnosis):</strong>We trained a Random Forest (RF) classifier using this physics-generated dataset.</li>
+            <li><strong>Thermodynamic Modeling:</strong> Instead of relying solely on a physical test rig, we built a 1-D thermodynamic model of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under 5% for key parameters.</li>
+            <li><strong>Fault Injection:</strong> With our calibrated model, we simulated five specific combustion chamber faults (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
+            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, we quantitatively assessed which of the 14 output parameters actually mattered for diagnosis.</li>
+            <li><strong>Classification:</strong> We trained a Random Forest (RF) classifier using this physics-generated dataset.</li>
           </ol>
         </div>
         
@@ -259,6 +259,112 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered scroll-reveal">Thermodynamic Modeling Details</h2>
+        <div class="content has-text-justified scroll-reveal">
+          <p>
+            To ensure high fidelity, we constructed a <strong>one-dimensional (1-D) operational cycle simulation</strong>.
+            This "Digital Twin" balances physical accuracy with the computational speed required for large-scale dataset generation.
+          </p>
+        </div>
+
+        <div class="columns is-centered">
+          
+          <div class="column is-6 scroll-reveal delay-1">
+            <div class="box hover-card" style="height: 100%;">
+              <h4 class="title is-4 is-size-5">
+                <span class="icon has-text-info" style="margin-right: 8px;">
+                  <i class="fas fa-network-wired"></i>
+                </span>
+                Model Topology
+              </h4>
+              <div class="content is-size-6">
+                <p>The engine is discretized into a network of flow pipes and functional components (as seen in Fig. 2):</p>
+                <ul>
+                  <li><strong>Core Power Unit:</strong> 6-cylinder, 2-stroke inline configuration (firing order 1-5-3-6-2-4).</li>
+                  <li><strong>Air Path System:</strong> Intake/Exhaust manifolds (PL1, PL2) connected via complex piping networks.</li>
+                  <li><strong>Boosting System:</strong> Turbocharger (TC1) coupled with an intercooler (CO1).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-6 scroll-reveal delay-2">
+            <div class="box hover-card" style="height: 100%;">
+              <h4 class="title is-4 is-size-5">
+                <span class="icon has-text-success" style="margin-right: 8px;">
+                  <i class="fas fa-check-double"></i>
+                </span>
+                Calibration & Validation
+              </h4>
+              <div class="content is-size-6">
+                <p>Before fault injection, the baseline model was rigorously calibrated against empirical data.</p>
+                <ul>
+                  <li><strong>Data Source:</strong> Real-world vessel data acquired via Data Collecting Module (DCM).</li>
+                  <li><strong>Validation:</strong> The deviation for critical parameters (e.g., Power, Exhaust Temp) was maintained within a <strong>&plusmn;5% error margin</strong>.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box hover-card scroll-reveal delay-3" style="margin-top: 1.5rem;">
+          <h4 class="title is-4 is-size-5 has-text-centered">
+            <span class="icon has-text-danger" style="margin-right: 8px;">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+            Fault Injection Mechanism
+          </h4>
+          <div class="content has-text-justified is-size-6">
+            <p>
+              Since 1-D models cannot directly represent 3D structural defects, we employed a <strong>phenomenological mapping approach</strong>. We mapped physical degradation mechanisms to equivalent thermodynamic parameter shifts.
+            </p>
+          </div>
+          
+          <div class="table-container">
+            <table class="table is-fullwidth is-striped is-hoverable is-size-6">
+              <thead>
+                <tr style="background-color: #f5f5f5;">
+                  <th style="width: 20%;">Fault Type</th>
+                  <th style="width: 35%;">Physical Mechanism</th>
+                  <th>Modeling Implementation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>F1: Head Cracking</strong></td>
+                  <td>Disrupted thermal conduction.</td>
+                  <td>Elevating <em>Cylinder Head Surface Temp ($T_H$)</em> to 346&deg;C.</td>
+                </tr>
+                <tr>
+                  <td><strong>F2: Piston Ablation</strong></td>
+                  <td>Material loss & seal compromise.</td>
+                  <td>Increasing <em>Piston Temp ($T_P$)</em> + minor blow-by (0.01 kg/s).</td>
+                </tr>
+                <tr>
+                  <td><strong>F3: Liner Wear</strong></td>
+                  <td>Abrasive wear increases bore.</td>
+                  <td>Increasing <em>Bore Diameter</em> + substantial blow-by (0.03 kg/s).</td>
+                </tr>
+                <tr>
+                  <td><strong>F4: Ring Wear</strong></td>
+                  <td>Gas leakage only.</td>
+                  <td>Modulation of <em>Blow-by Mass Flow Rate</em> (0.02 kg/s).</td>
+                </tr>
+                <tr>
+                  <td><strong>F5: Ring Sticking</strong></td>
+                  <td>Friction & seal failure.</td>
+                  <td><em>Bore Dia.</em> change + Elevated <em>Liner Temp</em> + <em>Blow-by</em>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
         <h2 class="title is-3">Explainability Analysis</h2>
         <div class="content has-text-justified">
           <p>
@@ -269,11 +375,11 @@
             <li><strong>Global Interpretation (Beeswarm Plot):</strong> Our global analysis revealed the general rules the model learned. We found that low values of Pre-turbo Exhaust Pressure (P11) are strong indicators of Ring Wear. Physically, this is consistent: if rings are worn, gas leaks out of the cylinder, meaning less gas energy goes into the exhaust manifold to spin the turbine.</li>
           </ul>
         </div>
-
+        
         <div class="has-text-centered">
             <img src="./static/images/fig11_shap.jpg" class="hover-card" alt="SHAP Analysis" style="width:100%; border-radius: 10px;">
             <p class="subtitle is-6">
-                <strong>Figure 11:</strong> Our fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
+                <strong>Figure 11:</strong> Our fault analysis of piston ring wear (F4) based on SHAP values.
             </p>
         </div>
       </div>
