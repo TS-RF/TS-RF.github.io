@@ -16,9 +16,6 @@
     gtag('config', 'G-PYVRSFMDRL');
   </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
@@ -35,61 +32,72 @@
   <script src="./static/js/index.js"></script>
 
   <style>
-    /* 1. 滚动渐显 */
-    .scroll-reveal {
+
+      .keyword-label {
+      font-weight: bold;
+      margin-right: 10px;
+      vertical-align: middle;
+      color: #363636;
+    }
+    
+    .tags .tag {
+      transition: all 0.2s ease;
+      font-size: 0.9rem; /* 稍微大一点，易读 */
+    }
+    
+    /* 鼠标悬停时变色并轻微上浮 */
+    .tags .tag:hover {
+      background-color: #3273dc; /* 学术蓝 */
+      color: #fff; /* 文字变白 */
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
+    }
+    
+    .reveal {
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); /* 使用贝塞尔曲线让运动更丝滑 */
     }
-    .scroll-reveal.is-visible {
+
+    .reveal.active {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* 2. 卡片悬浮特效 */
     .hover-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: default;
-      border-radius: 10px;
+      will-change: transform; /* 性能优化 */
     }
+    
     .hover-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
     }
 
-    /* 3. 渐变文字 */
-    .gradient-text {
-      background: linear-gradient(45deg, #3273dc, #00d1b2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
+    .highlight-list li {
+      background: #f8f9fa; /* 轻微的灰底 */
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #3273dc; /* 左侧加一条学术蓝的边框 */
     }
 
-    /* 4. 动画延迟 */
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
+    .stagger-wrapper .stagger-item {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s ease-out;
+    }
+
+    .stagger-wrapper.active .stagger-item {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+    .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
+    .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
+
   </style>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      }, { threshold: 0.1 });
-
-      document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
-    });
-
-    function copyBibtex() {
-      var copyText = document.getElementById("bibtex-content");
-      navigator.clipboard.writeText(copyText.textContent);
-      alert("BibTeX copied to clipboard!");
-    }
-  </script>
 </head>
 <body>
 
@@ -113,33 +121,21 @@
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop scroll-reveal">
+
+<section class="hero reveal"> <div class="hero-body">
+    <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines</h1>
           
           <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <strong>Congcong Luo</strong><sup>a</sup>,</span>
-            <span class="author-block">
-              <strong>Minghang Zhao</strong><sup>a,*</sup>,</span>
-            <span class="author-block">
-              <strong>Xuyun Fu</strong><sup>a</sup>,
-            </span>
-            <span class="author-block">
-              <strong>Shisheng Zhong</strong><sup>a</sup>,
-            </span>
-            <span class="author-block">
-              <strong>Song Fu</strong><sup>b</sup>,
-            </span>
-            <span class="author-block">
-              <strong>Kai Zhang</strong><sup>c</sup>,
-            </span>
-            <span class="author-block">
-              <strong>Xiaoxia Yu</strong><sup>d</sup>
-            </span>
+            <span class="author-block"><strong>Congcong Luo</strong><sup>a</sup>,</span>
+            <span class="author-block"><strong>Minghang Zhao</strong><sup>a,*</sup>,</span>
+            <span class="author-block"><strong>Xuyun Fu</strong><sup>a</sup>,</span>
+            <span class="author-block"><strong>Shisheng Zhong</strong><sup>a</sup>,</span>
+            <span class="author-block"><strong>Song Fu</strong><sup>b</sup>,</span>
+            <span class="author-block"><strong>Kai Zhang</strong><sup>c</sup>,</span>
+            <span class="author-block"><strong>Xiaoxia Yu</strong><sup>d</sup></span>
           </div>
 
           <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
@@ -153,21 +149,27 @@
             <div class="publication-links">
               <span class="link-block">
                 <a href="https://doi.org/10.1016/j.measurement.2025.117252"
-                   class="button is-normal is-rounded is-dark"
+                   class="button is-normal is-rounded is-dark hover-card" 
                    target="_blank">
-                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
                   <span>Paper</span>
                 </a>
               </span>
               <span class="link-block">
                 <a href="https://github.com/815177491/TSRF.github.io/releases/tag/DATA"
                    target="_blank"
-                   class="button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-file-csv"></i></span>
+                   class="button is-normal is-rounded is-dark hover-card">
+                  <span class="icon">
+                      <i class="fas fa-file-csv"></i>
+                  </span>
                   <span>Dataset</span>
+                  </a>
+                </span>
                 </a>
-              </span>
             </div>
+
           </div>
         </div>
       </div>
@@ -175,25 +177,36 @@
   </div>
 </section>
 
-<section class="section" style="padding-top: 0rem; margin-top: -1rem;">
-  <div class="container is-max-desktop">
+<section class="section reveal" style="padding-top: 0rem; margin-top: -1rem;"> <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths scroll-reveal">
+      <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a <strong class="gradient-text">Thermodynamic Simulation-assisted Random Forest (TSRF)</strong>.
+            Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a 
+            <strong>Thermodynamic Simulation-assisted Random Forest (TSRF)</strong>.
           </p>
           <p>
-            The method reveals fault characteristics through thermodynamic simulations and incorporates them as prior knowledge when designing the intelligent fault diagnosis model. Firstly, five thermodynamic fault models are developed by fine-tuning the essential system parameters. Then, potential thermodynamic indicators of combustion chamber component degradation are identified through numerical simulation results.
+            The method reveals fault characteristics through thermodynamic simulations and incorporates them as prior knowledge when designing the intelligent fault diagnosis model. Firstly, five thermodynamic fault models are developed by fine-tuning the essential system parameters to correspond with the distinct attributes of different faults. Then, potential thermodynamic indicators of combustion chamber component degradation are identified through numerical simulation results.
           </p>
           <p>
-            By calculating <strong>SHapley Additive explanations (SHAP)</strong> values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of <strong>99.07%</strong> on the fault dataset.
+            By calculating SHapley Additive explanations (SHAP) values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of 99.07% on the fault dataset.
           </p>
+
+          <div class="keywords-container" style="margin-top: 2rem;">
+            <span class="keyword-label">Keywords:</span>
+            <div class="tags is-inline-block">
+              <span class="tag is-light is-info">Marine Diesel Engine</span>
+              <span class="tag is-light is-info">Fault Diagnosis</span>
+              <span class="tag is-light is-info">Explainable AI</span>
+              <span class="tag is-light is-info">SHAP</span>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
-  </div>
+    </div>
 </section>
 
 <section class="section">
