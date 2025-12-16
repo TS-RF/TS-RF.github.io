@@ -367,45 +367,47 @@
 
     <hr>
 
-    <section class="section" style="padding: 0;">
-      <div class="columns is-centered">
-        <div class="column is-full-width">
-           <h2 class="title is-3 has-text-centered scroll-reveal">Research Highlights</h2>
-           
-           <div class="columns is-multiline" style="margin-top: 1rem;">
-              <div class="column is-4 scroll-reveal delay-1">
-                  <div class="box hover-card" style="height: 100%;">
-                      <span class="icon is-large has-text-info"><i class="fas fa-microchip fa-2x"></i></span>
-                      <h3 class="title is-4 is-size-5" style="margin-top: 15px;">Physics-Informed AI</h3>
-                      <p>We use thermodynamic simulations to augment data, overcoming data scarcity in marine engineering.</p>
-                  </div>
-              </div>
-              <div class="column is-4 scroll-reveal delay-2">
-                  <div class="box hover-card" style="height: 100%;">
-                      <span class="icon is-large has-text-success"><i class="fas fa-search-plus fa-2x"></i></span>
-                      <h3 class="title is-4 is-size-5" style="margin-top: 15px;">Explainability (XAI)</h3>
-                      <p>Using SHAP to visualize decision paths, bridging the gap between AI algorithms and engineering trust.</p>
-                  </div>
-              </div>
-              <div class="column is-4 scroll-reveal delay-3">
-                  <div class="box hover-card" style="height: 100%;">
-                      <span class="icon is-large has-text-warning"><i class="fas fa-sync-alt fa-2x"></i></span>
-                      <h3 class="title is-4 is-size-5" style="margin-top: 15px;">Closed-Loop Validation</h3>
-                      <p>Real Data &rarr; Calibration &rarr; Simulation &rarr; AI Training &rarr; Physics-based Validation.</p>
-                  </div>
-              </div>
-           </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Research Highlights</h2>
+        <div class="content has-text-justified">
+          <p>
+            We believe this work offers several key contributions to the field:
+          </p>
+          
+          <ul class="highlight-list stagger-wrapper reveal"> 
+            <li class="stagger-item hover-card">
+                <strong>Physics-Informed AI is Powerful:</strong> We demonstrate that "Big Data" is not the only path. By understanding the thermodynamic mechanism, we can effectively use simulations to augment data and train robust models.
+            </li>
+            <li class="stagger-item hover-card">
+                <strong>Explainability (XAI) is Mandatory:</strong> We show that high accuracy alone is insufficient. By using tools like SHAP, we "opened the black box," bridging the gap between advanced AI algorithms and practical engineering trust.
+            </li>
+            <li class="stagger-item hover-card">
+                <strong>Closed-Loop Validation:</strong> We established a robust methodology loop: Real Data &rarr; Model Calibration &rarr; Simulation &rarr; AI Training &rarr; Physics-based Validation. We believe this framework serves as a solid foundation for future PHM research.
+            </li>
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
 
   </div>
 </section>
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content scroll-reveal">
+<section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
+  <div class="container is-max-desktop content">
+    
+    <hr>
+
     <h2 class="title">BibTeX</h2>
-    <pre><code id="bibtex-content">@article{luo2025thermodynamic,
+    
+    <div class="citation-prompt">
+      <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
+        <i class="fas fa-quote-left"></i>
+      </span>
+      If you find this work useful for your research, please consider citing 😊
+    </div>
+
+    <pre style="margin-bottom: 5px;"><code id="bibtex-source">@article{luo2025thermodynamic,
   title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
   author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
   journal   = {Measurement},
@@ -415,12 +417,65 @@
   publisher = {Elsevier},
   doi       = {10.1016/j.measurement.2025.117252},
 }</code></pre>
-    <button class="button is-small is-light" onclick="copyBibtex()">
-        <span class="icon is-small"><i class="fas fa-copy"></i></span>
-        <span>Copy BibTeX</span>
-    </button>
+    
+    <div class="level is-mobile" style="margin-top: 10px;">
+      <div class="level-left">
+        <button class="button is-dark is-small is-rounded" onclick="copyBibtex(this)">
+          <span class="icon is-small">
+            <i class="fas fa-copy"></i>
+          </span>
+          <span class="btn-text">Copy BibTeX</span>
+        </button>
+      </div>
+      <div class="level-right"></div>
+    </div>
+
   </div>
 </section>
+
+<style>
+  .citation-prompt {
+    background-color: #f5f5f5;
+    border-left: 5px solid #3273dc;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    font-weight: 500;
+  }
+  .button .icon, .button .btn-text {
+    transition: all 0.2s ease;
+  }
+</style>
+
+<script>
+  function copyBibtex(btn) {
+    const bibtexText = document.getElementById('bibtex-source').innerText;
+    navigator.clipboard.writeText(bibtexText).then(() => {
+      const icon = btn.querySelector('.fa-copy');
+      const text = btn.querySelector('.btn-text');
+      if(icon) {
+        icon.classList.remove('fa-copy');
+        icon.classList.add('fa-check');
+      }
+      if(text) text.innerText = "Copied!";
+      btn.classList.remove('is-dark');
+      btn.classList.add('is-success');
+      setTimeout(() => {
+        if(icon) {
+          icon.classList.remove('fa-check');
+          icon.classList.add('fa-copy');
+        }
+        if(text) text.innerText = "Copy BibTeX";
+        btn.classList.remove('is-success');
+        btn.classList.add('is-dark');
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+</script>
 
 <footer class="footer">
   <div class="container">
@@ -435,13 +490,41 @@
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
-          <p>This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
-          <p>Copyright © 2025 Congcong Luo et al. Published in <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">Measurement</a>.</p>
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+    Copyright © 2025 Congcong Luo et al. Published in <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">Measurement</a>.
+          </p>
+          <p>
+            This website is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                
+            }
+        });
+    }, {
+        threshold: 0.15 
+    });
+  
+    document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
 
 </body>
 </html>
