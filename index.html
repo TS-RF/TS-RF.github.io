@@ -16,6 +16,15 @@
     gtag('config', 'G-PYVRSFMDRL');
   </script>
 
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
@@ -63,7 +72,7 @@
       transform: translateY(0);
     }
 
-    /* 简单的延迟类，用于制造先后顺序 */
+    /* 简单的延迟类 */
     .reveal.delay-1 { transition-delay: 0.1s; }
     .reveal.delay-2 { transition-delay: 0.2s; }
     .reveal.delay-3 { transition-delay: 0.3s; }
@@ -355,12 +364,12 @@
                 <tr>
                   <td><strong>F1: Head Cracking</strong></td>
                   <td>Disrupted thermal conduction.</td>
-                  <td>Elevating Cylinder Head Surface Temp (T_H) to 346&deg;C.</td>
+                  <td>Elevating Cylinder Head Surface Temp ($T_H$) to 346&deg;C.</td>
                 </tr>
                 <tr>
                   <td><strong>F2: Piston Ablation</strong></td>
                   <td>Material loss & seal compromise.</td>
-                  <td>Increasing Piston Temp (T_P) + minor blow-by (0.01 kg/s).</td>
+                  <td>Increasing Piston Temp ($T_P$) + minor blow-by (0.01 kg/s).</td>
                 </tr>
                 <tr>
                   <td><strong>F3: Liner Wear</strong></td>
@@ -375,7 +384,7 @@
                 <tr>
                   <td><strong>F5: Ring Sticking</strong></td>
                   <td>Friction & seal failure.</td>
-                  <td><em>Bore Dia. change + Elevated Liner Temp + Blow-by.</td>
+                  <td>Bore Dia. change + Elevated Liner Temp + Blow-by.</td>
                 </tr>
               </tbody>
             </table>
