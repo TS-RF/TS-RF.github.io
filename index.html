@@ -32,7 +32,6 @@
   <script src="./static/js/index.js"></script>
 
   <style>
-
       .keyword-label {
       font-weight: bold;
       margin-right: 10px;
@@ -42,21 +41,21 @@
     
     .tags .tag {
       transition: all 0.2s ease;
-      font-size: 0.9rem; /* 稍微大一点，易读 */
+      font-size: 0.9rem;
     }
     
-    /* 鼠标悬停时变色并轻微上浮 */
     .tags .tag:hover {
-      background-color: #3273dc; /* 学术蓝 */
-      color: #fff; /* 文字变白 */
+      background-color: #3273dc;
+      color: #fff;
       transform: translateY(-2px);
       box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
     }
     
+    /* 核心动画类 */
     .reveal {
       opacity: 0;
       transform: translateY(30px);
-      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); /* 使用贝塞尔曲线让运动更丝滑 */
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .reveal.active {
@@ -64,9 +63,14 @@
       transform: translateY(0);
     }
 
+    /* 简单的延迟类，用于制造先后顺序 */
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+
     .hover-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      will-change: transform; /* 性能优化 */
+      will-change: transform;
     }
     
     .hover-card:hover {
@@ -75,11 +79,11 @@
     }
 
     .highlight-list li {
-      background: #f8f9fa; /* 轻微的灰底 */
+      background: #f8f9fa;
       padding: 1.5rem;
       border-radius: 8px;
       margin-bottom: 1rem;
-      border-left: 4px solid #3273dc; /* 左侧加一条学术蓝的边框 */
+      border-left: 4px solid #3273dc;
     }
 
     .stagger-wrapper .stagger-item {
@@ -177,11 +181,12 @@
   </div>
 </section>
 
-<section class="section reveal" style="padding-top: 0rem; margin-top: -1rem;"> <div class="container is-max-desktop">
+<section class="section" style="padding-top: 0rem; margin-top: -1rem;">
+    <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
+        <h2 class="title is-3 reveal">Abstract</h2>
+        <div class="content has-text-justified reveal delay-1">
           <p>
             Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a 
             <strong>Thermodynamic Simulation-assisted Random Forest (TSRF)</strong>.
@@ -209,12 +214,13 @@
     </div>
 </section>
 
-<section class="section reveal"> <div class="container is-max-desktop">
+<section class="section"> 
+  <div class="container is-max-desktop">
 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Motivation</h2>
-        <div class="content has-text-justified">
+        <h2 class="title is-3 reveal">Motivation</h2>
+        <div class="content has-text-justified reveal delay-1">
           <p>
             In the field of marine engineering and Prognostics and Health Management (PHM), we constantly grapple with two significant bottlenecks:
           </p>
@@ -231,10 +237,11 @@
 
     <hr>
 
-   <div class="columns is-centered">
+    <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Methodology</h2>
-        <div class="content has-text-justified">
+        <h2 class="title is-3 reveal">Methodology</h2>
+        
+        <div class="content has-text-justified reveal delay-1">
           <p>
             Our workflow consists of four distinct stages as illustrated below:
           </p>
@@ -246,7 +253,7 @@
           </ol>
         </div>
         
-        <div class="has-text-centered">
+        <div class="has-text-centered reveal delay-2">
           <img src="./static/images/fig1_structure.jpg" class="hover-card" alt="Structure of TSRF" style="width:100%; height:auto; border-radius: 10px;">
           <p class="subtitle is-6">
             <strong>Figure 1:</strong> The structure of our proposed TSRF method. It combines thermodynamic modeling with SHAP-based parameter selection.
@@ -257,12 +264,12 @@
 
     <hr>
 
-<div class="columns is-centered">
+    <div class="columns is-centered">
       <div class="column is-full-width">
         
-        <h2 class="title is-3 scroll-reveal">Thermodynamic Modeling Details</h2>
+        <h2 class="title is-3 reveal">Thermodynamic Modeling Details</h2>
         
-        <div class="content has-text-justified scroll-reveal">
+        <div class="content has-text-justified reveal delay-1">
           <p>
             To ensure high fidelity, we constructed a <strong>one-dimensional (1-D) operational cycle simulation</strong>.
             This "Digital Twin" balances physical accuracy with the computational speed required for large-scale dataset generation.
@@ -270,7 +277,7 @@
         </div>
 
         <div class="columns is-centered">
-          <div class="column is-6 scroll-reveal delay-1">
+          <div class="column is-6 reveal delay-2">
             <div class="box hover-card" style="height: 100%;">
               <h4 class="title is-4 is-size-5">
                 <span class="icon has-text-info" style="margin-right: 8px;">
@@ -289,7 +296,7 @@
             </div>
           </div>
 
-          <div class="column is-6 scroll-reveal delay-2">
+          <div class="column is-6 reveal delay-3">
             <div class="box hover-card" style="height: 100%;">
               <h4 class="title is-4 is-size-5">
                 <span class="icon has-text-success" style="margin-right: 8px;">
@@ -308,21 +315,21 @@
           </div>
         </div>
 
-        <div class="has-text-centered" style="margin-bottom: 50px;">
+        <div class="has-text-centered reveal" style="margin-bottom: 50px;">
            <img src="./static/images/fig2_simulator.png" class="hover-card" alt="1-D thermodynamic simulation model" style="width:100%; height:auto; border-radius: 10px;">
             <p class="subtitle is-6">
               <strong>Figure 2:</strong> Schematic diagram of the 1-D thermodynamic simulation model constructed in AVL BOOST, showing the connection of cylinders, manifolds, and turbocharging systems.
           </p>
         </div>
 
-        <div class="has-text-centered">
+        <div class="has-text-centered reveal">
            <img src="./static/images/fig5_faults.jpg" class="hover-card" alt="Model Validation" style="width:100%; height:auto; border-radius: 10px;">
             <p class="subtitle is-6">
               <strong>Figure 5:</strong> Calibration results comparing the simulation output with experimental bench data across different engine loads, confirming the model's high fidelity.
           </p>
         </div>
 
-        <div class="box hover-card scroll-reveal delay-3" style="margin-top: 1.5rem;">
+        <div class="box hover-card reveal" style="margin-top: 1.5rem;">
           <h4 class="title is-4 is-size-5 has-text-centered">
             <span class="icon has-text-danger" style="margin-right: 8px;">
               <i class="fas fa-exclamation-triangle"></i>
@@ -378,10 +385,12 @@
     </div>
 
     <hr>
+    
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Explainability Analysis</h2>
-        <div class="content has-text-justified">
+        <h2 class="title is-3 reveal">Explainability Analysis</h2>
+        
+        <div class="content has-text-justified reveal delay-1">
           <p>
             A key innovation of our work is moving beyond "What is the fault?" to "Why is this the fault?". We demonstrated this capability using a specific case of <strong>Piston Ring Wear (F4)</strong>:
           </p>
@@ -391,7 +400,7 @@
           </ul>
         </div>
         
-        <div class="has-text-centered">
+        <div class="has-text-centered reveal delay-2">
             <img src="./static/images/fig11_shap.jpg" class="hover-card" alt="SHAP Analysis" style="width:100%; border-radius: 10px;">
             <p class="subtitle is-6">
                 <strong>Figure 11:</strong> Fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
@@ -404,13 +413,13 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Research Highlights</h2>
-        <div class="content has-text-justified">
+        <h2 class="title is-3 reveal">Research Highlights</h2>
+        <div class="content has-text-justified reveal delay-1">
           <p>
             We believe this work offers several key contributions to the field:
           </p>
           
-          <ul class="highlight-list stagger-wrapper reveal"> 
+          <ul class="highlight-list stagger-wrapper"> 
             <li class="stagger-item hover-card">
                 <strong>Physics-Informed AI is Powerful:</strong> We demonstrate that "Big Data" is not the only path. By understanding the thermodynamic mechanism, we can effectively use simulations to augment data and train robust models.
             </li>
@@ -531,7 +540,7 @@
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
           <p>
-    Copyright © 2025 Congcong Luo et al. Published in <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">Measurement</a>.
+            Copyright © 2025 Congcong Luo et al. Published in <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">Measurement</a>.
           </p>
           <p>
             This website is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template.
@@ -552,9 +561,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, {
-        threshold: 0.15 
+        threshold: 0.1 
     });
   
+    // 监听 reveal 类和 stagger-wrapper 类
     document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
         observer.observe(el);
     });
