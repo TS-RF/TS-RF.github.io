@@ -733,26 +733,28 @@ plt.show()</code></pre>
     </div>
 
     <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">Standard Format</h4>
-    <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem;">
-      <p id="standard-citation" style="margin-bottom: 0.5rem; font-family: 'Times New Roman', Times, serif; font-size: 1.1rem;">
+    
+    <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem; margin-bottom: 5px;">
+      <p id="standard-citation" style="margin-bottom: 0; font-family: 'Times New Roman', Times, serif; font-size: 1.1rem;">
         C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
       </p>
-      
-      <div class="level is-mobile" style="margin-top: 10px;">
-        <div class="level-left">
-           <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
-            <span class="icon is-small">
-              <i class="fas fa-copy"></i>
-            </span>
-            <span class="btn-text">Copy Text</span>
-          </button>
-           <a href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" target="_blank" class="button is-text is-small" style="text-decoration: none; margin-left: 10px;">
-            <span class="icon has-text-info">
-              <i class="fas fa-external-link-alt"></i>
-            </span>
-            <span>View on ScienceDirect</span>
-          </a>
-        </div>
+    </div>
+
+    <div class="level is-mobile" style="margin-top: 10px;">
+      <div class="level-left">
+        <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
+          <span class="icon is-small">
+            <i class="fas fa-copy"></i>
+          </span>
+          <span class="btn-text">Copy Text</span>
+        </button>
+        
+        <a href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" target="_blank" class="button is-text is-small" style="text-decoration: none; margin-left: 10px;">
+          <span class="icon has-text-info">
+            <i class="fas fa-external-link-alt"></i>
+          </span>
+          <span>View on ScienceDirect</span>
+        </a>
       </div>
     </div>
 
@@ -770,7 +772,6 @@ plt.show()</code></pre>
     color: #4a4a4a;
     font-weight: 500;
   }
-  /* 强制覆盖 pre 的内边距，使其更美观 */
   pre {
       padding: 1.25rem !important;
   }
@@ -790,7 +791,6 @@ plt.show()</code></pre>
       }
       if(text) text.innerText = "Copied!";
       
-      // 成功时的样式
       btn.classList.remove('is-dark');
       btn.classList.add('is-success');
       
@@ -800,7 +800,6 @@ plt.show()</code></pre>
           icon.classList.add('fa-copy');
         }
         if(text) text.innerText = originalText;
-        // 恢复原始样式
         btn.classList.remove('is-success');
         btn.classList.add('is-dark');
       }, 2000);
