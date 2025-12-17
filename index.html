@@ -723,7 +723,7 @@ plt.show()</code></pre>
     
     <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
       <div class="level-left">
-        <button class="button is-white is-small is-rounded" style="border: 1px solid #dbdbdb;" onclick="copyText('bibtex-source', this)">
+        <button class="button is-dark is-small is-rounded" onclick="copyText('bibtex-source', this)">
           <span class="icon is-small">
             <i class="fas fa-copy"></i>
           </span>
@@ -738,23 +738,20 @@ plt.show()</code></pre>
         C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
       </p>
       
-      <div class="level is-mobile">
+      <div class="level is-mobile" style="margin-top: 10px;">
         <div class="level-left">
-          <a href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" target="_blank" class="button is-text is-small" style="text-decoration: none; padding-left: 0;">
+           <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
+            <span class="icon is-small">
+              <i class="fas fa-copy"></i>
+            </span>
+            <span class="btn-text">Copy Text</span>
+          </button>
+           <a href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" target="_blank" class="button is-text is-small" style="text-decoration: none; margin-left: 10px;">
             <span class="icon has-text-info">
               <i class="fas fa-external-link-alt"></i>
             </span>
             <span>View on ScienceDirect</span>
           </a>
-        </div>
-        <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
-          <div class="level-left">
-            <button class="button is-white is-small is-rounded" style="border: 1px solid #dbdbdb;" onclick="copyText('standard-citation', this)">
-              <span class="icon is-small">
-                <i class="fas fa-copy"></i>
-            </span>
-            <span class="btn-text">Copy Text</span>
-          </button>
         </div>
       </div>
     </div>
@@ -773,7 +770,7 @@ plt.show()</code></pre>
     color: #4a4a4a;
     font-weight: 500;
   }
-  /* Override code block styles for clean look */
+  /* 强制覆盖 pre 的内边距，使其更美观 */
   pre {
       padding: 1.25rem !important;
   }
@@ -793,8 +790,9 @@ plt.show()</code></pre>
       }
       if(text) text.innerText = "Copied!";
       
+      // 成功时的样式
+      btn.classList.remove('is-dark');
       btn.classList.add('is-success');
-      btn.classList.remove('is-white');
       
       setTimeout(() => {
         if(icon) {
@@ -802,8 +800,9 @@ plt.show()</code></pre>
           icon.classList.add('fa-copy');
         }
         if(text) text.innerText = originalText;
+        // 恢复原始样式
         btn.classList.remove('is-success');
-        btn.classList.add('is-white');
+        btn.classList.add('is-dark');
       }, 2000);
     }).catch(err => {
       console.error('Failed to copy: ', err);
