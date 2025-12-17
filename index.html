@@ -269,8 +269,59 @@
             <li><strong>The "Black Box" Problem:</strong> While Deep Learning is popular, it lacks transparency. If an AI tells a chief engineer, "The cylinder liner is worn," but cannot explain <em>why</em> based on physical parameters, it is difficult to build trust. This lack of explainability is a major barrier to industry adoption.</li>
           </ul>
           <p>
-            To address these challenges, <strong>we propose a method called TSRF (Thermodynamic Simulation-assisted Random Forest)</strong>. We use a physics-based simulation to generate synthetic fault data (solving the scarcity problem) and employ SHAP (SHapley Additive exPlanations) to visualize the decision-making process, ensuring it aligns with thermodynamic principles.
+            To address these challenges, <strong>we propose a method called TSRF (Thermodynamic Simulation-assisted Random Forest)strong>. A physics-based simulation is le'v'e'a'g
+</section>
+
+<section class="section" style="padding-top: 0rem; margin-top: 0rem;">
+    <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 reveal">Abstract</h2>
+        <div class="content has-text-justified reveal delay-1">
+          <p>
+            Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a 
+            <strong>Thermodynamic Simulation-assisted Random Forest (TSRF)</strong>.
           </p>
+          <p>
+            The method reveals fault characteristics through thermodynamic simulations and incorporates them as prior knowledge when designing the intelligent fault diagnosis model. Firstly, five thermodynamic fault models are developed by fine-tuning the essential system parameters to correspond with the distinct attributes of different faults. Then, potential thermodynamic indicators of combustion chamber component degradation are identified through numerical simulation results.
+          </p>
+          <p>
+            By calculating SHapley Additive explanations (SHAP) values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of 99.07% on the fault dataset.
+          </p>
+
+          <div class="keywords-container" style="margin-top: 2rem;">
+            <span class="keyword-label">Keywords:</span>
+            <div class="tags is-inline-block">
+              <span class="tag is-light is-info">Marine Diesel Engine</span>
+              <span class="tag is-light is-info">Fault Diagnosis</span>
+              <span class="tag is-light is-info">Explainable AI</span>
+              <span class="tag is-light is-info">SHAP</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    </div>
+</section>
+
+<section class="section" style="padding-top: 1rem; margin-top: 1rem;">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 reveal">Motivation</h2>
+        <div class="content has-text-justified reveal delay-1">
+          <p>
+            In the field of marine engineering and Prognostics and Health Management (PHM), we constantly grapple with two significant bottlenecks:
+          </p>
+          <ul>
+            <li><strong>Data Scarcity:</strong> Marine diesel engines are expensive, critical assets. We rarely run them to failure just to collect data. Consequently, there is a severe lack of labeled "fault data" required to train robust machine learning models.</li>
+            <li><strong>The "Black Box" Problem:</strong> While Deep Learning is popular, it lacks transparency. If an AI tells a chief engineer, "The cylinder liner is worn," but cannot explain <em>why</em> based on physical parameters, it is difficult to build trust. This lack of explainability is a major barrier to industry adoption.</li>
+          </ul>
+          <p>
+            To address these challenges, <strong>we propose a method called TSRF (Thermodynamic Simulation-assisted Random Forest)strong>. A physics-based simulation is leveraged to generate synthetic fault data (solving the scarcity problem) and employ SHAP (SHapley Additive exPlanations) to visualize the decision-making process, ensuring it aligns with thermodynamic principles.
+          base
         </div>
       </div>
     </div>
