@@ -415,6 +415,148 @@
                 <strong>Figure 11:</strong> Fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
             </p>
         </div>
+
+      <div class="reveal delay-2" style="margin-top: 2rem; margin-bottom: 2rem;">
+                <details class="box hover-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
+                  <summary class="title is-5 is-size-6-mobile" style="cursor: pointer; color: #363636; margin-bottom: 0;">
+                    <span class="icon has-text-info" style="margin-right: 0.5rem;">
+                      <i class="fas fa-code"></i>
+                    </span>
+                    <span>Click to view SHAP Visualization Code (Python)</span>
+                  </summary>
+                  
+                  <div class="content has-text-left" style="margin-top: 1.5rem;">
+                    <p>
+                      If you are interested in the implementation details of the figures above, here is the sample code used to generate the Waterfall, Beeswarm, Interaction, and Dependence plots.
+                    </p>
+                    
+                    <pre style="background-color: #2d2d2d; color: #ccc; border-radius: 8px; font-size: 0.85rem; padding: 1.5rem; overflow-x: auto;"><code>import shap
+      import matplotlib.pyplot as plt
+      import numpy as np
+      
+      # --- 0. Setup & Global Settings ---
+      plt.rcParams['font.family'] = 'Arial'
+      plt.rcParams['font.size'] = '24'
+      plt.rcParams['axes.unicode_minus'] = False
+      
+      # Assumption: 'best_model' is your trained XGBoost/RF model
+      # Assumption: 'X_train' and 'X_test' are pandas DataFrames
+      
+      # 1. Calculate SHAP values as Numpy Arrays (for Beeswarm, Dependence, Interaction)
+      explainer_tree = shap.TreeExplainer(best_model)
+      # returns list of arrays for classification
+      shap_values_numpy = explainer_tree.shap_values(X_train) 
+      
+      # 2. Calculate SHAP values as Explanation Object (Specifically for Waterfall)
+      explainer_obj = shap.Explainer(best_model, X_test)
+      shap_values_obj = explainer_obj(X_test)
+      
+      # ==========================================
+      # (a) Waterfall Plot
+      # Visualizes contribution for a single sample
+      # ==========================================
+      class_idx = 4  # Target class
+      sample_idx = 3 # Specific sample to explain
+      
+      plt.figure()
+      shap.plots.waterfall(
+          shap_values_obj[sample_idx, :, class_idx], 
+          max_display=9, 
+          show=False
+      )
+      
+      # Customizing style
+      ax = plt.gca()
+      ax.set_xlabel(ax.get_xlabel(), fontsize=36)
+      ax.set_ylabel(ax.get_ylabel(), fontsize=36)
+      ax.spines['bottom'].set_linewidth(3)
+      plt.show()
+      
+      # ==========================================
+      # (b) Beeswarm Plot
+      # Global summary of feature importance
+      # ==========================================
+      class_idx = 5
+      plt.figure(figsize=(10, 8))
+      
+      shap.summary_plot(
+          shap_values_numpy[..., class_idx], 
+          X_train, 
+          feature_names=X_train.columns, 
+          plot_type="dot", 
+          show=False, 
+          cmap='Greys' # or 'plasma'
+      )
+      
+      # Customize Color Bar
+      cbar = plt.gcf().axes[-1] 
+      cbar.set_ylabel('Parameter Value', fontsize=24)
+      cbar.tick_params(labelsize=20)
+      plt.show()
+      
+      # ==========================================
+      # (c) Interaction Plot
+      # Visualizes interaction effects between features
+      # ==========================================
+      # Note: Calculation can be expensive
+      shap_interaction_values = explainer_tree.shap_interaction_values(X_test)
+      class_idx = 4
+      
+      plt.figure()
+      shap.summary_plot(
+          shap_interaction_values[..., class_idx], 
+          X_test, 
+          show=False, 
+          max_display=6, 
+          cmap='Greys' 
+      )
+      
+      # Clean up subplots
+      axes = plt.gcf().axes
+      for ax in axes:
+          ax.spines['bottom'].set_linewidth(2)
+          ax.tick_params(axis="x", labelsize=18, width=2)
+          ax.set_title(ax.get_title(), fontsize=14) 
+      
+      plt.subplots_adjust(wspace=0.3, hspace=0.4)    
+      plt.show()
+      
+      # ==========================================
+      # (d) Dependence Plot
+      # Feature relationship colored by interaction
+      # ==========================================
+      Feature_X = 'P06'  # Main feature
+      Feature_Y = 'P07'  # Interaction feature
+      class_idx = 4
+      
+      shap.dependence_plot(
+          Feature_X, 
+          shap_values_numpy[..., class_idx], 
+          X_train, 
+          interaction_index=Feature_Y, 
+          dot_size=100, 
+          show=False
+      )
+      
+      # Customize Axes
+      ax = plt.gca()
+      ax.tick_params(axis='both', which='major', labelsize=36, width=2)
+      ax.set_ylabel(f'SHAP value ({Feature_X})', fontsize=36)
+      ax.spines['bottom'].set_linewidth(3)
+      ax.spines['left'].set_linewidth(3)
+      plt.show()</code></pre>
+                  </div>
+                </details>
+              </div>
+              ```
+      
+      ### Key Features of this Code:
+      1.  **`<details>` Tag:** Automatically handles the open/close logic.
+      2.  **`hover-card` Class:** I added the class you defined in your CSS so the box will lift up slightly when hovered, matching the style of your other elements.
+      3.  **Bulma Styling:** Used `box`, `title`, and `icon` classes to ensure it looks like a native part of the theme.
+      4.  **Code Formatting:** The code block uses a dark background (`#2d2d2d`) with light text (`#ccc`) which is standard for code readability.
+      5.  **`has-text-left`:** This is crucial because your parent container is centered (`has-text-centered`). Without this, the code would be centered and hard to read.
+              
       </div>
     </div>
 
