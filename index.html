@@ -446,7 +446,7 @@
             </p>
         </div>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xcode.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
         
@@ -700,7 +700,7 @@ plt.show()</code></pre>
     
     <hr>
 
-    <h2 class="title">BibTeX</h2>
+    <h2 class="title">Citation</h2>
     
     <div class="citation-prompt">
       <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
@@ -709,7 +709,8 @@ plt.show()</code></pre>
       If you find this work useful for your research, please consider citing 😊
     </div>
 
-    <pre style="margin-bottom: 5px;"><code id="bibtex-source">@article{luo2025thermodynamic,
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">BibTeX</h4>
+    <pre style="margin-bottom: 5px; background-color: #fcfcfc; border: 1px solid #e5e5e5; border-radius: 8px;"><code id="bibtex-source" class="language-latex">@article{luo2025thermodynamic,
   title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
   author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
   journal   = {Measurement},
@@ -720,16 +721,41 @@ plt.show()</code></pre>
   doi       = {10.1016/j.measurement.2025.117252},
 }</code></pre>
     
-    <div class="level is-mobile" style="margin-top: 10px;">
+    <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
       <div class="level-left">
-        <button class="button is-dark is-small is-rounded" onclick="copyBibtex(this)">
+        <button class="button is-white is-small is-rounded" style="border: 1px solid #dbdbdb;" onclick="copyText('bibtex-source', this)">
           <span class="icon is-small">
             <i class="fas fa-copy"></i>
           </span>
           <span class="btn-text">Copy BibTeX</span>
         </button>
       </div>
-      <div class="level-right"></div>
+    </div>
+
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">Standard Format</h4>
+    <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem;">
+      <p id="standard-citation" style="margin-bottom: 0.5rem; font-family: 'Times New Roman', Times, serif; font-size: 1.1rem;">
+        C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
+      </p>
+      
+      <div class="level is-mobile">
+        <div class="level-left">
+          <a href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" target="_blank" class="button is-text is-small" style="text-decoration: none; padding-left: 0;">
+            <span class="icon has-text-info">
+              <i class="fas fa-external-link-alt"></i>
+            </span>
+            <span>View on ScienceDirect</span>
+          </a>
+        </div>
+        <div class="level-right">
+          <button class="button is-white is-small is-rounded" style="border: 1px solid #dbdbdb;" onclick="copyText('standard-citation', this)">
+            <span class="icon is-small">
+              <i class="fas fa-copy"></i>
+            </span>
+            <span class="btn-text">Copy Text</span>
+          </button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -740,38 +766,43 @@ plt.show()</code></pre>
     background-color: #f5f5f5;
     border-left: 5px solid #3273dc;
     padding: 1rem 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     border-radius: 4px;
     font-size: 1.1rem;
     color: #4a4a4a;
     font-weight: 500;
   }
-  .button .icon, .button .btn-text {
-    transition: all 0.2s ease;
+  /* Override code block styles for clean look */
+  pre {
+      padding: 1.25rem !important;
   }
 </style>
 
 <script>
-  function copyBibtex(btn) {
-    const bibtexText = document.getElementById('bibtex-source').innerText;
-    navigator.clipboard.writeText(bibtexText).then(() => {
+  function copyText(elementId, btn) {
+    const textToCopy = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
       const icon = btn.querySelector('.fa-copy');
       const text = btn.querySelector('.btn-text');
+      const originalText = text.innerText;
+      
       if(icon) {
         icon.classList.remove('fa-copy');
         icon.classList.add('fa-check');
       }
       if(text) text.innerText = "Copied!";
-      btn.classList.remove('is-dark');
+      
       btn.classList.add('is-success');
+      btn.classList.remove('is-white');
+      
       setTimeout(() => {
         if(icon) {
           icon.classList.remove('fa-check');
           icon.classList.add('fa-copy');
         }
-        if(text) text.innerText = "Copy BibTeX";
+        if(text) text.innerText = originalText;
         btn.classList.remove('is-success');
-        btn.classList.add('is-dark');
+        btn.classList.add('is-white');
       }, 2000);
     }).catch(err => {
       console.error('Failed to copy: ', err);
