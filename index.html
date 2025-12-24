@@ -175,7 +175,7 @@
           <div class="is-size-5 publication-authors">
             <span class="author-block"><strong>Congcong Luo</strong><sup>a</sup>,</span>
             <span class="author-block">
-              <a href="https://homepage.hit.edu.cn/zhaominghang?lang=zh" target="_blank"><strong>Minghang Zhao</strong></a><sup>a,*</sup>,
+              <a href="https://homepage.hit.edu.cn/zhaominghang?lang=zh" target="_blank" style="color: inherit; text-decoration: none;"><strong>Minghang Zhao</strong></a><sup>a,*</sup>,
             </span>
             <span class="author-block"><strong>Xuyun Fu</strong><sup>a</sup>,</span>
             <span class="author-block"><strong>Shisheng Zhong</strong><sup>a</sup>,</span>
@@ -264,14 +264,14 @@
         <h2 class="title is-3 reveal">Motivation</h2>
         <div class="content has-text-justified reveal delay-1">
           <p>
-            In the field of marine engineering and Prognostics and Health Management (PHM), we constantly grapple with two significant bottlenecks:
+            In the fields of marine engineering and Prognostics and Health Management (PHM), the industry faces two persistent bottlenecks:
           </p>
           <ul>
-            <li><strong>Data Scarcity:</strong> Marine diesel engines are expensive, critical assets. We rarely run them to failure just to collect data. Consequently, there is a severe lack of labeled "fault data" required to train robust machine learning models.</li>
-            <li><strong>The "Black Box" Problem:</strong> While Deep Learning is popular, it lacks transparency. If an AI tells a chief engineer, "The cylinder liner is worn," but cannot explain why based on physical parameters, it is difficult to build trust. This lack of explainability is a major barrier to industry adoption.</li>
+            <li><strong>Data Scarcity:</strong> Marine engines are high-value assets that are rarely operated to failure. This results in a critical shortage of the labeled "fault data" necessary to train robust machine learning models.</li>
+            <li><strong>The "Black Box" Problem:</strong> Deep learning models often lack transparency. If an AI diagnoses a fault but cannot explain the physical reasoning, it is difficult for engineers to trust it. This lack of interpretability is a primary obstacle to widespread industry adoption.</li>
           </ul>
           <p>
-            To address these challenges, <strong>we propose a method called TSRF (Thermodynamic Simulation-assisted Random Forest)</strong>. A physics-based simulation is leveraged to generate synthetic fault data (solving the scarcity problem) and employ SHAP (SHapley Additive exPlanations) to visualize the decision-making process, ensuring it aligns with thermodynamic principles.
+            To overcome these challenges, we introduce TSRF. By fusing physics-based Digital Twins with advanced XAI techniques, we address the data scarcity problem through massive synthetic data generation and ensure that diagnostic decisions align with thermodynamic principles.
           </p>
         </div>
       </div>
@@ -285,13 +285,13 @@
         
         <div class="content has-text-justified reveal delay-1">
           <p>
-            Our workflow consists of four distinct stages as illustrated below:
+            Our workflow consists of four distinct stages, as illustrated below:
           </p>
           <ol>
-            <li><strong>Thermodynamic Modeling:</strong> Instead of relying solely on a physical test rig, we built a 1-D thermodynamic model of a 6-cylinder marine diesel engine. We calibrated the model using real-world operational data, ensuring the simulation error remained under 5% for key parameters.</li>
-            <li><strong>Fault Injection:</strong> With our calibrated model, we simulated five specific combustion chamber faults (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This allowed us to generate a comprehensive dataset covering scenarios impossible to collect from a real engine.</li>
-            <li><strong>Feature Selection via SHAP:</strong> Using SHAP values, we quantitatively assessed which of the 14 output parameters actually mattered for diagnosis.</li>
-            <li><strong>Classification:</strong> We trained a Random Forest (RF) classifier using this physics-generated dataset.</li>
+            <li><strong>Thermodynamic Modeling:</strong> Rather than relying solely on physical test rigs, we constructed a high-fidelity 1-D thermodynamic model of a 6-cylinder marine diesel engine. The model was rigorously calibrated using real-world operational data, keeping simulation errors within 5%.</li>
+            <li><strong>Fault Injection:</strong> Using the calibrated model, we simulated five specific combustion chamber faults (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This enabled the generation of a comprehensive dataset covering scenarios that are impossible to capture from a real engine.</li>
+            <li><strong>Feature Selection via SHAP:</strong> We utilized SHAP values to quantitatively identify the critical features—specifically, the 14 key parameters that drive the diagnostic decision.</li>
+            <li><strong>Classification:</strong> A Random Forest (RF) classifier was trained using this physics-enhanced dataset to achieve high diagnostic precision.</li>
           </ol>
         </div>
         
@@ -313,8 +313,7 @@
         
         <div class="content has-text-justified reveal delay-1">
           <p>
-            To ensure high fidelity, we constructed a <strong>one-dimensional (1-D) operational cycle simulation</strong>.
-            This "Digital Twin" balances physical accuracy with the computational speed required for large-scale dataset generation.
+            To ensure high fidelity, we constructed a one-dimensional (1-D) operational cycle simulation. This "Digital Twin" balances physical accuracy with the computational efficiency required for large-scale dataset generation.
           </p>
         </div>
 
@@ -394,7 +393,7 @@
           </h4>
           <div class="content has-text-justified is-size-6">
             <p>
-              Since 1-D models cannot directly represent 3D structural defects, we employed a <strong>phenomenological mapping approach</strong>. We mapped physical degradation mechanisms to equivalent thermodynamic parameter shifts.
+              Since 1-D models cannot directly represent 3D structural defects, we employed a phenomenological mapping approach, translating physical degradation mechanisms into equivalent thermodynamic parameter shifts.
             </p>
           </div>
           
@@ -448,11 +447,11 @@
         
         <div class="content has-text-justified reveal delay-1">
           <p>
-            A key innovation of our work is moving beyond "What is the fault?" to "Why is this the fault?". We demonstrated this capability using a specific case of <strong>Piston Ring Wear (F4)</strong>:
+            A key innovation of our work is shifting the focus from "What is the fault?" to "Why is this the fault?". We demonstrate this capability through a case study on Piston Ring Wear (F4):
           </p>
           <ul>
-            <li><strong>Local Interpretation (Waterfall Plot):</strong> Our waterfall plot analysis explains specific predictions. For example, our model predicted "Ring Wear" because Blow-by Heat Flow (P06) and Blow-by Mass Flow (P07) had specific values that pushed the probability up. This aligns perfectly with physics: Ring wear destroys the seal, leading to gas leakage (blow-by).</li>
-            <li><strong>Global Interpretation (Beeswarm Plot):</strong> Our global analysis revealed the general rules the model learned. We found that low values of Pre-turbo Exhaust Pressure (P11) are strong indicators of Ring Wear. Physically, this is consistent: if rings are worn, gas leaks out of the cylinder, meaning less gas energy goes into the exhaust manifold to spin the turbine.</li>
+            <li><strong>Local Interpretation (Waterfall Plot):</strong> The waterfall plot explains specific predictions. For instance, the model predicts "Ring Wear" because Blow-by Heat Flow (P06) and Blow-by Mass Flow (P07) exhibit specific values that increase the probability. This aligns with physics: ring wear compromises the seal, leading to gas leakage (blow-by).</li>
+            <li><strong>Global Interpretation (Beeswarm Plot):</strong> Global analysis reveals the general rules learned by the model. We found that low values of Pre-turbo Exhaust Pressure (P11) are strong indicators of Ring Wear. Physically, this is consistent: worn rings allow gas to leak from the cylinder, reducing the energy available to the turbine.</li>
           </ul>
         </div>
         
@@ -694,12 +693,13 @@ plt.show()</code></pre>
             We believe this work offers several key contributions to the field:
           </p>
           
-          <ul class="highlight-list stagger-wrapper"> 
+           <ul class="highlight-list stagger-wrapper"> 
             <li class="stagger-item hover-card">
                 <strong>Performs parameterized modeling of five faults in marine diesel engine combustion chamber.</strong>
             </li>
             <li class="stagger-item hover-card">
                 <strong>Evaluated the effectiveness of SHAP method through comparison with multiple feature selection methods.</strong> 
+            </li>
             <li class="stagger-item hover-card">
                 <strong>A novel insight into interpretable fault diagnosis is provided by integrating data-driven method with thermodynamic model.</strong> 
             </li>
