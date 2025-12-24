@@ -1,609 +1,784 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-
-  <link rel="alternate" hreflang="en" href="https://ts-rf.github.io/" />
-  <link rel="alternate" hreflang="zh-CN" href="https://ts-rf.github.io/zh/" />
-  <link rel="alternate" hreflang="x-default" href="https://ts-rf.github.io/" />
-
-  <meta property="og:title" content="TSRF: 船用柴油机可解释性故障诊断">
-  <meta property="og:description" content="结合热力学仿真与 SHAP，实现船用发动机健康管理的各项异性人工智能。">
-  <meta property="og:image" content="https://ts-rf.github.io/static/images/fig1_structure.jpg"> <meta property="og:url" content="https://ts-rf.github.io/">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  
-  <meta charset="utf-8">
-  <meta name="description"
-        content="TSRF：一种用于船用柴油机故障诊断的物理信息机器学习（PIML）方法。结合热力学仿真（机理模型）与随机森林及 SHAP，实现可解释性 AI (XAI) 并解决预测性维护中的数据稀缺问题。">
-  <meta name="keywords" content="船用柴油机, 故障诊断, 随机森林, SHAP, 可解释性AI, XAI, 物理信息机器学习, PIML, 机理模型, 合成数据生成, 预测性维护, 热力学仿真, AVL BOOST">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TSRF: Explainable Fault Diagnosis for Marine Diesel Engines</title>
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
+  <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
+  <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
+  <meta content="TSRF: 船用柴油机可解释性故障诊断" property="og:title"/>
+  <meta content="结合热力学仿真与随机森林算法，实现船用发动机健康管理的解释性人工智能。" property="og:description"/>
+  <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
+  <meta content="https://ts-rf.github.io/" property="og:url"/>
+  <meta content="website" property="og:type"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta charset="utf-8"/>
+  <meta content="结合热力学仿真与随机森林算法，实现船用发动机健康管理的解释性人工智能。" name="description"/>
+  <meta content="船用柴油机, 故障诊断, 随机森林, SHAP, 可解释性AI, 物理信息机器学习, PIML, 机理模型, 合成数据生成, 预测性维护, 热力学仿真, AVL BOOST" name="keywords"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+    TSRF: 船用柴油机可解释性故障诊断
+  </title>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
+  </script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-PYVRSFMDRL');
+     function gtag() { dataLayer.push(arguments); }
+     gtag('js', new Date());
+     gtag('config', 'G-PYVRSFMDRL');
   </script>
-
   <script>
     window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      }
-    };
+       tex: {
+         inlineMath: [['$', '$'], ['\\(', '\\)']]
+       }
+     };
   </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
-  <link rel="stylesheet" href="../static/css/bulma.min.css">
-  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="../static/css/index.css">
-  <link rel="icon" href="../static/images/favicon.svg">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="../static/js/fontawesome.all.min.js"></script>
-  <script src="../static/js/bulma-carousel.min.js"></script>
-  <script src="../static/js/bulma-slider.min.js"></script>
-  <script src="../static/js/index.js"></script>
-
+  <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
+  <link href="../static/css/bulma.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-carousel.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-slider.min.css" rel="stylesheet"/>
+  <link href="../static/css/fontawesome.all.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet"/>
+  <link href="../static/css/index.css" rel="stylesheet"/>
+  <link href="../static/images/favicon.svg" rel="icon"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+  <script defer="" src="../static/js/fontawesome.all.min.js">
+  </script>
+  <script src="../static/js/bulma-carousel.min.js">
+  </script>
+  <script src="../static/js/bulma-slider.min.js">
+  </script>
+  <script src="../static/js/index.js">
+  </script>
   <style>
-      .keyword-label {
-      font-weight: bold;
-      margin-right: 10px;
-      vertical-align: middle;
-      color: #363636;
-    }
-    
-    .tags .tag {
-      transition: all 0.2s ease;
-      font-size: 0.9rem;
-    }
-    
-    .tags .tag:hover {
-      background-color: #3273dc;
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
-    }
-    
-    /* 核心动画类 */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* 简单的延迟类 */
-    .reveal.delay-1 { transition-delay: 0.1s; }
-    .reveal.delay-2 { transition-delay: 0.2s; }
-    .reveal.delay-3 { transition-delay: 0.3s; }
-
-    .hover-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      will-change: transform;
-    }
-    
-    .hover-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
-    }
-
-    .highlight-list li {
-      background: #f8f9fa;
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      border-left: 4px solid #3273dc;
-    }
-
-    .stagger-wrapper .stagger-item {
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: all 0.6s ease-out;
-    }
-
-    .stagger-wrapper.active .stagger-item {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
-    .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
-    .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
-
+    .keyword-label {
+       font-weight: bold;
+       margin-right: 10px;
+       vertical-align: middle;
+       color: #363636;
+     }
+     
+     .tags .tag {
+       transition: all 0.2s ease;
+       font-size: 0.9rem;
+     }
+     
+     .tags .tag:hover {
+       background-color: #3273dc;
+       color: #fff;
+       transform: translateY(-2px);
+       box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
+     }
+     
+     /* 核心动画类 */
+     .reveal {
+       opacity: 0;
+       transform: translateY(30px);
+       transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+     }
+ 
+     .reveal.active {
+       opacity: 1;
+       transform: translateY(0);
+     }
+ 
+     /* 简单的延迟类 */
+     .reveal.delay-1 { transition-delay: 0.1s; }
+     .reveal.delay-2 { transition-delay: 0.2s; }
+     .reveal.delay-3 { transition-delay: 0.3s; }
+ 
+     .hover-card {
+       transition: transform 0.3s ease, box-shadow 0.3s ease;
+       will-change: transform;
+     }
+     
+     .hover-card:hover {
+       transform: translateY(-5px);
+       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+     }
+ 
+     .highlight-list li {
+       background: #f8f9fa;
+       padding: 1.5rem;
+       border-radius: 8px;
+       margin-bottom: 1rem;
+       border-left: 4px solid #3273dc;
+     }
+ 
+     .stagger-wrapper .stagger-item {
+       opacity: 0;
+       transform: translateX(-20px);
+       transition: all 0.6s ease-out;
+     }
+ 
+     .stagger-wrapper.active .stagger-item {
+       opacity: 1;
+       transform: translateX(0);
+     }
+ 
+     .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+     .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
+     .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
   </style>
-
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ScholarlyArticle",
-    "headline": "Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines",
-    "image": [
-      "https://ts-rf.github.io/static/images/fig1_structure.jpg"
-    ],
-    "datePublished": "2025-01-01",
-    "author": [
-      {"@type": "Person", "name": "Congcong Luo"},
-      {"@type": "Person", "name": "Minghang Zhao"},
-      {"@type": "Person", "name": "Xuyun Fu"}
-    ],
-    "publisher": {
-      "@type": "Organization",
-      "name": "Elsevier Measurement"
-    },
-    "description": "A physics-informed machine learning approach using SHAP for explainable fault diagnosis in marine diesel engines."
-  }
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": "热力学仿真辅助随机森林：面向船用柴油机燃烧室组件的可解释性故障诊断",
+      "image": [
+        "https://ts-rf.github.io/static/images/fig1_structure.jpg"
+      ],
+      "datePublished": "2025-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Congcong Luo"
+        },
+        {
+          "@type": "Person",
+          "name": "Minghang Zhao"
+        },
+        {
+          "@type": "Person",
+          "name": "Xuyun Fu"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Elsevier Measurement"
+      },
+      "description": "一种结合热力学仿真与 SHAP 的物理信息机器学习方法，用于船用柴油机故障诊断。"
+    }
   </script>
-  
 </head>
 <body>
-
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div class="navbar-menu">
-    <div class="navbar-start">
+  <nav aria-label="main navigation" class="navbar" role="navigation">
+    <div class="navbar-brand">
+      <a aria-expanded="false" aria-label="menu" class="navbar-burger" role="button">
+     <span aria-hidden="true">
+     </span>
+        <span aria-hidden="true">
+     </span>
+        <span aria-hidden="true">
+     </span>
+      </a>
     </div>
-
-    <a class="navbar-item navbar-absolute-center" href="https://scholar.google.com/citations?hl=zh-CN&user=k82TzLwAAAAJ" target="_blank">
-      <span class="icon" style="margin-right: 0.3rem;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" alt="Google Scholar" style="height: 20px; width: 20px;">
-      </span>
-      <span>Minghang Zhao (Google Scholar)</span>
-    </a>
-
-    <div class="navbar-end">
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          <span class="icon">
-            <i class="fas fa-globe"></i>
-          </span>
-          <span>语言</span>
-        </a>
-
-        <div class="navbar-dropdown is-right" style="max-height: 500px; overflow-y: auto;">
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/">
-            English
+    <div class="navbar-menu">
+      <div class="navbar-start">
+      </div>
+      <a class="navbar-item navbar-absolute-center" href="https://scholar.google.com/citations?hl=zh-CN&amp;user=k82TzLwAAAAJ" target="_blank">
+     <span class="icon" style="margin-right: 0.3rem;">
+      <img alt="Google Scholar" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" style="height: 20px; width: 20px;"/>
+     </span>
+        <span>
+      赵明航 (谷歌学术)
+     </span>
+      </a>
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+       <span class="icon">
+        <i class="fas fa-globe">
+        </i>
+       </span>
+            <span>
+        语言
+       </span>
           </a>
-          <a class="navbar-item" href="https://ts-rf.github.io/zh-CN/">
-            简体中文
-          </a>
-          <a class="navbar-item" href="https://ts-rf.github.io/zh-TW/">
-            繁體中文
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/hi/">
-            हिन्दी 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/es/">
-            Español 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/fr/">
-            Français 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/ar/">
-            العربية 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/pt/">
-            Português 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/ru/">
-            Русский 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/id/">
-            Indonesia
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/de/">
-            Deutsch 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/ja/">
-            日本語 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/tr/">
-            Türkçe 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/vi/">
-            Tiếng Việt 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/ko/">
-            한국어 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/fa/">
-            فارسی 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/it/">
-            Italiano 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/th/">
-            ไทย 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/pl/">
-            Polski 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/uk/">
-            Українська 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/ro/">
-            Română 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/nl/">
-            Nederlands 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/sv/">
-            Svenska 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/cs/">
-            Čeština 
-          </a>
-          
-          <a class="navbar-item" href="https://ts-rf.github.io/he/">
-            עברית 
-          </a>
-
+          <div class="navbar-dropdown is-right" style="max-height: 500px; overflow-y: auto;">
+            <a class="navbar-item" href="https://ts-rf.github.io/">
+              English
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/zh-CN/">
+              简体中文
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/zh-TW/">
+              繁體中文
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/hi/">
+              हिन्दी
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/es/">
+              Español
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/fr/">
+              Français
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/ar/">
+              العربية
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/pt/">
+              Português
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/ru/">
+              Русский
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/id/">
+              Indonesia
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/de/">
+              Deutsch
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/ja/">
+              日本語
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/tr/">
+              Türkçe
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/vi/">
+              Tiếng Việt
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/ko/">
+              한국어
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/fa/">
+              فارسی
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/it/">
+              Italiano
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/th/">
+              ไทย
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/pl/">
+              Polski
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/uk/">
+              Українська
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/ro/">
+              Română
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/nl/">
+              Nederlands
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/sv/">
+              Svenska
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/cs/">
+              Čeština
+            </a>
+            <a class="navbar-item" href="https://ts-rf.github.io/he/">
+              עברית
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</nav>
-
-
-<section class="hero reveal"> 
-  <div class="hero-body" style="padding-top: 1rem;">
+  </nav>
+  <section class="hero reveal">
+    <div class="hero-body" style="padding-top: 1rem;">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              热力学仿真辅助随机森林：面向船用柴油机燃烧室组件的可解释性故障诊断
+            </h1>
+            <div class="is-size-5 publication-authors">
+        <span class="author-block">
+         <strong>
+          Congcong Luo
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+              <span class="author-block">
+         <a href="https://homepage.hit.edu.cn/zhaominghang?lang=zh" style="color: inherit; text-decoration: underline;" target="_blank">
+          <strong>
+           Minghang Zhao
+          </strong>
+         </a>
+         <sup>
+          a,*
+         </sup>
+         ,
+        </span>
+              <span class="author-block">
+         <strong>
+          Xuyun Fu
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+              <span class="author-block">
+         <strong>
+          Shisheng Zhong
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+              <span class="author-block">
+         <strong>
+          Song Fu
+         </strong>
+         <sup>
+          b
+         </sup>
+         ,
+        </span>
+              <span class="author-block">
+         <strong>
+          Kai Zhang
+         </strong>
+         <sup>
+          c
+         </sup>
+         ,
+        </span>
+              <span class="author-block">
+         <strong>
+          Xiaoxia Yu
+         </strong>
+         <sup>
+          d
+         </sup>
+        </span>
+            </div>
+            <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
+        <span class="author-block">
+         <sup>
+          a
+         </sup>
+         哈尔滨工业大学（威海） 机械工程系，威海 264209，中国
+        </span>
+              <br/>
+              <span class="author-block">
+         <sup>
+          b
+         </sup>
+         哈尔滨工业大学 机电工程学院，哈尔滨 150001，中国
+        </span>
+              <br/>
+              <span class="author-block">
+         <sup>
+          c
+         </sup>
+         西南交通大学 机械工程学院，成都 610031，中国
+        </span>
+              <br/>
+              <span class="author-block">
+         <sup>
+          d
+         </sup>
+         重庆理工大学 机械工程学院，重庆 400054，中国
+        </span>
+            </div>
+            <div class="column has-text-centered">
+              <div class="publication-links">
+         <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-pdf">
+            </i>
+           </span>
+           <span>
+            论文
+           </span>
+          </a>
+         </span>
+                <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/815177491/TSRF.github.io/releases/tag/DATA" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-csv">
+            </i>
+           </span>
+           <span>
+            数据集
+           </span>
+          </a>
+         </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top: 0rem; margin-top: 0rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 reveal">
+            摘要
+          </h2>
+          <div class="content has-text-justified reveal delay-1">
+            <p>
+              针对传统船用柴油机智能故障诊断方法常因缺乏故障训练样本而导致泛化能力低，以及因未充分结合故障机理领域知识而导致可解释性差的问题，本文提出了一种
+              <strong>
+                热力学仿真辅助随机森林 (TSRF)
+              </strong>
+              方法。
+            </p>
+            <p>
+              该方法通过热力学仿真揭示故障特征，并在设计智能故障诊断模型时将其作为先验知识。首先，通过微调基本系统参数以对应不同故障的显著属性，开发了五个热力学故障模型。然后，通过数值模拟结果确定燃烧室组件退化的潜在热力学指标。
+            </p>
+            <p>
+              通过计算 SHapley Additive explanations (SHAP) 值，进行参数选择过程，仅保留与故障状态显示出显著相关性的变量。最后，利用选定的参数评估燃烧室的状态。所提出的 TSRF 实现了卓越的分类性能，在故障数据集上的平均准确率达到 99.07%。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top: 1rem; margin-top: 1rem;">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines</h1>
-          
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><strong>Congcong Luo</strong><sup>a</sup>,</span>
-            <span class="author-block">
-              <a href="https://homepage.hit.edu.cn/zhaominghang?lang=zh" target="_blank" style="color: inherit; text-decoration: underline;"><strong>Minghang Zhao</strong></a><sup>a,*</sup>,
-            </span>
-            <span class="author-block"><strong>Xuyun Fu</strong><sup>a</sup>,</span>
-            <span class="author-block"><strong>Shisheng Zhong</strong><sup>a</sup>,</span>
-            <span class="author-block"><strong>Song Fu</strong><sup>b</sup>,</span>
-            <span class="author-block"><strong>Kai Zhang</strong><sup>c</sup>,</span>
-            <span class="author-block"><strong>Xiaoxia Yu</strong><sup>d</sup></span>
-          </div>
-
-          <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
-            <span class="author-block"><sup>a</sup>Department of Mechanical Engineering, Harbin Institute of Technology, Weihai 264209, China</span><br>
-            <span class="author-block"><sup>b</sup>School of Mechatronics Engineering, Harbin Institute of Technology, Harbin 150001, China</span><br>
-            <span class="author-block"><sup>c</sup>School of Mechanical Engineering, Southwest Jiaotong University, Chengdu 610031, China</span><br>
-            <span class="author-block"><sup>d</sup>College of Mechanical Engineering, Chongqing University of Technology, Chongqing 400054, China</span>
-          </div>
-
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <span class="link-block">
-                <a href="https://doi.org/10.1016/j.measurement.2025.117252"
-                   class="button is-normal is-rounded is-dark hover-card" 
-                   target="_blank">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://github.com/815177491/TSRF.github.io/releases/tag/DATA"
-                   target="_blank"
-                   class="button is-normal is-rounded is-dark hover-card">
-                  <span class="icon">
-                      <i class="fas fa-file-csv"></i>
-                  </span>
-                  <span>Dataset</span>
-                  </a>
-                </span>
-                </a>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top: 0rem; margin-top: 0rem;">
-    <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3 reveal">Abstract</h2>
-        <div class="content has-text-justified reveal delay-1">
-          <p>
-            Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a 
-            <strong>Thermodynamic Simulation-assisted Random Forest (TSRF)</strong>.
-          </p>
-          <p>
-            The method reveals fault characteristics through thermodynamic simulations and incorporates them as prior knowledge when designing the intelligent fault diagnosis model. Firstly, five thermodynamic fault models are developed by fine-tuning the essential system parameters to correspond with the distinct attributes of different faults. Then, potential thermodynamic indicators of combustion chamber component degradation are identified through numerical simulation results.
-          </p>
-          <p>
-            By calculating SHapley Additive explanations (SHAP) values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of 99.07% on the fault dataset.
-          </p>
-
-          <div class="keywords-container" style="margin-top: 2rem;">
-            <span class="keyword-label">Keywords:</span>
-            <div class="tags is-inline-block">
-              <span class="tag is-light is-info">Marine Diesel Engine</span>
-              <span class="tag is-light is-info">Fault Diagnosis</span>
-              <span class="tag is-light is-info">Explainable AI</span>
-              <span class="tag is-light is-info">SHAP</span>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-    </div>
-</section>
-
-<section class="section" style="padding-top: 1rem; margin-top: 1rem;">
-  <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3 reveal">Motivation</h2>
-        <div class="content has-text-justified reveal delay-1">
-          <p>
-            In the fields of marine engineering and Prognostics and Health Management (PHM), the industry faces two persistent bottlenecks:
-          </p>
-          <ul>
-            <li><strong>Data Scarcity:</strong> Marine engines are high-value assets that are rarely operated to failure. This results in a critical shortage of the labeled "fault data" necessary to train robust machine learning models.</li>
-            <li><strong>The "Black Box" Problem:</strong> Deep learning models often lack transparency. If an AI diagnoses a fault but cannot explain the physical reasoning, it is difficult for engineers to trust it. This lack of interpretability is a primary obstacle to widespread industry adoption.</li>
-          </ul>
-          <p>
-            To overcome these challenges, we introduce TSRF. By fusing physics-based mechanism models with advanced XAI techniques, we address the data scarcity problem through massive synthetic data generation and ensure that diagnostic decisions align with thermodynamic principles.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3 reveal">Methodology</h2>
-        
-        <div class="content has-text-justified reveal delay-1">
-          <p>
-            Our workflow consists of four distinct stages, as illustrated below:
-          </p>
-          <ol>
-            <li><strong>Thermodynamic Modeling:</strong> Rather than relying solely on physical test rigs, we constructed a high-fidelity 1-D thermodynamic model of a 6-cylinder marine diesel engine. The model was rigorously calibrated using real-world operational data, keeping simulation errors within 5%.</li>
-            <li><strong>Fault Injection:</strong> Using the calibrated model, we simulated five specific combustion chamber faults (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This enabled the generation of a comprehensive dataset covering scenarios that are impossible to capture from a real engine.</li>
-            <li><strong>Feature Selection via SHAP:</strong> We utilized SHAP values to quantitatively identify the critical features—specifically, the 14 key parameters that drive the diagnostic decision.</li>
-            <li><strong>Classification:</strong> A Random Forest (RF) classifier was trained using this physics-enhanced dataset to achieve high diagnostic precision.</li>
-          </ol>
-        </div>
-        
-        <div class="has-text-centered reveal delay-2">
-          <img src="../static/images/fig1_structure.jpg" class="hover-card" alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" style="width:100%; height:auto; border-radius: 10px;">
-          <p class="subtitle is-6">
-            <strong>Figure 1:</strong> The structure of our proposed TSRF method. It combines thermodynamic modeling with SHAP-based parameter selection.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        
-        <h2 class="title is-3 reveal">Thermodynamic Modeling Details</h2>
-        
-        <div class="content has-text-justified reveal delay-1">
-          <p>
-            To ensure high fidelity, we constructed a one-dimensional (1-D) operational cycle simulation. This mechanism model balances physical accuracy with the computational efficiency required for large-scale dataset generation.
-          </p>
-        </div>
-
-        <div class="columns is-centered">
-          <div class="column is-6 reveal delay-2">
-            <div class="box hover-card" style="height: 100%;">
-              <h4 class="title is-4 is-size-5">
-                <span class="icon has-text-info" style="margin-right: 8px;">
-                  <i class="fas fa-network-wired"></i>
-                </span>
-                Model Topology
-              </h4>
-              <div class="content is-size-6">
-                <p>The engine is discretized into a network of flow pipes and functional components:</p>
-                <ul>
-                  <li><strong>Core Power Unit:</strong> 6-cylinder, 2-stroke inline configuration.</li>
-                  <li><strong>Air Path System:</strong> Intake/Exhaust manifolds (PL1, PL2) connected via complex piping networks.</li>
-                  <li><strong>Boosting System:</strong> Turbocharger (TC1) coupled with an intercooler (CO1).</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-6 reveal delay-3">
-            <div class="box hover-card" style="height: 100%;">
-              <h4 class="title is-4 is-size-5">
-                <span class="icon has-text-success" style="margin-right: 8px;">
-                  <i class="fas fa-check-double"></i>
-                </span>
-                Calibration & Validation
-              </h4>
-              <div class="content is-size-6">
-                <p>Before fault injection, the baseline model was rigorously calibrated against empirical data.</p>
-                <ul>
-                  <li><strong>Data Source:</strong> Real-world vessel data acquired via Data Collecting Module (DCM).</li>
-                  <li><strong>Validation:</strong> The deviation for critical parameters (e.g., Power, Exhaust Temp) was maintained within a <strong>&plusmn;5% error margin</strong>.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="columns is-centered reveal" style="margin-top: 1rem; margin-bottom: 1rem;">
-          
-          <div class="column is-8 has-text-centered">
-            <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-              <img src="../static/images/fig2_simulator.png" 
-                   class="hover-card" 
-                   alt="1-D thermodynamic simulation model" 
-                   style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;">
-            </div>
-            <p class="subtitle is-6">
-              <strong>Figure 2:</strong> One-dimensional thermodynamic model of the diesel engine.
-            </p>
-          </div>
-
-          <div class="column is-4 has-text-centered">
-            <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-              <img src="../static/images/fig5_faults.jpg" 
-                   class="hover-card" 
-                   alt="Model Validation Results" 
-                   style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;">
-            </div>
-            <p class="subtitle is-6">
-              <strong>Figure 5:</strong> Data Collecting Module (DCM).
-            </p>
-          </div>
-
-        </div>
-
-        <div class="box hover-card reveal" style="margin-top: 1.5rem;">
-          <h4 class="title is-4 is-size-5" style="display: flex; align-items: center; justify-content: center;">
-            <span class="icon has-text-black" style="margin-right: 8px;">
-              <i class="fas fa-cogs"></i>
-            </span>
-            <span>Fault Injection Mechanism</span>
-          </h4>
-          <div class="content has-text-justified is-size-6">
+        <div class="column is-full-width">
+          <h2 class="title is-3 reveal">
+            研究动机
+          </h2>
+          <div class="content has-text-justified reveal delay-1">
             <p>
-              Since 1-D models cannot directly represent 3D structural defects, we employed a phenomenological mapping approach, translating physical degradation mechanisms into equivalent thermodynamic parameter shifts.
+              在海洋工程和预测与健康管理 (PHM) 领域，行业面临两个持久的瓶颈：
             </p>
-          </div>
-          
-          <div class="table-container">
-            <table class="table is-fullwidth is-striped is-hoverable is-size-6">
-              <thead>
-                <tr style="background-color: #f5f5f5;">
-                  <th style="width: 20%;">Fault Type</th>
-                  <th style="width: 35%;">Physical Mechanism</th>
-                  <th>Modeling Implementation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>F1: Head Cracking</strong></td>
-                  <td>Disrupted thermal conduction.</td>
-                  <td>Elevating Cylinder Head Surface Temp ($T_H$) to 346&deg;C.</td>
-                </tr>
-                <tr>
-                  <td><strong>F2: Piston Ablation</strong></td>
-                  <td>Material loss & seal compromise.</td>
-                  <td>Increasing Piston Temp ($T_P$) + minor blow-by (0.01 kg/s).</td>
-                </tr>
-                <tr>
-                  <td><strong>F3: Liner Wear</strong></td>
-                  <td>Abrasive wear increases bore.</td>
-                  <td>Increasing Bore Diameter + substantial blow-by (0.03 kg/s).</td>
-                </tr>
-                <tr>
-                  <td><strong>F4: Ring Wear</strong></td>
-                  <td>Gas leakage only.</td>
-                  <td>Modulation of Blow-by Mass Flow Rate (0.02 kg/s).</td>
-                </tr>
-                <tr>
-                  <td><strong>F5: Ring Sticking</strong></td>
-                  <td>Friction & seal failure.</td>
-                  <td>Bore Dia. change + Elevated Liner Temp + Blow-by.</td>
-                </tr>
-              </tbody>
-            </table>
+            <ul>
+              <li>
+                <strong>
+                  数据稀缺：
+                </strong>
+                船用发动机是高价值资产，很少运行到故障。这导致训练鲁棒机器学习模型所需的标记“故障数据”严重短缺。
+              </li>
+              <li>
+                <strong>
+                  “黑盒”问题：
+                </strong>
+                深度学习模型通常缺乏透明度。如果 AI 诊断出故障但无法解释物理原因，工程师很难信任它。缺乏可解释性是行业广泛采用的主要障碍。
+              </li>
+            </ul>
+            <p>
+              为了克服这些挑战，我们引入了 TSRF。通过将基于物理的机理模型与先进的 XAI 技术融合，我们通过大量合成数据生成解决了数据稀缺问题，并确保诊断决策符合热力学原理。
+            </p>
           </div>
         </div>
       </div>
-    </div>
-
-    <hr>
-    
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3 reveal">Explainability Analysis</h2>
-        
-        <div class="content has-text-justified reveal delay-1">
-          <p>
-            A key innovation of our work is shifting the focus from "What is the fault?" to "Why is this the fault?". We demonstrate this capability through a case study on Piston Ring Wear (F4):
-          </p>
-          <ul>
-            <li><strong>Local Interpretation (Waterfall Plot):</strong> The waterfall plot explains specific predictions. For instance, the model predicts "Ring Wear" because Blow-by Heat Flow (P06) and Blow-by Mass Flow (P07) exhibit specific values that increase the probability. This aligns with physics: ring wear compromises the seal, leading to gas leakage (blow-by).</li>
-            <li><strong>Global Interpretation (Beeswarm Plot):</strong> Global analysis reveals the general rules learned by the model. We found that low values of Pre-turbo Exhaust Pressure (P11) are strong indicators of Ring Wear. Physically, this is consistent: worn rings allow gas to leak from the cylinder, reducing the energy available to the turbine.</li>
-          </ul>
-        </div>
-        
-        <div class="has-text-centered reveal delay-2">
-            <img src="../static/images/fig11_shap.jpg" class="hover-card" alt="SHAP Analysis,including Waterfall plot, beeswarm plot, interaction plot and dependence plot" style="width:100%; border-radius: 10px;">
-            <p class="subtitle is-6">
-                <strong>Figure 11:</strong> Fault analysis of piston ring wear (F4) based on SHAP values: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
+      <hr/>
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3 reveal">
+            方法论
+          </h2>
+          <div class="content has-text-justified reveal delay-1">
+            <p>
+              我们的工作流程由四个不同的阶段组成，如下图所示：
             </p>
+            <ol>
+              <li>
+                <strong>
+                  热力学建模：
+                </strong>
+                我们不仅仅依赖物理试验台，而是构建了 6 缸船用柴油机的高保真一维热力学模型。该模型使用真实世界的运行数据进行了严格校准，仿真误差保持在 5% 以内。
+              </li>
+              <li>
+                <strong>
+                  故障注入：
+                </strong>
+                使用校准后的模型，我们通过微调物理参数模拟了五种特定的燃烧室故障（例如，气缸盖裂纹，活塞烧蚀）。这使得生成涵盖真实发动机无法捕获的场景的综合数据集成为可能。
+              </li>
+              <li>
+                <strong>
+                  基于 SHAP 的特征选择：
+                </strong>
+                我们利用 SHAP 值定量识别关键特征——具体来说，是驱动诊断决策的 14 个关键参数。
+              </li>
+              <li>
+                <strong>
+                  分类：
+                </strong>
+                使用这个物理增强的数据集训练随机森林 (RF) 分类器，以实现高诊断精度。
+              </li>
+            </ol>
+          </div>
+          <div class="has-text-centered reveal delay-2">
+            <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+            <p class="subtitle is-6">
+              <strong>
+                图 1：
+              </strong>
+              我们提出的 TSRF 方法结构。它结合了热力学建模与基于 SHAP 的参数选择。
+            </p>
+          </div>
         </div>
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xcode.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-        
-        <div class="reveal delay-2" style="margin-top: 2rem; margin-bottom: 2rem;">
-          <details class="box hover-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
-            <summary class="title is-5 is-size-6-mobile" style="cursor: pointer; color: #363636; margin-bottom: 0;">
-              <span class="icon has-text-info" style="margin-right: 0.5rem;">
-                <i class="fas fa-code"></i>
-              </span>
-              <span>Click to view SHAP Visualization Code (Python)</span>
-            </summary>
-            
-            <div class="content has-text-left" style="margin-top: 1.5rem;">
-              <p>
-                If you are interested in the implementation details of the figures above, here is the sample code used to generate the Waterfall, Beeswarm, Interaction, and Dependence plots.👇
+      </div>
+      <hr/>
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3 reveal">
+            热力学建模细节
+          </h2>
+          <div class="content has-text-justified reveal delay-1">
+            <p>
+              为了确保高保真度，我们构建了一维 (1-D) 运行循环模拟。该机理模型平衡了物理精度与大规模数据集生成所需的计算效率。
+            </p>
+          </div>
+          <div class="columns is-centered">
+            <div class="column is-6 reveal delay-2">
+              <div class="box hover-card" style="height: 100%;">
+                <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-info" style="margin-right: 8px;">
+           <i class="fas fa-network-wired">
+           </i>
+          </span>
+                  模型拓扑
+                </h4>
+                <div class="content is-size-6">
+                  <p>
+                    发动机被离散化为流体管道和功能组件网络：
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>
+                        核心动力单元：
+                      </strong>
+                      6 缸，2 冲程直列配置。
+                    </li>
+                    <li>
+                      <strong>
+                        气路系统：
+                      </strong>
+                      进/排气歧管 (PL1, PL2) 通过复杂的管道网络连接。
+                    </li>
+                    <li>
+                      <strong>
+                        增压系统：
+                      </strong>
+                      涡轮增压器 (TC1) 与中冷器 (CO1) 耦合。
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="column is-6 reveal delay-3">
+              <div class="box hover-card" style="height: 100%;">
+                <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-success" style="margin-right: 8px;">
+           <i class="fas fa-check-double">
+           </i>
+          </span>
+                  校准与验证
+                </h4>
+                <div class="content is-size-6">
+                  <p>
+                    在故障注入之前，基线模型根据经验数据进行了严格校准。
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>
+                        数据来源：
+                      </strong>
+                      通过数据采集模块 (DCM) 获取的真实船舶数据。
+                    </li>
+                    <li>
+                      <strong>
+                        验证：
+                      </strong>
+                      关键参数（例如，功率，排气温度）的偏差保持在
+                      <strong>
+                        ±5% 误差范围内
+                      </strong>
+                      。
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns is-centered reveal" style="margin-top: 1rem; margin-bottom: 1rem;">
+            <div class="column is-8 has-text-centered">
+              <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                <img alt="1-D thermodynamic simulation model" class="hover-card" src="../static/images/fig2_simulator.png" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+              </div>
+              <p class="subtitle is-6">
+                <strong>
+                  图 2：
+                </strong>
+                柴油机的一维热力学模型。
               </p>
-              
-              <pre style="padding: 0; border-radius: 8px; overflow: hidden;"><code class="language-python" style="border-radius: 8px; font-size: 0.85rem; line-height: 1.5;">import shap
+            </div>
+            <div class="column is-4 has-text-centered">
+              <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                <img alt="Model Validation Results" class="hover-card" src="../static/images/fig5_faults.jpg" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+              </div>
+              <p class="subtitle is-6">
+                <strong>
+                  图 5：
+                </strong>
+                数据采集模块 (DCM)。
+              </p>
+            </div>
+          </div>
+          <div class="box hover-card reveal" style="margin-top: 1.5rem;">
+            <h4 class="title is-4 is-size-5" style="display: flex; align-items: center; justify-content: center;">
+        <span class="icon has-text-black" style="margin-right: 8px;">
+         <i class="fas fa-cogs">
+         </i>
+        </span>
+              <span>
+         Fault Injection Mechanism
+        </span>
+              故障注入机制
+            </h4>
+            <div class="content has-text-justified is-size-6">
+              <p>
+                由于一维模型不能直接表示 3D 结构缺陷，我们采用了现象学映射方法，将物理退化机制转化为等效的热力学参数偏移。
+              </p>
+            </div>
+            <div class="table-container">
+              <table class="table is-fullwidth is-striped is-hoverable is-size-6">
+                <thead>
+                  <tr style="background-color: #f5f5f5;">
+                    <th style="width: 20%;">
+                      故障类型
+                    </th>
+                    <th style="width: 35%;">
+                      物理机制
+                    </th>
+                    <th>
+                      建模实现
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>
+                        F1: 气缸盖裂纹
+                      </strong>
+                    </td>
+                    <td>
+                      热传导中断。
+                    </td>
+                    <td>
+                      将气缸盖表面温度 ($T_H$) 提高到 346&amp;deg;C。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        F2: 活塞烧蚀
+                      </strong>
+                    </td>
+                    <td>
+                      材料损失和密封受损。
+                    </td>
+                    <td>
+                      增加活塞温度 ($T_P$) + 轻微窜气 (0.01 kg/s)。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        F3: 缸套磨损
+                      </strong>
+                    </td>
+                    <td>
+                      磨料磨损增加缸径。
+                    </td>
+                    <td>
+                      增加缸径 + 大量窜气 (0.03 kg/s)。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        F4: 活塞环磨损
+                      </strong>
+                    </td>
+                    <td>
+                      仅气体泄漏。
+                    </td>
+                    <td>
+                      调节窜气质量流量 (0.02 kg/s)。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        F5: 活塞环粘着
+                      </strong>
+                    </td>
+                    <td>
+                      摩擦和密封失效。
+                    </td>
+                    <td>
+                      缸径变化 + 缸套温度升高 + 窜气。
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3 reveal">
+            可解释性分析
+          </h2>
+          <div class="content has-text-justified reveal delay-1">
+            <p>
+              我们工作的一个关键创新是将重点从“故障是什么？”转移到“为什么是这个故障？”。我们通过活塞环磨损 (F4) 的案例研究展示了这种能力：
+            </p>
+            <ul>
+              <li>
+                <strong>
+                  局部解释 (瀑布图)：
+                </strong>
+                瀑布图解释了具体的预测。例如，模型预测“活塞环磨损”，因为窜气热流 (P06) 和窜气质量流量 (P07) 表现出特定的值，增加了概率。这符合物理学：活塞环磨损破坏了密封，导致气体泄漏（窜气）。
+              </li>
+              <li>
+                <strong>
+                  全局解释 (蜂群图)：
+                </strong>
+                全局分析揭示了模型学到的一般规则。我们发现涡轮前排气压力 (P11) 的低值是活塞环磨损的强指标。在物理上，这是一致的：磨损的活塞环允许气体从气缸泄漏，减少了涡轮可用的能量。
+              </li>
+            </ul>
+          </div>
+          <div class="has-text-centered reveal delay-2">
+            <img alt="SHAP Analysis,including Waterfall plot, beeswarm plot, interaction plot and dependence plot" class="hover-card" src="../static/images/fig11_shap.jpg" style="width:100%; border-radius: 10px;"/>
+            <p class="subtitle is-6">
+              <strong>
+                图 11：
+              </strong>
+              基于 SHAP 值的活塞环磨损 (F4) 故障分析：(a) 瀑布图；(b) 蜂群图；(c) 交互图；(d) 依赖图。
+            </p>
+          </div>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xcode.min.css" rel="stylesheet"/>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">
+          </script>
+          <script>
+            hljs.highlightAll();
+          </script>
+          <div class="reveal delay-2" style="margin-top: 2rem; margin-bottom: 2rem;">
+            <details class="box hover-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
+              <summary class="title is-5 is-size-6-mobile" style="cursor: pointer; color: #363636; margin-bottom: 0;">
+         <span class="icon has-text-info" style="margin-right: 0.5rem;">
+          <i class="fas fa-code">
+          </i>
+         </span>
+                <span>
+          点击查看 SHAP 可视化代码 (Python)
+         </span>
+              </summary>
+              <div class="content has-text-left" style="margin-top: 1.5rem;">
+                <p>
+                <p>
+                  如果您对上图的实现细节感兴趣，这里是用于生成瀑布图、蜂群图、交互图和依赖图的示例代码。👇
+                </p>
+                </p>
+                <pre style="padding: 0; border-radius: 8px; overflow: hidden;"><code class="language-python" style="border-radius: 8px; font-size: 0.85rem; line-height: 1.5;">import shap
 import matplotlib.pyplot as plt
 import numpy as np
 
-# --- 0. Setup & Global Settings ---
+# --- 0. Setup &amp; Global Settings ---
 plt.rcParams['font.family'] = 'Arial'
 plt.rcParams['font.size'] = '24'
 plt.rcParams['axes.unicode_minus'] = False
@@ -734,7 +909,7 @@ plt.show()
 ##################################################################
 #                                                                #
 #            (e) Advanced Composite Plot (Beeswarm + Bar)        #
-#      Combines Beeswarm (Bottom Axis) & Importance (Top Axis)   #
+#      Combines Beeswarm (Bottom Axis) &amp; Importance (Top Axis)   #
 #                                                                #
 ##################################################################
 
@@ -774,7 +949,7 @@ shap.summary_plot(
 # Align position with the main plot
 plt.gca().set_position([0.2, 0.2, 0.65, 0.65]) 
 
-# Style the bars (Transparent & Light Color)
+# Style the bars (Transparent &amp; Light Color)
 bars = ax2.patches
 for bar in bars:
     bar.set_color('#CCE5FB') # Light blue background bars
@@ -794,59 +969,62 @@ ax1.set_zorder(ax1.get_zorder() + 1)
 ax1.patch.set_visible(False) # Make ax1 background transparent
 
 plt.show()</code></pre>
-              
-            </div>
-          </details>
-        </div>
-              
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3 reveal">Research Highlights</h2>
-        <div class="content has-text-justified reveal delay-1">
-          <p>
-            We believe this work offers several key contributions to the field:
-          </p>
-          
-           <ul class="highlight-list stagger-wrapper"> 
-            <li class="stagger-item hover-card">
-                <strong>Performs parameterized modeling of five faults in marine diesel engine combustion chamber.</strong>
-            </li>
-            <li class="stagger-item hover-card">
-                <strong>Evaluated the effectiveness of SHAP method through comparison with multiple feature selection methods.</strong> 
-            </li>
-            <li class="stagger-item hover-card">
-                <strong>A novel insight into interpretable fault diagnosis is provided by integrating data-driven method with thermodynamic model.</strong> 
-            </li>
-          </ul>
+              </div>
+            </details>
+          </div>
         </div>
       </div>
+      <hr/>
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3 reveal">
+            研究亮点
+          </h2>
+          <div class="content has-text-justified reveal delay-1">
+            <p>
+            <p>
+              我们认为这项工作为该领域提供了几个关键贡献：
+            </p>
+            </p>
+            <ul class="highlight-list stagger-wrapper">
+              <li class="stagger-item hover-card">
+                <strong>
+                  对船用柴油机燃烧室组件的五种故障进行了参数化建模。
+                </strong>
+              </li>
+              <li class="stagger-item hover-card">
+                <strong>
+                  通过与多种特征选择方法的比较，评估了 SHAP 方法的有效性。
+                </strong>
+              </li>
+              <li class="stagger-item hover-card">
+                <strong>
+                  通过将数据驱动方法与热力学模型相结合，为可解释的故障诊断提供了新的见解。
+                </strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-
-  </div>
-</section>
-
-<section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
-  <div class="container is-max-desktop content">
-    
-    <hr>
-
-    <h2 class="title">Citation</h2>
-    
-    <div class="citation-prompt">
-      <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
-        <i class="fas fa-quote-left"></i>
-      </span>
-      If you find this work useful for your research, please consider citing 😊
-    </div>
-
-    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">BibTeX</h4>
-    
-    <pre style="margin-bottom: 5px; background-color: #fcfcfc; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem;"><code id="bibtex-source" class="language-latex" style="font-family: 'Times New Roman', Times, serif !important; font-size: 16px; line-height: 1.5;">@article{luo2025thermodynamic,
+  </section>
+  <section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
+    <div class="container is-max-desktop content">
+      <hr/>
+      <h2 class="title">
+        引用
+      </h2>
+      <div class="citation-prompt">
+     <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
+      <i class="fas fa-quote-left">
+      </i>
+     </span>
+        如果您发现这项工作对您的研究有用，请考虑引用 😊
+      </div>
+      <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+        BibTeX
+      </h4>
+      <pre style="margin-bottom: 5px; background-color: #fcfcfc; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem;"><code class="language-latex" id="bibtex-source" style="font-family: 'Times New Roman', Times, serif !important; font-size: 16px; line-height: 1.5;">@article{luo2025thermodynamic,
   title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
   author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
   journal   = {Measurement},
@@ -856,166 +1034,193 @@ plt.show()</code></pre>
   publisher = {Elsevier},
   doi       = {10.1016/j.measurement.2025.117252},
 }</code></pre>
-    
-    <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
-      <div class="level-left">
-        <button class="button is-dark is-small is-rounded" onclick="copyText('bibtex-source', this)">
-          <span class="icon is-small">
-            <i class="fas fa-copy"></i>
-          </span>
-          <span class="btn-text">Copy BibTeX</span>
-        </button>
+      <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
+        <div class="level-left">
+          <button class="button is-dark is-small is-rounded" onclick="copyText('bibtex-source', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+            <span class="btn-text">
+        Copy BibTeX
+       </span>
+          </button>
+        </div>
+      </div>
+      <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+        标准格式
+      </h4>
+      <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem; margin-bottom: 5px;">
+        <p id="standard-citation" style="margin-bottom: 0; font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.5;">
+          C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
+        </p>
+      </div>
+      <div class="level is-mobile" style="margin-top: 10px;">
+        <div class="level-left">
+          <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+            <span class="btn-text">
+        Copy Text
+       </span>
+          </button>
+          <a class="button is-text is-small" href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" style="text-decoration: none; margin-left: 10px;" target="_blank">
+       <span class="icon has-text-info">
+        <i class="fas fa-external-link-alt">
+        </i>
+       </span>
+            <span>
+        View on ScienceDirect
+       </span>
+          </a>
+        </div>
       </div>
     </div>
-
-    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">Standard Format</h4>
-    
-    <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem; margin-bottom: 5px;">
-      <p id="standard-citation" style="margin-bottom: 0; font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.5;">
-        C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
-      </p>
-    </div>
-
-    <div class="level is-mobile" style="margin-top: 10px;">
-      <div class="level-left">
-        <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
-          <span class="icon is-small">
-            <i class="fas fa-copy"></i>
-          </span>
-          <span class="btn-text">Copy Text</span>
-        </button>
-        
-        <a href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" target="_blank" class="button is-text is-small" style="text-decoration: none; margin-left: 10px;">
-          <span class="icon has-text-info">
-            <i class="fas fa-external-link-alt"></i>
-          </span>
-          <span>View on ScienceDirect</span>
+  </section>
+  <style>
+    .citation-prompt {
+     background-color: #f5f5f5;
+     border-left: 5px solid #3273dc;
+     padding: 1rem 1.5rem;
+     margin-bottom: 2rem;
+     border-radius: 4px;
+     font-size: 1.1rem;
+     color: #4a4a4a;
+     font-weight: 500;
+   }
+   /* 确保 pre 标签不会因为框架样式干扰 padding */
+   pre {
+       padding: 1.25rem !important;
+   }
+  </style>
+  <script>
+    function copyText(elementId, btn) {
+     const textToCopy = document.getElementById(elementId).innerText;
+     navigator.clipboard.writeText(textToCopy).then(() => {
+       const icon = btn.querySelector('.fa-copy');
+       const text = btn.querySelector('.btn-text');
+       const originalText = text.innerText;
+       
+       if(icon) {
+         icon.classList.remove('fa-copy');
+         icon.classList.add('fa-check');
+       }
+       if(text) text.innerText = "Copied!";
+       
+       btn.classList.remove('is-dark');
+       btn.classList.add('is-success');
+       
+       setTimeout(() => {
+         if(icon) {
+           icon.classList.remove('fa-check');
+           icon.classList.add('fa-copy');
+         }
+         if(text) text.innerText = originalText;
+         btn.classList.remove('is-success');
+         btn.classList.add('is-dark');
+       }, 2000);
+     }).catch(err => {
+       console.error('Failed to copy: ', err);
+     });
+   }
+  </script>
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="https://doi.org/10.1016/j.measurement.2025.117252">
+          <i class="fas fa-file-pdf">
+          </i>
+        </a>
+        <a class="external-link" disabled="" href="#">
+          <i class="fab fa-github">
+          </i>
         </a>
       </div>
+      <div class="columns is-centered is-vcentered">
+        <div class="column is-6">
+          <div class="content">
+            <p>
+              This website is licensed under a
+              <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license">
+                Creative
+                Commons Attribution-ShareAlike 4.0 International License
+              </a>
+              .
+            </p>
+            <p>
+              Copyright © 2025 Congcong Luo et al. Published in
+              <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">
+                Measurement
+              </a>
+              .
+            </p>
+            <p>
+              This website is adapted from the
+              <a href="https://github.com/nerfies/nerfies.github.io">
+                Nerfies
+              </a>
+              project page template.
+            </p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+              <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+              </script>
+              <span id="busuanzi_container_site_uv" style="display:none">
+         访客数：
+         <span id="busuanzi_value_site_uv" style="font-weight: bold;">
+         </span>
+        </span>
+              <span style="margin: 0 8px; color: #ccc;">
+         |
+        </span>
+              <span id="busuanzi_container_site_pv" style="display:none">
+         总访问量：
+         <span id="busuanzi_value_site_pv" style="font-weight: bold;">
+         </span>
+        </span>
+            </p>
+          </div>
+        </div>
+        <div class="column is-2">
+          <div style="width: 100%; max-width: 200px; margin: 0 auto 0 0;">
+            <script id="clstr_globe" src="//clustrmaps.com/globe.js?d=_zkZv1bfxiqAq8HXllAuUZNIvCYv603-zyA7z-Vpjfw" type="text/javascript">
+            </script>
+          </div>
+        </div>
+      </div>
     </div>
-
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+     const observer = new IntersectionObserver((entries) => {
+         entries.forEach(entry => {
+             if (entry.isIntersecting) {
+                 entry.target.classList.add('active');
+                 
+             }
+         });
+     }, {
+         threshold: 0.1 
+     });
+   
+     // 监听 reveal 类和 stagger-wrapper 类
+     document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
+         observer.observe(el);
+     });
+ });
+  </script>
+  <div class="notification is-info is-light" id="lang-suggest-modal" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); max-width: 300px;">
+    <button class="delete" onclick="document.getElementById('lang-suggest-modal').style.display='none'">
+    </button>
+    <p id="lang-suggest-text" style="font-size: 0.9rem; margin-bottom: 10px; font-weight: bold;">
+      检测到您的浏览器语言是中文，建议访问中文版。
+    </p>
+    <div class="buttons is-right">
+      <a class="button is-info is-small is-rounded" href="https://ts-rf.github.io/zh-CN/" id="lang-suggest-link">
+        跳转中文版
+      </a>
+    </div>
   </div>
-</section>
-
-<style>
-  .citation-prompt {
-    background-color: #f5f5f5;
-    border-left: 5px solid #3273dc;
-    padding: 1rem 1.5rem;
-    margin-bottom: 2rem;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    color: #4a4a4a;
-    font-weight: 500;
-  }
-  /* 确保 pre 标签不会因为框架样式干扰 padding */
-  pre {
-      padding: 1.25rem !important;
-  }
-</style>
-
-<script>
-  function copyText(elementId, btn) {
-    const textToCopy = document.getElementById(elementId).innerText;
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      const icon = btn.querySelector('.fa-copy');
-      const text = btn.querySelector('.btn-text');
-      const originalText = text.innerText;
-      
-      if(icon) {
-        icon.classList.remove('fa-copy');
-        icon.classList.add('fa-check');
-      }
-      if(text) text.innerText = "Copied!";
-      
-      btn.classList.remove('is-dark');
-      btn.classList.add('is-success');
-      
-      setTimeout(() => {
-        if(icon) {
-          icon.classList.remove('fa-check');
-          icon.classList.add('fa-copy');
-        }
-        if(text) text.innerText = originalText;
-        btn.classList.remove('is-success');
-        btn.classList.add('is-dark');
-      }, 2000);
-    }).catch(err => {
-      console.error('Failed to copy: ', err);
-    });
-  }
-</script>
-
-<footer class="footer">
-  <div class="container">
-    
-    <div class="content has-text-centered">
-      <a class="icon-link" href="https://doi.org/10.1016/j.measurement.2025.117252">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="#" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-
-    <div class="columns is-centered is-vcentered">
-      
-      <div class="column is-6">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            Copyright © 2025 Congcong Luo et al. Published in <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">Measurement</a>.
-          </p>
-          <p>
-            This website is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template.
-          </p>
-          <p style="margin-top: 10px; font-size: 0.9rem;">
-            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            
-            <span id="busuanzi_container_site_uv" style="display:none">
-              Number of visitors: <span id="busuanzi_value_site_uv" style="font-weight: bold;"></span> 
-            </span>
-            <span style="margin: 0 8px; color: #ccc;">|</span>
-            <span id="busuanzi_container_site_pv" style="display:none">
-              Total Visits: <span id="busuanzi_value_site_pv" style="font-weight: bold;"></span> 
-            </span>
-          </p>
-        </div>
-      </div>
-
-      <div class="column is-2">
-        <div style="width: 100%; max-width: 200px; margin: 0 auto 0 0;">
-          <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=_zkZv1bfxiqAq8HXllAuUZNIvCYv603-zyA7z-Vpjfw"></script>
-        </div>
-      </div>
-
-    </div>
-    </div>
-</footer>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                
-            }
-        });
-    }, {
-        threshold: 0.1 
-    });
-  
-    // 监听 reveal 类和 stagger-wrapper 类
-    document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
-        observer.observe(el);
-    });
-});
-</script>
-
 </body>
 </html>
