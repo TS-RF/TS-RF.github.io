@@ -408,7 +408,7 @@
           <ol>
             <li><strong>Thermodynamic Modeling:</strong> Rather than relying solely on physical test rigs, we constructed a high-fidelity 1-D thermodynamic model of a 6-cylinder marine diesel engine. The model was rigorously calibrated using real-world operational data, keeping simulation errors within 5%.</li>
             <li><strong>Fault Injection:</strong> Using the calibrated model, we simulated five specific combustion chamber faults (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This enabled the generation of a comprehensive dataset covering scenarios that are impossible to capture from a real engine.</li>
-            <li><strong>Feature Selection via SHAP:</strong> We utilized SHAP values to quantitatively identify the critical features—specifically, the 14 key parameters that drive the diagnostic decision.</li>
+            <li><strong>Feature Selection via SHAP:</strong> We utilized SHAP values to quantitatively identify the critical features, including the 14 key parameters that drive the diagnostic decision.</li>
             <li><strong>Classification:</strong> A Random Forest (RF) classifier was trained using this physics-enhanced dataset to achieve high diagnostic precision.</li>
           </ol>
         </div>
