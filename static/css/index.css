@@ -155,3 +155,8 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+.navbar-dropdown {
+  max-height: 400px; /* 限制最大高度，超过这个高度就出滚动条 */
+  overflow-y: auto;  /* 允许垂直滚动 */
+}
