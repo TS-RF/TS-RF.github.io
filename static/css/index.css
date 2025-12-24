@@ -160,3 +160,12 @@ body {
   max-height: 400px; /* 限制最大高度，超过这个高度就出滚动条 */
   overflow-y: auto;  /* 允许垂直滚动 */
 }
+
+/* 强制导航栏元素绝对居中 */
+@media screen and (min-width: 1024px) {
+  .navbar-absolute-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
