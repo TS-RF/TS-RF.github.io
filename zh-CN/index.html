@@ -385,7 +385,7 @@
           </a>
          </span>
                 <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/815177491/TSRF.github.io/releases/tag/DATA" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TS-RF.github.io/releases/tag/DATASET" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -423,6 +423,25 @@
             <p>
               通过计算 SHapley Additive explanations (SHAP) 值，进行参数选择过程，仅保留与故障状态显示出显著相关性的变量。最后，利用选定的参数评估燃烧室的状态。所提出的 TSRF 实现了卓越的分类性能，在故障数据集上的平均准确率达到 99.07%。
             </p>
+            <div class="keywords-container" style="margin-top: 2rem;">
+        <span class="keyword-label">
+         关键词：
+        </span>
+              <div class="tags is-inline-block">
+         <span class="tag is-light is-info">
+          Marine Diesel Engine
+         </span>
+                <span class="tag is-light is-info">
+          Fault Diagnosis
+         </span>
+                <span class="tag is-light is-info">
+          Explainable AI
+         </span>
+                <span class="tag is-light is-info">
+          SHAP
+         </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -787,7 +806,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # 1. Calculate SHAP values as Numpy Arrays (for Beeswarm, Dependence, Interaction)
 explainer_tree = shap.TreeExplainer(best_model)
-shap_values_numpy = explainer_tree.shap_values(X_train) 
+shap_values_numpy = explainer_tree.shap_values(X_train)
 
 # 2. Calculate SHAP values as Explanation Object (Specifically for Waterfall)
 explainer_obj = shap.Explainer(best_model, X_test)
@@ -806,8 +825,8 @@ sample_idx = 3 # Specific sample to explain
 
 plt.figure()
 shap.plots.waterfall(
-    shap_values_obj[sample_idx, :, class_idx], 
-    max_display=9, 
+    shap_values_obj[sample_idx, :, class_idx],
+    max_display=9,
     show=False
 )
 
@@ -830,16 +849,16 @@ class_idx = 5
 plt.figure(figsize=(10, 8))
 
 shap.summary_plot(
-    shap_values_numpy[..., class_idx], 
-    X_train, 
-    feature_names=X_train.columns, 
-    plot_type="dot", 
-    show=False, 
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
     cmap='Greys' # or 'plasma'
 )
 
 # Customize Color Bar
-cbar = plt.gcf().axes[-1] 
+cbar = plt.gcf().axes[-1]
 cbar.set_ylabel('Parameter Value', fontsize=24)
 cbar.tick_params(labelsize=20)
 plt.show()
@@ -858,11 +877,11 @@ class_idx = 4
 
 plt.figure()
 shap.summary_plot(
-    shap_interaction_values[..., class_idx], 
-    X_test, 
-    show=False, 
-    max_display=6, 
-    cmap='Greys' 
+    shap_interaction_values[..., class_idx],
+    X_test,
+    show=False,
+    max_display=6,
+    cmap='Greys'
 )
 
 # Clean up subplots
@@ -870,9 +889,9 @@ axes = plt.gcf().axes
 for ax in axes:
     ax.spines['bottom'].set_linewidth(2)
     ax.tick_params(axis="x", labelsize=18, width=2)
-    ax.set_title(ax.get_title(), fontsize=14) 
+    ax.set_title(ax.get_title(), fontsize=14)
 
-plt.subplots_adjust(wspace=0.3, hspace=0.4)    
+plt.subplots_adjust(wspace=0.3, hspace=0.4)
 plt.show()
 
 
@@ -888,11 +907,11 @@ Feature_Y = 'P07'  # Interaction feature
 class_idx = 4
 
 shap.dependence_plot(
-    Feature_X, 
-    shap_values_numpy[..., class_idx], 
-    X_train, 
-    interaction_index=Feature_Y, 
-    dot_size=100, 
+    Feature_X,
+    shap_values_numpy[..., class_idx],
+    X_train,
+    interaction_index=Feature_Y,
+    dot_size=100,
     show=False
 )
 
@@ -917,36 +936,36 @@ fig, ax1 = plt.subplots(figsize=(10, 8))
 
 # 1. Main Beeswarm Plot (on ax1)
 shap.summary_plot(
-    shap_values_numpy[..., class_idx], 
-    X_train, 
-    feature_names=X_train.columns, 
-    plot_type="dot", 
-    show=False, 
-    color_bar=True, 
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
+    color_bar=True,
     cmap='Greys' # or 'plasma'
 )
 
 # Customize Color Bar
-cbar = plt.gcf().axes[-1] 
+cbar = plt.gcf().axes[-1]
 cbar.set_ylabel('Parameter Value', fontsize=24)
 cbar.tick_params(labelsize=20)
 
 # Adjust layout to make room for the top axis
-plt.gca().set_position([0.2, 0.2, 0.65, 0.65]) 
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
 
 # 2. Feature Importance Bar Plot (on Top Axis ax2)
 # Create a twin axis sharing the y-axis
-ax2 = ax1.twiny() 
+ax2 = ax1.twiny()
 
 shap.summary_plot(
-    shap_values_numpy[..., class_idx], 
-    X_train, 
-    plot_type="bar", 
+    shap_values_numpy[..., class_idx],
+    X_train,
+    plot_type="bar",
     show=False
 )
 
 # Align position with the main plot
-plt.gca().set_position([0.2, 0.2, 0.65, 0.65]) 
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
 
 # Style the bars (Transparent &amp; Light Color)
 bars = ax2.patches
@@ -960,11 +979,11 @@ ax1.set_ylabel('Parameters', fontsize=24)
 ax2.set_xlabel('Mean Shapley Value (Parameter Importance)', fontsize=24, labelpad=10)
 
 # Move ax2 (Bar plot axis) to the top
-ax2.xaxis.set_label_position('top') 
+ax2.xaxis.set_label_position('top')
 ax2.xaxis.tick_top()
 
 # Ensure ax1 (dots) is drawn ON TOP OF ax2 (bars)
-ax1.set_zorder(ax1.get_zorder() + 1) 
+ax1.set_zorder(ax1.get_zorder() + 1)
 ax1.patch.set_visible(False) # Make ax1 background transparent
 
 plt.show()</code></pre>
@@ -1101,16 +1120,16 @@ plt.show()</code></pre>
        const icon = btn.querySelector('.fa-copy');
        const text = btn.querySelector('.btn-text');
        const originalText = text.innerText;
-       
+ 
        if(icon) {
          icon.classList.remove('fa-copy');
          icon.classList.add('fa-check');
        }
        if(text) text.innerText = "Copied!";
-       
+ 
        btn.classList.remove('is-dark');
        btn.classList.add('is-success');
-       
+ 
        setTimeout(() => {
          if(icon) {
            icon.classList.remove('fa-check');
@@ -1196,30 +1215,18 @@ plt.show()</code></pre>
          entries.forEach(entry => {
              if (entry.isIntersecting) {
                  entry.target.classList.add('active');
-                 
+ 
              }
          });
      }, {
-         threshold: 0.1 
+         threshold: 0.1
      });
-   
+ 
      // 监听 reveal 类和 stagger-wrapper 类
      document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
          observer.observe(el);
      });
  });
   </script>
-  <div class="notification is-info is-light" id="lang-suggest-modal" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); max-width: 300px;">
-    <button class="delete" onclick="document.getElementById('lang-suggest-modal').style.display='none'">
-    </button>
-    <p id="lang-suggest-text" style="font-size: 0.9rem; margin-bottom: 10px; font-weight: bold;">
-      检测到您的浏览器语言是中文，建议访问中文版。
-    </p>
-    <div class="buttons is-right">
-      <a class="button is-info is-small is-rounded" href="https://ts-rf.github.io/zh-CN/" id="lang-suggest-link">
-        跳转中文版
-      </a>
-    </div>
-  </div>
 </body>
 </html>
