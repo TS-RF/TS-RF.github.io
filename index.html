@@ -1028,37 +1028,6 @@ document.addEventListener('DOMContentLoaded', () => {
     </a>
   </div>
 </div>
-
-<script>
-(function() {
-    // 1. 获取浏览器语言 (转换为小写，如 "zh-cn")
-    var userLang = navigator.language || navigator.userLanguage; 
-    userLang = userLang.toLowerCase();
-
-    // 2. 获取提示框元素
-    var modal = document.getElementById('lang-suggest-modal');
-    var text = document.getElementById('lang-suggest-text');
-    var link = document.getElementById('lang-suggest-link');
-
-    // 3. 逻辑判断
-    // 如果浏览器是 "zh-CN" (简体中文) 且 当前不在 "/zh-CN/" 目录下
-    if ((userLang === 'zh-cn' || userLang === 'zh') && !window.location.href.includes('/zh-CN/')) {
-        text.innerText = "检测到您的浏览器语言是中文，建议访问中文版。";
-        link.innerText = "跳转中文版";
-        link.href = "https://ts-rf.github.io/zh-CN/"; // 建议用完整路径
-        modal.style.display = 'block';
-    }
-    // 如果浏览器是 "zh-TW" 或 "zh-HK" (繁体) 且 当前不在 "/zh-TW/" 目录下
-    else if ((userLang === 'zh-tw' || userLang === 'zh-hk') && !window.location.href.includes('/zh-TW/')) {
-        text.innerText = "檢測到您的瀏覽器語言是繁體中文，建議訪問繁體中文版。";
-        link.innerText = "跳轉繁體版";
-        link.href = "https://ts-rf.github.io/zh-TW/";
-        modal.style.display = 'block';
-    }
-    
-    // 如果你想加其他语言（例如法语 fr），可以继续复制上面的 else if 块
-})();
-</script>
   
 </body>
 </html>
