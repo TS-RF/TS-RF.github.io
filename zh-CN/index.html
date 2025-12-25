@@ -59,46 +59,46 @@
        vertical-align: middle;
        color: #363636;
      }
- 
+
      .tags .tag {
        transition: all 0.2s ease;
        font-size: 0.9rem;
      }
- 
+
      .tags .tag:hover {
        background-color: #3273dc;
        color: #fff;
        transform: translateY(-2px);
        box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
      }
- 
+
      /* 核心动画类 */
      .reveal {
        opacity: 0;
        transform: translateY(30px);
        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
      }
- 
+
      .reveal.active {
        opacity: 1;
        transform: translateY(0);
      }
- 
+
      /* 简单的延迟类 */
      .reveal.delay-1 { transition-delay: 0.1s; }
      .reveal.delay-2 { transition-delay: 0.2s; }
      .reveal.delay-3 { transition-delay: 0.3s; }
- 
+
      .hover-card {
        transition: transform 0.3s ease, box-shadow 0.3s ease;
        will-change: transform;
      }
- 
+
      .hover-card:hover {
        transform: translateY(-5px);
        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
      }
- 
+
      .highlight-list li {
        background: #f8f9fa;
        padding: 1.5rem;
@@ -106,18 +106,18 @@
        margin-bottom: 1rem;
        border-left: 4px solid #3273dc;
      }
- 
+
      .stagger-wrapper .stagger-item {
        opacity: 0;
        transform: translateX(-20px);
        transition: all 0.6s ease-out;
      }
- 
+
      .stagger-wrapper.active .stagger-item {
        opacity: 1;
        transform: translateX(0);
      }
- 
+
      .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
      .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
      .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
@@ -1120,16 +1120,16 @@ plt.show()</code></pre>
        const icon = btn.querySelector('.fa-copy');
        const text = btn.querySelector('.btn-text');
        const originalText = text.innerText;
- 
+
        if(icon) {
          icon.classList.remove('fa-copy');
          icon.classList.add('fa-check');
        }
        if(text) text.innerText = "Copied!";
- 
+
        btn.classList.remove('is-dark');
        btn.classList.add('is-success');
- 
+
        setTimeout(() => {
          if(icon) {
            icon.classList.remove('fa-check');
@@ -1215,13 +1215,13 @@ plt.show()</code></pre>
          entries.forEach(entry => {
              if (entry.isIntersecting) {
                  entry.target.classList.add('active');
- 
+
              }
          });
      }, {
          threshold: 0.1
      });
- 
+
      // 监听 reveal 类和 stagger-wrapper 类
      document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
          observer.observe(el);
