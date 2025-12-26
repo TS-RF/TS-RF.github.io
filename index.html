@@ -385,11 +385,11 @@
             In the fields of marine engineering and Prognostics and Health Management (PHM), the industry faces two persistent bottlenecks:
           </p>
           <ul>
-            <li><strong>Data Scarcity:</strong> Marine engines are high-value assets that are rarely operated to failure. This results in a critical shortage of the labeled "fault data" necessary to train robust machine learning models.</li>
-            <li><strong>The "Black Box" Problem:</strong> Deep learning models often lack transparency. If an AI diagnoses a fault but cannot explain the physical reasoning, it is difficult for engineers to trust it. This lack of interpretability is a primary obstacle to widespread industry adoption.</li>
+            <li><strong>Data Scarcity:</strong> Marine diesel engines, especially the main engines on ocean-going vessels, are the heart of a ship. Any serious malfunction at sea risks a loss of propulsion, grounding, or even a major maritime disaster. For this reason, they are designed with extremely high safety margins, making the likelihood of a serious breakdown naturally low. In addition, the shipping industry follows strict preventive maintenance schedules, such as inspections based on running hours. Most parts prone to wear are replaced long before they actually fail or generate fault data. As a result, while we possess a vast amount of data on healthy engines and early wear patterns, there is a distinct lack of real-world data on total system failures.</li>
+            <li><strong>The "Black Box" Problem:</strong> Since deep learning models typically lack transparency, engineers find it difficult to trust them without an explanation of the physical causality behind a fault. This opacity is particularly critical in the shipping industry, which is subject to rigorous oversight by classification societies. If an AI misdiagnosis precipitates a catastrophic failure like cylinder scuffing or a crankshaft fracture, and the system cannot identify whether the error stemmed from data bias, algorithmic flaws, or sensor drift, such untraceability is unacceptable in maritime accident investigations.</li>
           </ul>
           <p>
-            To overcome these challenges, we introduce TSRF. By fusing physics-based mechanism models with advanced XAI techniques, we address the data scarcity problem through massive synthetic data generation and ensure that diagnostic decisions align with thermodynamic principles.
+            To address these challenges, we propose the TSRF method. This approach integrates physics-based mechanistic models with advanced explainability techniques. By leveraging high-fidelity simulation models to generate synthetic data, we effectively resolve the issue of data scarcity and ensure that diagnostic decisions adhere to fundamental thermodynamic principles.
           </p>
         </div>
       </div>
@@ -407,7 +407,7 @@
           </p>
           <ol>
             <li><strong>Thermodynamic Modeling:</strong> Rather than relying solely on physical test rigs, we constructed a high-fidelity 1-D thermodynamic model of a 6-cylinder marine diesel engine. The model was rigorously calibrated using real-world operational data, keeping simulation errors within 5%.</li>
-            <li><strong>Fault Injection:</strong> Using the calibrated model, we simulated five specific combustion chamber faults (e.g., Head Cracking, Piston Ablation) by fine-tuning physical parameters. This enabled the generation of a comprehensive dataset covering scenarios that are impossible to capture from a real engine.</li>
+            <li><strong>Fault Injection:</strong> Based on the calibrated model, we adjusted the physical parameters to simulate five distinct combustion chamber faults, such as cylinder head cracks and piston ablation. We then generated a dataset that captures the full spectrum of fault severities observed in actual engines.</li>
             <li><strong>Feature Selection via SHAP:</strong> We utilized SHAP values to quantitatively identify the critical features, including the 14 key parameters that drive the diagnostic decision.</li>
             <li><strong>Classification:</strong> A Random Forest (RF) classifier was trained using this physics-enhanced dataset to achieve high diagnostic precision.</li>
           </ol>
@@ -431,7 +431,7 @@
         
         <div class="content has-text-justified reveal delay-1">
           <p>
-            To ensure high fidelity, we constructed a one-dimensional simulation model. This mechanism model balances physical accuracy with the computational efficiency required for large-scale dataset generation.
+            To ensure high fidelity, we constructed a one-dimensional simulation model. This mechanism model balances physical accuracy with the computational efficiency required for dataset generation.
           </p>
         </div>
 
