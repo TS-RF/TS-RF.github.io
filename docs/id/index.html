@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="id">
+ <head>
+  <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
+  <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
+  <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
+  <meta content="TSRF: Studi Diagnosis Kegagalan yang Dapat Dijelaskan untuk Mesin Diesel Kapal" property="og:title"/>
+  <meta content="Menggabungkan simulasi termodinamika dan algoritma Random Forest, mengusulkan metode pembelajaran mesin yang diinformasikan fisika (PIML) dan AI yang dapat dijelaskan untuk manajemen kesehatan mesin kapal." property="og:description"/>
+  <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
+  <meta content="https://ts-rf.github.io/" property="og:url"/>
+  <meta content="website" property="og:type"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta charset="utf-8"/>
+  <meta content="Menggabungkan simulasi termodinamika dan algoritma Random Forest, mengusulkan metode pembelajaran mesin yang diinformasikan fisika (PIML) dan AI yang dapat dijelaskan untuk manajemen kesehatan mesin kapal." name="description"/>
+  <meta content="Mesin diesel kapal, Diagnosis kegagalan, Random Forest, SHAP, AI yang dapat dijelaskan, Pembelajaran mesin yang diinformasikan fisika, PIML, Model mekanistik, Pembuatan data sintetis, Pemeliharaan prediktif, Simulasi termodinamika, AVL BOOST" name="keywords"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   TSRF: Studi Diagnosis Kegagalan yang Dapat Dijelaskan untuk Mesin Diesel Kapal
+  </title>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <script>
+   window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
+  <link href="../static/css/bulma.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-carousel.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-slider.min.css" rel="stylesheet"/>
+  <link href="../static/css/fontawesome.all.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet"/>
+  <link href="../static/css/index.css" rel="stylesheet"/>
+  <link href="../static/images/favicon.svg" rel="icon"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+  <script defer="" src="../static/js/fontawesome.all.min.js">
+  </script>
+  <script src="../static/js/bulma-carousel.min.js">
+  </script>
+  <script src="../static/js/bulma-slider.min.js">
+  </script>
+  <script src="../static/js/index.js">
+  </script>
+  <style>
+   .keyword-label {
+      font-weight: bold;
+      margin-right: 10px;
+      vertical-align: middle;
+      color: #363636;
+    }
+
+    .tags .tag {
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .tags .tag:hover {
+      background-color: #3273dc;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
+    }
+
+    /* 核心动画类 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 简单的延迟类 */
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+
+    .hover-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    .hover-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+    }
+
+    .highlight-list li {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #3273dc;
+    }
+
+    .stagger-wrapper .stagger-item {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s ease-out;
+    }
+
+    .stagger-wrapper.active .stagger-item {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+    .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
+    .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
+  </style>
+  <script type="application/ld+json">
+   {
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Random Forest Berbantuan Simulasi Termodinamika: Diagnosis Kegagalan yang Dapat Dijelaskan untuk Komponen Ruang Bakar Mesin Diesel Kapal",
+  "image": [
+    "https://ts-rf.github.io/static/images/fig1_structure.jpg"
+  ],
+  "datePublished": "2025-01-01",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Congcong Luo"
+    },
+    {
+      "@type": "Person",
+      "name": "Minghang Zhao"
+    },
+    {
+      "@type": "Person",
+      "name": "Xuyun Fu"
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Elsevier Measurement"
+  },
+  "description": "Metode pembelajaran mesin yang diinformasikan fisika yang menggabungkan simulasi termodinamika dan SHAP untuk diagnosis kegagalan mesin diesel kapal."
+}
+  </script>
+ </head>
+ <body>
+  <nav aria-label="main navigation" class="navbar" role="navigation">
+   <div class="navbar-brand">
+    <a aria-expanded="false" aria-label="menu" class="navbar-burger" role="button">
+     <span aria-hidden="true">
+     </span>
+     <span aria-hidden="true">
+     </span>
+     <span aria-hidden="true">
+     </span>
+    </a>
+   </div>
+   <div class="navbar-menu">
+    <div class="navbar-start">
+    </div>
+    <a class="navbar-item navbar-absolute-center" href="https://scholar.google.com/citations?hl=zh-CN&amp;user=k82TzLwAAAAJ" target="_blank">
+     <span class="icon" style="margin-right: 0.3rem;">
+      <img alt="Google Scholar" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" style="height: 20px; width: 20px;"/>
+     </span>
+     <span>
+      Minghang Zhao (Google Scholar)
+     </span>
+    </a>
+    <div class="navbar-end">
+     <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link">
+       <span class="icon">
+        <i class="fas fa-globe">
+        </i>
+       </span>
+       <span>
+        Bahasa
+       </span>
+      </a>
+      <div class="navbar-dropdown is-right" style="max-height: 500px; overflow-y: auto;">
+       <a class="navbar-item" href="https://ts-rf.github.io/">
+        English
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/zh-CN/">
+        简体中文
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/zh-TW/">
+        繁體中文
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/hi/">
+        हिन्दी
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/es/">
+        Español
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/fr/">
+        Français
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ar/">
+        العربية
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/pt/">
+        Português
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ru/">
+        Русский
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/id/">
+        Indonesia
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/de/">
+        Deutsch
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ja/">
+        日本語
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/tr/">
+        Türkçe
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/vi/">
+        Tiếng Việt
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ko/">
+        한국어
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/fa/">
+        فارسی
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/it/">
+        Italiano
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/th/">
+        ไทย
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/pl/">
+        Polski
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/uk/">
+        Українська
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ro/">
+        Română
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/nl/">
+        Nederlands
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/sv/">
+        Svenska
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/cs/">
+        Čeština
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/he/">
+        עברית
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <section class="hero reveal">
+   <div class="hero-body" style="padding-top: 1rem;">
+    <div class="container is-max-desktop">
+     <div class="columns is-centered">
+      <div class="column has-text-centered">
+       <h1 class="title is-1 publication-title">
+        Random Forest Berbantuan Simulasi Termodinamika: Diagnosis Kegagalan yang Dapat Dijelaskan untuk Komponen Ruang Bakar Mesin Diesel Kapal
+       </h1>
+       <div class="is-size-5 publication-authors">
+        <span class="author-block">
+         <strong>
+          Luo Congcong
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <a href="https://homepage.hit.edu.cn/zhaominghang?lang=zh" style="color: inherit; text-decoration: underline;" target="_blank">
+          <strong>
+           Zhao Minghang
+          </strong>
+         </a>
+         <sup>
+          a,*
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Fu Xuyun
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Zhong Shisheng
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Fu Song
+         </strong>
+         <sup>
+          b
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Zhang Kai
+         </strong>
+         <sup>
+          c
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Yu Xiaoxia
+         </strong>
+         <sup>
+          d
+         </sup>
+        </span>
+       </div>
+       <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
+        <span class="author-block">
+         <sup>
+          a
+         </sup>
+         Sekolah Teknik Mesin, Institut Teknologi Harbin (Weihai), Weihai 264209, Tiongkok
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          b
+         </sup>
+         Sekolah Teknik Mekatronika, Institut Teknologi Harbin, Harbin 150001, Tiongkok
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          c
+         </sup>
+         Sekolah Teknik Mesin, Universitas Jiaotong Barat Daya, Chengdu 610031, Tiongkok
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          d
+         </sup>
+         Sekolah Teknik Mesin, Universitas Teknologi Chongqing, Chongqing 400054, Tiongkok
+        </span>
+       </div>
+       <div class="column has-text-centered">
+        <div class="publication-links">
+         <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-pdf">
+            </i>
+           </span>
+           <span>
+            Makalah Lengkap
+           </span>
+          </a>
+         </span>
+         <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TS-RF.github.io/releases/tag/DATASET" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-csv">
+            </i>
+           </span>
+           <span>
+            Dataset
+           </span>
+          </a>
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section" style="padding-top: 0rem; margin-top: 0rem;">
+   <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+     <div class="column is-four-fifths">
+      <h2 class="title is-3 reveal">
+       Abstrak
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Metode diagnosis kegagalan cerdas tradisional untuk mesin diesel kapal sering kali menderita kemampuan generalisasi yang buruk karena kurangnya sampel pelatihan kegagalan, dan kemampuan penjelasan yang rendah karena tidak cukup mengintegrasikan pengetahuan apriori tentang mekanisme kegagalan. Untuk mengatasi masalah ini, makalah ini mengusulkan metode
+        <strong>
+         Random Forest Berbantuan Simulasi Termodinamika (TSRF)
+        </strong>
+        .
+       </p>
+       <p>
+        Metode ini mengungkapkan karakteristik evolusi kegagalan melalui simulasi termodinamika dan mengintegrasikannya sebagai pengetahuan apriori ke dalam desain model diagnosis kegagalan cerdas. Pertama, lima model kegagalan termodinamika dikembangkan dengan menyempurnakan parameter dasar sistem untuk mensimulasikan karakteristik signifikan dari berbagai kerusakan. Selanjutnya, berdasarkan hasil simulasi numerik, indikator termodinamika potensial yang mencirikan degradasi komponen ruang bakar diidentifikasi.
+       </p>
+       <p>
+        Pemilihan fitur dilakukan dengan menghitung nilai SHapley Additive exPlanations (SHAP), hanya mempertahankan variabel yang memiliki korelasi signifikan dengan status kegagalan. Terakhir, status kesehatan ruang bakar dievaluasi menggunakan parameter yang dipilih. Hasil eksperimen menunjukkan bahwa metode TSRF yang diusulkan menunjukkan kinerja klasifikasi yang sangat baik, dengan akurasi rata-rata mencapai 99,07% pada dataset kegagalan.
+       </p>
+       <div class="keywords-container" style="margin-top: 2rem;">
+        <span class="keyword-label">
+         Kata kunci:
+        </span>
+        <div class="tags is-inline-block">
+         <span class="tag is-light is-info">
+          Mesin diesel kapal
+         </span>
+         <span class="tag is-light is-info">
+          Diagnosis kegagalan
+         </span>
+         <span class="tag is-light is-info">
+          AI yang dapat dijelaskan
+         </span>
+         <span class="tag is-light is-info">
+          Nilai SHAP
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section" style="padding-top: 1rem; margin-top: 1rem;">
+   <div class="container is-max-desktop">
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Motivasi Penelitian
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Di bidang teknik kelautan dan Prognostik &amp; Manajemen Kesehatan (PHM), industri menghadapi dua hambatan jangka panjang:
+       </p>
+       <ul>
+        <li>
+         <strong>
+          Kelangkaan Data:
+         </strong>
+         Mesin diesel kapal (terutama mesin utama kapal samudra) adalah jantung kapal. Kegagalan serius di laut dapat menyebabkan hilangnya tenaga penggerak, kandas, atau bahkan bencana maritim. Oleh karena itu, faktor keamanannya dalam desain sangat tinggi, dan kemungkinan kegagalan serius secara inheren sangat rendah. Selain itu, industri pelayaran menerapkan sistem pemeliharaan preventif yang ketat (seperti perbaikan terjadwal berdasarkan jam operasi). Sebagian besar suku cadang yang aus diganti secara paksa sebelum benar-benar gagal dan menghasilkan data kegagalan. Hal ini menyebabkan melimpahnya data kesehatan dan data keausan dini, tetapi sangat kekurangan data nyata tentang kegagalan total atau kerusakan serius.
+        </li>
+        <li>
+         <strong>
+          Masalah "Kotak Hitam":
+         </strong>
+         Karena model deep learning biasanya kurang transparan, sulit bagi insinyur untuk mempercayainya jika mereka tidak dapat menjelaskan penyebab fisik dari suatu kegagalan. Dalam industri pelayaran yang diatur secara ketat oleh biro klasifikasi, ketidakjelasan ini sangat penting. Jika AI salah mendiagnosis (atau melewatkan) piston scuffing atau patahnya poros engkol, dan sistem tidak dapat melacak apakah kesalahan tersebut berasal dari bias data, cacat algoritma, atau penyimpangan sensor, maka ketidakmampuan melacak ini tidak dapat diterima dalam penyelidikan kecelakaan maritim.
+        </li>
+       </ul>
+       <p>
+        Untuk mengatasi tantangan ini, kami mengusulkan metode TSRF. Dengan menggabungkan model mekanistik berbasis fisika dengan teknik penjelasan canggih dan menggunakan model simulasi fidelitas tinggi untuk memecahkan masalah kelangkaan data, kami memastikan bahwa keputusan diagnosis sesuai dengan prinsip dasar termodinamika.
+       </p>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Metodologi
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Alur kerja studi ini mencakup empat fase utama berikut (seperti yang ditunjukkan pada gambar):
+       </p>
+       <ol>
+        <li>
+         <strong>
+          Pemodelan Termodinamika:
+         </strong>
+         Alih-alih hanya mengandalkan test bench fisik, kami membangun model termodinamika satu dimensi fidelitas tinggi dari mesin diesel kapal enam silinder. Model ini dikalibrasi secara ketat berdasarkan data operasi nyata, dengan kesalahan simulasi dijaga di bawah 5%.
+        </li>
+        <li>
+         <strong>
+          Injeksi Kegagalan:
+         </strong>
+         Berdasarkan model yang dikalibrasi, kami mensimulasikan lima kegagalan spesifik ruang bakar (seperti retak kepala silinder, ablasi piston, dll.) dengan menyempurnakan parameter fisik, sehingga menghasilkan dataset yang mencakup berbagai tingkat kegagalan mesin nyata.
+        </li>
+        <li>
+         <strong>
+          Pemilihan Fitur Berbasis SHAP:
+         </strong>
+         Kami menggunakan nilai SHAP untuk mengidentifikasi fitur utama secara kuantitatif, memilih 14 parameter kritis yang mendominasi keputusan diagnosis.
+        </li>
+        <li>
+         <strong>
+          Diagnosis Klasifikasi:
+         </strong>
+         Menggunakan dataset yang diperkaya secara fisik ini, kami melatih pengklasifikasi Random Forest (RF) dan mencapai diagnosis kegagalan presisi tinggi.
+        </li>
+       </ol>
+      </div>
+      <div class="has-text-centered reveal delay-2">
+       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <p class="subtitle is-6">
+        <strong>
+         Gbr. 1:
+        </strong>
+        Arsitektur metode TSRF.
+       </p>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Detail Pemodelan Termodinamika
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Untuk memastikan fidelitas tinggi, kami membangun model simulasi mesin diesel satu dimensi. Model mekanistik ini menyeimbangkan antara akurasi fisik dan efisiensi komputasi yang diperlukan untuk pembuatan dataset.
+       </p>
+      </div>
+      <div class="columns is-centered">
+       <div class="column is-6 reveal delay-2">
+        <div class="box hover-card" style="height: 100%;">
+         <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-info" style="margin-right: 8px;">
+           <i class="fas fa-network-wired">
+           </i>
+          </span>
+          Topologi Model
+         </h4>
+         <div class="content is-size-6">
+          <p>
+           Sistem mesin didiskretisasi sebagai jaringan pipa fluida dan komponen fungsional:
+          </p>
+          <ul>
+           <li>
+            <strong>
+             Unit Daya Inti:
+            </strong>
+            Konfigurasi in-line, enam silinder, dua tak.
+           </li>
+           <li>
+            <strong>
+             Sistem Udara:
+            </strong>
+            Manifold intake/exhaust (PL1, PL2) dihubungkan melalui jaringan perpipaan yang kompleks.
+           </li>
+           <li>
+            <strong>
+             Sistem Boosting:
+            </strong>
+            Turbocharger (TC1) digabungkan dengan intercooler (CO1).
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+       <div class="column is-6 reveal delay-3">
+        <div class="box hover-card" style="height: 100%;">
+         <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-success" style="margin-right: 8px;">
+           <i class="fas fa-check-double">
+           </i>
+          </span>
+          Kalibrasi dan Validasi
+         </h4>
+         <div class="content is-size-6">
+          <p>
+           Sebelum melakukan injeksi kegagalan, model dasar dikalibrasi secara ketat berdasarkan data terukur.
+          </p>
+          <ul>
+           <li>
+            <strong>
+             Sumber Data:
+            </strong>
+            Data operasi kapal nyata yang diperoleh melalui Modul Akuisisi Data (DCM).
+           </li>
+           <li>
+            <strong>
+             Validasi:
+            </strong>
+            Penyimpangan parameter utama (seperti daya, suhu gas buang) dikontrol secara ketat dalam
+            <strong>
+             rentang kesalahan ±5%
+            </strong>
+            .
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="columns is-centered reveal" style="margin-top: 1rem; margin-bottom: 1rem;">
+       <div class="column is-8 has-text-centered">
+        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+         <img alt="1-D thermodynamic simulation model" class="hover-card" src="../static/images/fig2_simulator.png" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+        </div>
+        <p class="subtitle is-6">
+         <strong>
+          Gbr. 2:
+         </strong>
+         Skema model termodinamika satu dimensi mesin diesel.
+        </p>
+       </div>
+       <div class="column is-4 has-text-centered">
+        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+         <img alt="Model Validation Results" class="hover-card" src="../static/images/fig5_faults.jpg" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+        </div>
+        <p class="subtitle is-6">
+         <strong>
+          Gbr. 5:
+         </strong>
+         Modul Akuisisi Data (DCM).
+        </p>
+       </div>
+      </div>
+      <div class="box hover-card reveal" style="margin-top: 1.5rem;">
+       <h4 class="title is-4 is-size-5" style="display: flex; align-items: center; justify-content: center;">
+        <span class="icon has-text-black" style="margin-right: 8px;">
+         <i class="fas fa-cogs">
+         </i>
+        </span>
+        <span>
+         Mekanisme Injeksi Kegagalan
+        </span>
+       </h4>
+       <div class="content has-text-justified is-size-6">
+        <p>
+         Karena model satu dimensi tidak dapat secara langsung merepresentasikan cacat struktural 3D, kami mengadopsi metode pemetaan fenomenologis untuk menerjemahkan mekanisme degradasi fisik menjadi pergeseran parameter termodinamika yang setara.
+        </p>
+       </div>
+       <div class="table-container">
+        <table class="table is-fullwidth is-striped is-hoverable is-size-6">
+         <thead>
+          <tr style="background-color: #f5f5f5;">
+           <th style="width: 20%;">
+            Tipe Kegagalan
+           </th>
+           <th style="width: 35%;">
+            Mekanisme Fisik
+           </th>
+           <th>
+            Implementasi Pemodelan
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <strong>
+             F1: Retak Kepala Silinder
+            </strong>
+           </td>
+           <td>
+            Konduksi panas terhambat.
+           </td>
+           <td>
+            Meningkatkan suhu permukaan kepala silinder ($T_H$) hingga 346°C.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F2: Ablasi Piston
+            </strong>
+           </td>
+           <td>
+            Kehilangan material dan kegagalan penyegelan.
+           </td>
+           <td>
+            Meningkatkan suhu piston ($T_P$) + blow-by ringan (0.01 kg/s).
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F3: Keausan Liner
+            </strong>
+           </td>
+           <td>
+            Pembesaran diameter bore akibat keausan.
+           </td>
+           <td>
+            Peningkatan bore + blow-by parah (0.03 kg/s).
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F4: Keausan Ring
+            </strong>
+           </td>
+           <td>
+            Kebocoran gas.
+           </td>
+           <td>
+            Penyesuaian laju aliran massa blow-by (0.02 kg/s).
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F5: Ring Lengket (Sticking)
+            </strong>
+           </td>
+           <td>
+            Peningkatan gesekan dan kegagalan penyegelan.
+           </td>
+           <td>
+            Perubahan diameter bore + peningkatan suhu liner + blow-by.
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Analisis Kemampuan Penjelasan
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Inovasi inti dari studi ini terletak pada pengalihan fokus dari "Apa kegagalannya?" menjadi "Mengapa kegagalan ini didiagnosis?". Kami mendemonstrasikan kemampuan ini melalui analisis keausan ring piston (F4):
+       </p>
+       <ul>
+        <li>
+         <strong>
+          Penjelasan Lokal (Waterfall Plot):
+         </strong>
+         Waterfall plot membedah logika prediksi spesifik. Misalnya, model memprediksi "keausan ring" karena aliran panas blow-by (P06) dan laju aliran massa blow-by (P07) menunjukkan nilai tertentu, sehingga meningkatkan probabilitas prediksi kegagalan ini. Ini konsisten dengan hukum fisika: keausan ring merusak penyegelan, menyebabkan kebocoran gas (blow-by).
+        </li>
+        <li>
+         <strong>
+          Penjelasan Global (Beeswarm Plot):
+         </strong>
+         Analisis global mengungkapkan hukum umum yang dipelajari oleh model. Kami menemukan bahwa nilai tekanan gas buang sebelum turbin (P11) yang rendah merupakan indikator kuat untuk keausan ring. Secara fisik, ini konsisten: ring yang aus menyebabkan kebocoran gas dari silinder, sehingga mengurangi energi yang tersedia untuk menggerakkan turbin.
+        </li>
+       </ul>
+      </div>
+      <div class="has-text-centered reveal delay-2">
+       <img alt="SHAP Analysis,including Waterfall plot, beeswarm plot, interaction plot and dependence plot" class="hover-card" src="../static/images/fig11_shap.jpg" style="width:100%; border-radius: 10px;"/>
+       <p class="subtitle is-6">
+        <strong>
+         Gbr. 11:
+        </strong>
+        Analisis kegagalan keausan ring piston (F4) berdasarkan nilai SHAP: (a) Waterfall plot; (b) Beeswarm plot; (c) Interaction plot; (d) Dependence plot.
+       </p>
+      </div>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xcode.min.css" rel="stylesheet"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">
+      </script>
+      <script>
+       hljs.highlightAll();
+      </script>
+      <div class="reveal delay-2" style="margin-top: 2rem; margin-bottom: 2rem;">
+       <details class="box hover-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
+        <summary class="title is-5 is-size-6-mobile" style="cursor: pointer; color: #363636; margin-bottom: 0;">
+         <span class="icon has-text-info" style="margin-right: 0.5rem;">
+          <i class="fas fa-code">
+          </i>
+         </span>
+         <span>
+          Lihat Kode Visualisasi SHAP (Python)
+         </span>
+        </summary>
+        <div class="content has-text-left" style="margin-top: 1.5rem;">
+         <p>
+          <p>
+           Jika Anda tertarik dengan detail implementasi grafik di atas, berikut adalah contoh kode untuk menghasilkan waterfall, beeswarm, interaction, dan dependence plot.👇
+          </p>
+         </p>
+         <pre style="padding: 0; border-radius: 8px; overflow: hidden;"><code class="language-python" style="border-radius: 8px; font-size: 0.85rem; line-height: 1.5;">import shap
+import matplotlib.pyplot as plt
+import numpy as np
+
+# --- 0. Setup &amp; Global Settings ---
+plt.rcParams['font.family'] = 'Arial'
+plt.rcParams['font.size'] = '24'
+plt.rcParams['axes.unicode_minus'] = False
+
+# Assumption: 'best_model' is your trained XGBoost/RF model
+# Assumption: 'X_train' and 'X_test' are pandas DataFrames
+
+# 1. Calculate SHAP values as Numpy Arrays (for Beeswarm, Dependence, Interaction)
+explainer_tree = shap.TreeExplainer(best_model)
+shap_values_numpy = explainer_tree.shap_values(X_train)
+
+# 2. Calculate SHAP values as Explanation Object (Specifically for Waterfall)
+explainer_obj = shap.Explainer(best_model, X_test)
+shap_values_obj = explainer_obj(X_test)
+
+
+##################################################################
+#                                                                #
+#                      (a) Waterfall Plot                        #
+#          Visualizes contribution for a single sample           #
+#                                                                #
+##################################################################
+
+class_idx = 4  # Target class
+sample_idx = 3 # Specific sample to explain
+
+plt.figure()
+shap.plots.waterfall(
+    shap_values_obj[sample_idx, :, class_idx],
+    max_display=9,
+    show=False
+)
+
+# Customizing style
+ax = plt.gca()
+ax.set_xlabel(ax.get_xlabel(), fontsize=36)
+ax.set_ylabel(ax.get_ylabel(), fontsize=36)
+ax.spines['bottom'].set_linewidth(3)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                      (b) Beeswarm Plot                         #
+#              Global summary of feature importance              #
+#                                                                #
+##################################################################
+
+class_idx = 5
+plt.figure(figsize=(10, 8))
+
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
+    cmap='Greys' # or 'plasma'
+)
+
+# Customize Color Bar
+cbar = plt.gcf().axes[-1]
+cbar.set_ylabel('Parameter Value', fontsize=24)
+cbar.tick_params(labelsize=20)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                     (c) Interaction Plot                       #
+#          Visualizes interaction effects between features       #
+#                                                                #
+##################################################################
+
+# Note: Calculation can be expensive
+shap_interaction_values = explainer_tree.shap_interaction_values(X_test)
+class_idx = 4
+
+plt.figure()
+shap.summary_plot(
+    shap_interaction_values[..., class_idx],
+    X_test,
+    show=False,
+    max_display=6,
+    cmap='Greys'
+)
+
+# Clean up subplots
+axes = plt.gcf().axes
+for ax in axes:
+    ax.spines['bottom'].set_linewidth(2)
+    ax.tick_params(axis="x", labelsize=18, width=2)
+    ax.set_title(ax.get_title(), fontsize=14)
+
+plt.subplots_adjust(wspace=0.3, hspace=0.4)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                     (d) Dependence Plot                        #
+#           Feature relationship colored by interaction          #
+#                                                                #
+##################################################################
+
+Feature_X = 'P06'  # Main feature
+Feature_Y = 'P07'  # Interaction feature
+class_idx = 4
+
+shap.dependence_plot(
+    Feature_X,
+    shap_values_numpy[..., class_idx],
+    X_train,
+    interaction_index=Feature_Y,
+    dot_size=100,
+    show=False
+)
+
+# Customize Axes
+ax = plt.gca()
+ax.tick_params(axis='both', which='major', labelsize=36, width=2)
+ax.set_ylabel(f'SHAP value ({Feature_X})', fontsize=36)
+ax.spines['bottom'].set_linewidth(3)
+ax.spines['left'].set_linewidth(3)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#            (e) Advanced Composite Plot (Beeswarm + Bar)        #
+#      Combines Beeswarm (Bottom Axis) &amp; Importance (Top Axis)   #
+#                                                                #
+##################################################################
+
+class_idx = 5
+fig, ax1 = plt.subplots(figsize=(10, 8))
+
+# 1. Main Beeswarm Plot (on ax1)
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
+    color_bar=True,
+    cmap='Greys' # or 'plasma'
+)
+
+# Customize Color Bar
+cbar = plt.gcf().axes[-1]
+cbar.set_ylabel('Parameter Value', fontsize=24)
+cbar.tick_params(labelsize=20)
+
+# Adjust layout to make room for the top axis
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+
+# 2. Feature Importance Bar Plot (on Top Axis ax2)
+# Create a twin axis sharing the y-axis
+ax2 = ax1.twiny()
+
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    plot_type="bar",
+    show=False
+)
+
+# Align position with the main plot
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+
+# Style the bars (Transparent &amp; Light Color)
+bars = ax2.patches
+for bar in bars:
+    bar.set_color('#CCE5FB') # Light blue background bars
+    bar.set_alpha(0.4)       # Transparency
+
+# Customize Axes Labels
+ax1.set_xlabel(f'Shapley Value Contribution (F{class_idx})', fontsize=24, labelpad=5)
+ax1.set_ylabel('Parameters', fontsize=24)
+ax2.set_xlabel('Mean Shapley Value (Parameter Importance)', fontsize=24, labelpad=10)
+
+# Move ax2 (Bar plot axis) to the top
+ax2.xaxis.set_label_position('top')
+ax2.xaxis.tick_top()
+
+# Ensure ax1 (dots) is drawn ON TOP OF ax2 (bars)
+ax1.set_zorder(ax1.get_zorder() + 1)
+ax1.patch.set_visible(False) # Make ax1 background transparent
+
+plt.show()</code></pre>
+        </div>
+       </details>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Sorotan Penelitian
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        <p>
+         Kami percaya bahwa pekerjaan ini telah memberikan kontribusi utama berikut untuk bidang ini:
+        </p>
+       </p>
+       <ul class="highlight-list stagger-wrapper">
+        <li class="stagger-item hover-card">
+         <strong>
+          Membangun model terparameterisasi untuk lima kegagalan khas komponen ruang bakar mesin diesel kapal.
+         </strong>
+        </li>
+        <li class="stagger-item hover-card">
+         <strong>
+          Memvalidasi efektivitas metode SHAP melalui perbandingan dengan beberapa metode pemilihan fitur.
+         </strong>
+        </li>
+        <li class="stagger-item hover-card">
+         <strong>
+          Memberikan perspektif baru untuk diagnosis kegagalan yang dapat dijelaskan dengan menggabungkan metode berbasis data dengan model mekanistik termodinamika.
+         </strong>
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
+   <div class="container is-max-desktop content">
+    <hr/>
+    <h2 class="title">
+     Kutipan
+    </h2>
+    <div class="citation-prompt">
+     <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
+      <i class="fas fa-quote-left">
+      </i>
+     </span>
+     Jika Anda merasa pekerjaan ini bermanfaat untuk penelitian Anda, silakan pertimbangkan untuk mengutipnya 😊
+    </div>
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+     BibTeX
+    </h4>
+    <pre style="margin-bottom: 5px; background-color: #fcfcfc; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem;"><code class="language-latex" id="bibtex-source" style="font-family: 'Times New Roman', Times, serif !important; font-size: 16px; line-height: 1.5;">@article{luo2025thermodynamic,
+  title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
+  author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
+  journal   = {Measurement},
+  volume    = {251},
+  pages     = {117252},
+  year      = {2025},
+  publisher = {Elsevier},
+  doi       = {10.1016/j.measurement.2025.117252},
+}</code></pre>
+    <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
+     <div class="level-left">
+      <button class="button is-dark is-small is-rounded" onclick="copyText('bibtex-source', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+       <span class="btn-text">
+        Salin BibTeX
+       </span>
+      </button>
+     </div>
+    </div>
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+     Format Standar
+    </h4>
+    <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem; margin-bottom: 5px;">
+     <p id="standard-citation" style="margin-bottom: 0; font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.5;">
+      C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
+     </p>
+    </div>
+    <div class="level is-mobile" style="margin-top: 10px;">
+     <div class="level-left">
+      <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+       <span class="btn-text">
+        Salin Teks
+       </span>
+      </button>
+      <a class="button is-text is-small" href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" style="text-decoration: none; margin-left: 10px;" target="_blank">
+       <span class="icon has-text-info">
+        <i class="fas fa-external-link-alt">
+        </i>
+       </span>
+       <span>
+        Lihat di ScienceDirect
+       </span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </section>
+  <style>
+   .citation-prompt {
+    background-color: #f5f5f5;
+    border-left: 5px solid #3273dc;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    font-weight: 500;
+  }
+  /* 确保 pre 标签不会因为框架样式干扰 padding */
+  pre {
+      padding: 1.25rem !important;
+  }
+  </style>
+  <script>
+   function copyText(elementId, btn) {
+    const textToCopy = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const icon = btn.querySelector('.fa-copy');
+      const text = btn.querySelector('.btn-text');
+      const originalText = text.innerText;
+
+      if(icon) {
+        icon.classList.remove('fa-copy');
+        icon.classList.add('fa-check');
+      }
+      if(text) text.innerText = "Copied!";
+
+      btn.classList.remove('is-dark');
+      btn.classList.add('is-success');
+
+      setTimeout(() => {
+        if(icon) {
+          icon.classList.remove('fa-check');
+          icon.classList.add('fa-copy');
+        }
+        if(text) text.innerText = originalText;
+        btn.classList.remove('is-success');
+        btn.classList.add('is-dark');
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+  </script>
+  <footer class="footer">
+   <div class="container">
+    <div class="content has-text-centered">
+     <a class="icon-link" href="https://doi.org/10.1016/j.measurement.2025.117252">
+      <i class="fas fa-file-pdf">
+      </i>
+     </a>
+     <a class="external-link" disabled="" href="#">
+      <i class="fab fa-github">
+      </i>
+     </a>
+    </div>
+    <div class="columns is-centered is-vcentered">
+     <div class="column is-6">
+      <div class="content">
+       <p>
+        This website is licensed under a
+        <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license">
+         Creative
+            Commons Attribution-ShareAlike 4.0 International License
+        </a>
+        .
+       </p>
+       <p>
+        Copyright © 2025 Congcong Luo et al. Published in
+        <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">
+         Measurement
+        </a>
+        .
+       </p>
+       <p>
+        This website is adapted from the
+        <a href="https://github.com/nerfies/nerfies.github.io">
+         Nerfies
+        </a>
+        project page template.
+       </p>
+       <p style="margin-top: 10px; font-size: 0.9rem;">
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+        </script>
+        <span id="busuanzi_container_site_uv" style="display:none">
+         Pengunjung:
+         <span id="busuanzi_value_site_uv" style="font-weight: bold;">
+         </span>
+        </span>
+        <span style="margin: 0 8px; color: #ccc;">
+         |
+        </span>
+        <span id="busuanzi_container_site_pv" style="display:none">
+         Total Kunjungan:
+         <span id="busuanzi_value_site_pv" style="font-weight: bold;">
+         </span>
+        </span>
+       </p>
+      </div>
+     </div>
+     <div class="column is-2">
+      <div style="width: 100%; max-width: 200px; margin: 0 auto 0 0;">
+       <script id="clstr_globe" src="//clustrmaps.com/globe.js?d=_zkZv1bfxiqAq8HXllAuUZNIvCYv603-zyA7z-Vpjfw" type="text/javascript">
+       </script>
+      </div>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    // 监听 reveal 类和 stagger-wrapper 类
+    document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
+        observer.observe(el);
+    });
+});
+  </script>
+ </body>
+</html>

@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+  <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
+  <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
+  <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
+  <meta content="TSRF: 船舶用ディーゼルエンジンのための説明可能な故障診断研究" property="og:title"/>
+  <meta content="熱力学シミュレーションとランダムフォレストアルゴリズムを組み合わせ、船舶エンジンの健全性管理に向けた物理情報に基づく機械学習（PIML）および説明可能AI（XAI）手法を提案します。" property="og:description"/>
+  <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
+  <meta content="https://ts-rf.github.io/" property="og:url"/>
+  <meta content="website" property="og:type"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta charset="utf-8"/>
+  <meta content="熱力学シミュレーションとランダムフォレストアルゴリズムを組み合わせ、船舶エンジンの健全性管理に向けた物理情報に基づく機械学習（PIML）および説明可能AI（XAI）手法を提案します。" name="description"/>
+  <meta content="船舶用ディーゼルエンジン, 故障診断, ランダムフォレスト, SHAP, 説明可能AI, 物理情報に基づく機械学習, PIML, メカニズムモデル, 合成データ生成, 予知保全, 熱力学シミュレーション, AVL BOOST" name="keywords"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   TSRF: 船舶用ディーゼルエンジンのための説明可能な故障診断研究
+  </title>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <script>
+   window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
+  <link href="../static/css/bulma.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-carousel.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-slider.min.css" rel="stylesheet"/>
+  <link href="../static/css/fontawesome.all.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet"/>
+  <link href="../static/css/index.css" rel="stylesheet"/>
+  <link href="../static/images/favicon.svg" rel="icon"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+  <script defer="" src="../static/js/fontawesome.all.min.js">
+  </script>
+  <script src="../static/js/bulma-carousel.min.js">
+  </script>
+  <script src="../static/js/bulma-slider.min.js">
+  </script>
+  <script src="../static/js/index.js">
+  </script>
+  <style>
+   .keyword-label {
+      font-weight: bold;
+      margin-right: 10px;
+      vertical-align: middle;
+      color: #363636;
+    }
+
+    .tags .tag {
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .tags .tag:hover {
+      background-color: #3273dc;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
+    }
+
+    /* 核心动画类 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 简单的延迟类 */
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+
+    .hover-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    .hover-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+    }
+
+    .highlight-list li {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #3273dc;
+    }
+
+    .stagger-wrapper .stagger-item {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s ease-out;
+    }
+
+    .stagger-wrapper.active .stagger-item {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+    .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
+    .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
+  </style>
+  <script type="application/ld+json">
+   {
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "熱力学シミュレーション支援型ランダムフォレスト：船舶用ディーゼルエンジンの燃焼室部品における説明可能な故障診断",
+  "image": [
+    "https://ts-rf.github.io/static/images/fig1_structure.jpg"
+  ],
+  "datePublished": "2025-01-01",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Congcong Luo"
+    },
+    {
+      "@type": "Person",
+      "name": "Minghang Zhao"
+    },
+    {
+      "@type": "Person",
+      "name": "Xuyun Fu"
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Elsevier Measurement"
+  },
+  "description": "熱力学シミュレーションとSHAPを組み合わせた、船舶用ディーゼルエンジンの故障診断のための物理情報に基づく機械学習手法。"
+}
+  </script>
+ </head>
+ <body>
+  <nav aria-label="main navigation" class="navbar" role="navigation">
+   <div class="navbar-brand">
+    <a aria-expanded="false" aria-label="menu" class="navbar-burger" role="button">
+     <span aria-hidden="true">
+     </span>
+     <span aria-hidden="true">
+     </span>
+     <span aria-hidden="true">
+     </span>
+    </a>
+   </div>
+   <div class="navbar-menu">
+    <div class="navbar-start">
+    </div>
+    <a class="navbar-item navbar-absolute-center" href="https://scholar.google.com/citations?hl=zh-CN&amp;user=k82TzLwAAAAJ" target="_blank">
+     <span class="icon" style="margin-right: 0.3rem;">
+      <img alt="Google Scholar" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" style="height: 20px; width: 20px;"/>
+     </span>
+     <span>
+      Minghang Zhao (Google Scholar)
+     </span>
+    </a>
+    <div class="navbar-end">
+     <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link">
+       <span class="icon">
+        <i class="fas fa-globe">
+        </i>
+       </span>
+       <span>
+        言語
+       </span>
+      </a>
+      <div class="navbar-dropdown is-right" style="max-height: 500px; overflow-y: auto;">
+       <a class="navbar-item" href="https://ts-rf.github.io/">
+        English
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/zh-CN/">
+        简体中文
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/zh-TW/">
+        繁體中文
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/hi/">
+        हिन्दी
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/es/">
+        Español
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/fr/">
+        Français
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ar/">
+        العربية
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/pt/">
+        Português
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ru/">
+        Русский
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/id/">
+        Indonesia
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/de/">
+        Deutsch
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ja/">
+        日本語
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/tr/">
+        Türkçe
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/vi/">
+        Tiếng Việt
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ko/">
+        한국어
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/fa/">
+        فارسی
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/it/">
+        Italiano
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/th/">
+        ไทย
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/pl/">
+        Polski
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/uk/">
+        Українська
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ro/">
+        Română
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/nl/">
+        Nederlands
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/sv/">
+        Svenska
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/cs/">
+        Čeština
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/he/">
+        עברית
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <section class="hero reveal">
+   <div class="hero-body" style="padding-top: 1rem;">
+    <div class="container is-max-desktop">
+     <div class="columns is-centered">
+      <div class="column has-text-centered">
+       <h1 class="title is-1 publication-title">
+        熱力学シミュレーション支援型ランダムフォレスト：船舶用ディーゼルエンジンの燃焼室部品における説明可能な故障診断
+       </h1>
+       <div class="is-size-5 publication-authors">
+        <span class="author-block">
+         <strong>
+          羅 聡聡 (Luo Congcong)
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <a href="https://homepage.hit.edu.cn/zhaominghang?lang=zh" style="color: inherit; text-decoration: underline;" target="_blank">
+          <strong>
+           趙 明航 (Zhao Minghang)
+          </strong>
+         </a>
+         <sup>
+          a,*
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          付 旭雲 (Fu Xuyun)
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          鍾 詩勝 (Zhong Shisheng)
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          付 松 (Fu Song)
+         </strong>
+         <sup>
+          b
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          張 凱 (Zhang Kai)
+         </strong>
+         <sup>
+          c
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          余 暁霞 (Yu Xiaoxia)
+         </strong>
+         <sup>
+          d
+         </sup>
+        </span>
+       </div>
+       <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
+        <span class="author-block">
+         <sup>
+          a
+         </sup>
+         ハルビン工業大学（威海） 機械工学部、威海 264209、中国
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          b
+         </sup>
+         ハルビン工業大学 機電工程学院、ハルビン 150001、中国
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          c
+         </sup>
+         西南交通大学 機械工学院、成都 610031、中国
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          d
+         </sup>
+         重慶理工大学 機械工学院、重慶 400054、中国
+        </span>
+       </div>
+       <div class="column has-text-centered">
+        <div class="publication-links">
+         <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-pdf">
+            </i>
+           </span>
+           <span>
+            論文全文
+           </span>
+          </a>
+         </span>
+         <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TS-RF.github.io/releases/tag/DATASET" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-csv">
+            </i>
+           </span>
+           <span>
+            データセット
+           </span>
+          </a>
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section" style="padding-top: 0rem; margin-top: 0rem;">
+   <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+     <div class="column is-four-fifths">
+      <h2 class="title is-3 reveal">
+       要旨
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        従来の船舶用ディーゼルエンジンの知的故障診断手法は、故障訓練データの不足による汎化能力の低さや、故障メカニズムに関する事前知識の統合不足による説明性の欠如といった課題を抱えています。これらの問題に対処するため、本研究では
+        <strong>
+         熱力学シミュレーション支援型ランダムフォレスト (TSRF)
+        </strong>
+        手法を提案します。
+       </p>
+       <p>
+        この手法は、熱力学シミュレーションによって故障の進展特性を明らかにし、それを事前知識として知的故障診断モデルの設計に組み込むものです。まず、システムの基本パラメータを微調整して様々な故障の顕著な特徴をシミュレートし、5つの熱力学故障モデルを開発しました。次に、数値シミュレーションの結果に基づき、燃焼室部品の劣化を表す潜在的な熱力学指標を特定しました。
+       </p>
+       <p>
+        さらに、SHapley Additive explanations (SHAP) 値を計算して特徴選択を行い、故障状態と有意な相関を持つ変数のみを保持しました。最後に、選別されたパラメータを用いて燃焼室の健全性を評価しました。実験の結果、提案するTSRF手法は優れた分類性能を示し、故障データセットにおいて99.07%という高い平均精度を達成しました。
+       </p>
+       <div class="keywords-container" style="margin-top: 2rem;">
+        <span class="keyword-label">
+         キーワード：
+        </span>
+        <div class="tags is-inline-block">
+         <span class="tag is-light is-info">
+          船舶用ディーゼルエンジン
+         </span>
+         <span class="tag is-light is-info">
+          故障診断
+         </span>
+         <span class="tag is-light is-info">
+          説明可能AI
+         </span>
+         <span class="tag is-light is-info">
+          SHAP値
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section" style="padding-top: 1rem; margin-top: 1rem;">
+   <div class="container is-max-desktop">
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       研究の動機
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        海洋工学および予知保全 (PHM) の分野において、業界は長期にわたる2つの大きなボトルネックに直面しています。
+       </p>
+       <ul>
+        <li>
+         <strong>
+          データの希少性：
+         </strong>
+         船舶用ディーゼルエンジン（特に外航船の主機）は船の心臓部であり、海上での深刻な故障は動力喪失、座礁、さらには海難事故につながる可能性があります。そのため、設計時の安全率は極めて高く、重大な故障が発生する確率は本来非常に低いものです。さらに、海事業界では厳格な予防保全システム（運転時間に基づく定期整備など）が実施されており、摩耗部品の大部分は、実際に破損して故障データを生成する前に強制的に交換されます。このため、正常データや初期摩耗データは大量に存在する一方で、完全な機能不全や深刻な故障に関する実データは極端に不足しています。
+        </li>
+        <li>
+         <strong>
+          「ブラックボックス」問題：
+         </strong>
+         ディープラーニングモデルは通常透明性を欠いており、故障の物理的な原因を説明できなければ、エンジニアがその判断を信頼することは困難です。船級協会による厳格な規制を受ける海運業界において、この不透明性は特に重大です。もしAIの誤診がピストンの焼き付きやクランクシャフトの破損を引き起こした場合、そのエラーの原因がデータバイアスなのか、アルゴリズムの欠陥なのか、あるいはセンサーのドリフトなのかを追跡できなければ、海難事故調査においてその説明責任を果たすことはできません。
+        </li>
+       </ul>
+       <p>
+        これらの課題に対処するため、私たちはTSRF手法を提案しました。物理ベースのメカニズムモデルと高度な説明可能技術を融合させ、高忠実度のシミュレーションモデルを活用することでデータの希少性問題を解決し、同時に診断の意思決定が熱力学の基本原理に準拠していることを保証します。
+       </p>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       方法論
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        本研究のワークフローは、以下の4つの主要なフェーズで構成されています（図を参照）：
+       </p>
+       <ol>
+        <li>
+         <strong>
+          熱力学モデリング：
+         </strong>
+         物理的なテストベンチだけに頼るのではなく、6気筒船舶用ディーゼルエンジンの高忠実度1次元熱力学モデルを構築しました。このモデルは実稼働データに基づいて厳密に校正されており、シミュレーション誤差は5%以内に抑えられています。
+        </li>
+        <li>
+         <strong>
+          故障注入：
+         </strong>
+         校正されたモデルに基づき、物理パラメータを微調整することで5種類の特定の燃焼室故障（シリンダーヘッドの亀裂、ピストンの焼損など）をシミュレートし、実際のエンジンの様々なレベルの故障を網羅するデータセットを生成しました。
+        </li>
+        <li>
+         <strong>
+          SHAPに基づく特徴選択：
+         </strong>
+         SHAP値を用いて重要な特徴量を定量的に特定し、診断の意思決定を支配する14の主要パラメータを選別しました。
+        </li>
+        <li>
+         <strong>
+          分類診断：
+         </strong>
+         この物理的に強化されたデータセットを用いてランダムフォレスト (RF) 分類器を訓練し、高精度の故障診断を実現しました。
+        </li>
+       </ol>
+      </div>
+      <div class="has-text-centered reveal delay-2">
+       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <p class="subtitle is-6">
+        <strong>
+         図 1：
+        </strong>
+        TSRF手法のアーキテクチャ。
+       </p>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       熱力学モデリングの詳細
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        高い忠実度を確保するため、1次元ディーゼルエンジンシミュレーションモデルを構築しました。このメカニズムモデルは、物理的な精度とデータセット生成に必要な計算効率のバランスを考慮しています。
+       </p>
+      </div>
+      <div class="columns is-centered">
+       <div class="column is-6 reveal delay-2">
+        <div class="box hover-card" style="height: 100%;">
+         <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-info" style="margin-right: 8px;">
+           <i class="fas fa-network-wired">
+           </i>
+          </span>
+          モデルトポロジー
+         </h4>
+         <div class="content is-size-6">
+          <p>
+           エンジンシステムは、流体配管と機能コンポーネントのネットワークとして離散化されています。
+          </p>
+          <ul>
+           <li>
+            <strong>
+             コアパワーユニット：
+            </strong>
+            6気筒、2ストローク直列構成。
+           </li>
+           <li>
+            <strong>
+             吸排気システム：
+            </strong>
+            吸気/排気マニホールド (PL1, PL2) は複雑な配管ネットワークで接続されています。
+           </li>
+           <li>
+            <strong>
+             過給システム：
+            </strong>
+            ターボチャージャー (TC1) とインタークーラー (CO1) が結合されています。
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+       <div class="column is-6 reveal delay-3">
+        <div class="box hover-card" style="height: 100%;">
+         <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-success" style="margin-right: 8px;">
+           <i class="fas fa-check-double">
+           </i>
+          </span>
+          校正と検証
+         </h4>
+         <div class="content is-size-6">
+          <p>
+           故障注入を行う前に、ベースラインモデルは実測データに基づいて厳密に校正されました。
+          </p>
+          <ul>
+           <li>
+            <strong>
+             データソース：
+            </strong>
+            データ収集モジュール (DCM) を通じて取得された実際の船舶運航データ。
+           </li>
+           <li>
+            <strong>
+             検証：
+            </strong>
+            主要パラメータ（出力、排気温度など）の偏差は厳密に
+            <strong>
+             ±5%の誤差範囲内
+            </strong>
+            に制御されています。
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="columns is-centered reveal" style="margin-top: 1rem; margin-bottom: 1rem;">
+       <div class="column is-8 has-text-centered">
+        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+         <img alt="1-D thermodynamic simulation model" class="hover-card" src="../static/images/fig2_simulator.png" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+        </div>
+        <p class="subtitle is-6">
+         <strong>
+          図 2：
+         </strong>
+         ディーゼルエンジン1次元熱力学モデルの概略図。
+        </p>
+       </div>
+       <div class="column is-4 has-text-centered">
+        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+         <img alt="Model Validation Results" class="hover-card" src="../static/images/fig5_faults.jpg" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+        </div>
+        <p class="subtitle is-6">
+         <strong>
+          図 5：
+         </strong>
+         データ収集モジュール (DCM)。
+        </p>
+       </div>
+      </div>
+      <div class="box hover-card reveal" style="margin-top: 1.5rem;">
+       <h4 class="title is-4 is-size-5" style="display: flex; align-items: center; justify-content: center;">
+        <span class="icon has-text-black" style="margin-right: 8px;">
+         <i class="fas fa-cogs">
+         </i>
+        </span>
+        <span>
+         故障注入メカニズム
+        </span>
+       </h4>
+       <div class="content has-text-justified is-size-6">
+        <p>
+         1次元モデルでは3D構造の欠陥を直接表現できないため、物理的な劣化メカニズムを等価な熱力学パラメータの変動に変換する現象学的マッピング法を採用しました。
+        </p>
+       </div>
+       <div class="table-container">
+        <table class="table is-fullwidth is-striped is-hoverable is-size-6">
+         <thead>
+          <tr style="background-color: #f5f5f5;">
+           <th style="width: 20%;">
+            故障タイプ
+           </th>
+           <th style="width: 35%;">
+            物理メカニズム
+           </th>
+           <th>
+            モデリング実装
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <strong>
+             F1: シリンダーヘッド亀裂
+            </strong>
+           </td>
+           <td>
+            熱伝導の阻害。
+           </td>
+           <td>
+            シリンダーヘッド表面温度 ($T_H$) を346°Cまで上昇。
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F2: ピストン焼損
+            </strong>
+           </td>
+           <td>
+            材料欠損とシール不良。
+           </td>
+           <td>
+            ピストン温度 ($T_P$) の上昇 + 軽微なブローバイ (0.01 kg/s)。
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F3: シリンダーライナー摩耗
+            </strong>
+           </td>
+           <td>
+            摩耗によるボア径の拡大。
+           </td>
+           <td>
+            ボア径の拡大 + 大量のブローバイ (0.03 kg/s)。
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F4: ピストンリング摩耗
+            </strong>
+           </td>
+           <td>
+            ガス漏れ。
+           </td>
+           <td>
+            ブローバイ質量流量の調整 (0.02 kg/s)。
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F5: ピストンリング固着
+            </strong>
+           </td>
+           <td>
+            摩擦増大とシール不良。
+           </td>
+           <td>
+            ボア径変化 + ライナー温度上昇 + ブローバイ。
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       説明可能性の分析
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        本研究の革新的な点は、焦点を「故障は何か？」から「なぜその故障と判定されたのか？」へと移行させたことにあります。ピストンリング摩耗 (F4) の事例分析を通じて、この能力を実証しました。
+       </p>
+       <ul>
+        <li>
+         <strong>
+          局所的説明 (ウォーターフォールプロット)：
+         </strong>
+         ウォーターフォールプロットは具体的な予測ロジックを解析します。例えば、モデルが「ピストンリング摩耗」と予測したのは、ブローバイ熱流 (P06) とブローバイ質量流量 (P07) が特定の値を示し、その結果として故障の予測確率が上昇したためです。これは物理法則と一致しています。ピストンリングの摩耗は気密性を損ない、ガス漏れ（ブローバイ）を引き起こします。
+        </li>
+        <li>
+         <strong>
+          大域的説明 (ビースウォームプロット)：
+         </strong>
+         大域的分析は、モデルが学習した一般的な法則を明らかにします。タービン前排気圧力 (P11) の低い値が、ピストンリング摩耗の強力な指標であることが分かりました。物理的な観点からもこれは整合性があります。摩耗したピストンリングはシリンダーからのガス漏れを引き起こし、その結果、タービンを駆動するための利用可能なエネルギーが減少するためです。
+        </li>
+       </ul>
+      </div>
+      <div class="has-text-centered reveal delay-2">
+       <img alt="SHAP Analysis,including Waterfall plot, beeswarm plot, interaction plot and dependence plot" class="hover-card" src="../static/images/fig11_shap.jpg" style="width:100%; border-radius: 10px;"/>
+       <p class="subtitle is-6">
+        <strong>
+         図 11：
+        </strong>
+        SHAP値に基づくピストンリング摩耗 (F4) の故障分析：(a) ウォーターフォールプロット、(b) ビースウォームプロット、(c) 交互作用プロット、(d) 依存性プロット。
+       </p>
+      </div>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xcode.min.css" rel="stylesheet"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">
+      </script>
+      <script>
+       hljs.highlightAll();
+      </script>
+      <div class="reveal delay-2" style="margin-top: 2rem; margin-bottom: 2rem;">
+       <details class="box hover-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
+        <summary class="title is-5 is-size-6-mobile" style="cursor: pointer; color: #363636; margin-bottom: 0;">
+         <span class="icon has-text-info" style="margin-right: 0.5rem;">
+          <i class="fas fa-code">
+          </i>
+         </span>
+         <span>
+          SHAP可視化コードを表示 (Python)
+         </span>
+        </summary>
+        <div class="content has-text-left" style="margin-top: 1.5rem;">
+         <p>
+          <p>
+           上記のグラフの実装詳細にご興味がある場合、以下はウォーターフォールプロット、ビースウォームプロット、交互作用プロット、依存性プロットを生成するためのサンプルコードです。👇
+          </p>
+         </p>
+         <pre style="padding: 0; border-radius: 8px; overflow: hidden;"><code class="language-python" style="border-radius: 8px; font-size: 0.85rem; line-height: 1.5;">import shap
+import matplotlib.pyplot as plt
+import numpy as np
+
+# --- 0. Setup &amp; Global Settings ---
+plt.rcParams['font.family'] = 'Arial'
+plt.rcParams['font.size'] = '24'
+plt.rcParams['axes.unicode_minus'] = False
+
+# Assumption: 'best_model' is your trained XGBoost/RF model
+# Assumption: 'X_train' and 'X_test' are pandas DataFrames
+
+# 1. Calculate SHAP values as Numpy Arrays (for Beeswarm, Dependence, Interaction)
+explainer_tree = shap.TreeExplainer(best_model)
+shap_values_numpy = explainer_tree.shap_values(X_train)
+
+# 2. Calculate SHAP values as Explanation Object (Specifically for Waterfall)
+explainer_obj = shap.Explainer(best_model, X_test)
+shap_values_obj = explainer_obj(X_test)
+
+
+##################################################################
+#                                                                #
+#                      (a) Waterfall Plot                        #
+#          Visualizes contribution for a single sample           #
+#                                                                #
+##################################################################
+
+class_idx = 4  # Target class
+sample_idx = 3 # Specific sample to explain
+
+plt.figure()
+shap.plots.waterfall(
+    shap_values_obj[sample_idx, :, class_idx],
+    max_display=9,
+    show=False
+)
+
+# Customizing style
+ax = plt.gca()
+ax.set_xlabel(ax.get_xlabel(), fontsize=36)
+ax.set_ylabel(ax.get_ylabel(), fontsize=36)
+ax.spines['bottom'].set_linewidth(3)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                      (b) Beeswarm Plot                         #
+#              Global summary of feature importance              #
+#                                                                #
+##################################################################
+
+class_idx = 5
+plt.figure(figsize=(10, 8))
+
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
+    cmap='Greys' # or 'plasma'
+)
+
+# Customize Color Bar
+cbar = plt.gcf().axes[-1]
+cbar.set_ylabel('Parameter Value', fontsize=24)
+cbar.tick_params(labelsize=20)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                     (c) Interaction Plot                       #
+#          Visualizes interaction effects between features       #
+#                                                                #
+##################################################################
+
+# Note: Calculation can be expensive
+shap_interaction_values = explainer_tree.shap_interaction_values(X_test)
+class_idx = 4
+
+plt.figure()
+shap.summary_plot(
+    shap_interaction_values[..., class_idx],
+    X_test,
+    show=False,
+    max_display=6,
+    cmap='Greys'
+)
+
+# Clean up subplots
+axes = plt.gcf().axes
+for ax in axes:
+    ax.spines['bottom'].set_linewidth(2)
+    ax.tick_params(axis="x", labelsize=18, width=2)
+    ax.set_title(ax.get_title(), fontsize=14)
+
+plt.subplots_adjust(wspace=0.3, hspace=0.4)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                     (d) Dependence Plot                        #
+#           Feature relationship colored by interaction          #
+#                                                                #
+##################################################################
+
+Feature_X = 'P06'  # Main feature
+Feature_Y = 'P07'  # Interaction feature
+class_idx = 4
+
+shap.dependence_plot(
+    Feature_X,
+    shap_values_numpy[..., class_idx],
+    X_train,
+    interaction_index=Feature_Y,
+    dot_size=100,
+    show=False
+)
+
+# Customize Axes
+ax = plt.gca()
+ax.tick_params(axis='both', which='major', labelsize=36, width=2)
+ax.set_ylabel(f'SHAP value ({Feature_X})', fontsize=36)
+ax.spines['bottom'].set_linewidth(3)
+ax.spines['left'].set_linewidth(3)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#            (e) Advanced Composite Plot (Beeswarm + Bar)        #
+#      Combines Beeswarm (Bottom Axis) &amp; Importance (Top Axis)   #
+#                                                                #
+##################################################################
+
+class_idx = 5
+fig, ax1 = plt.subplots(figsize=(10, 8))
+
+# 1. Main Beeswarm Plot (on ax1)
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
+    color_bar=True,
+    cmap='Greys' # or 'plasma'
+)
+
+# Customize Color Bar
+cbar = plt.gcf().axes[-1]
+cbar.set_ylabel('Parameter Value', fontsize=24)
+cbar.tick_params(labelsize=20)
+
+# Adjust layout to make room for the top axis
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+
+# 2. Feature Importance Bar Plot (on Top Axis ax2)
+# Create a twin axis sharing the y-axis
+ax2 = ax1.twiny()
+
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    plot_type="bar",
+    show=False
+)
+
+# Align position with the main plot
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+
+# Style the bars (Transparent &amp; Light Color)
+bars = ax2.patches
+for bar in bars:
+    bar.set_color('#CCE5FB') # Light blue background bars
+    bar.set_alpha(0.4)       # Transparency
+
+# Customize Axes Labels
+ax1.set_xlabel(f'Shapley Value Contribution (F{class_idx})', fontsize=24, labelpad=5)
+ax1.set_ylabel('Parameters', fontsize=24)
+ax2.set_xlabel('Mean Shapley Value (Parameter Importance)', fontsize=24, labelpad=10)
+
+# Move ax2 (Bar plot axis) to the top
+ax2.xaxis.set_label_position('top')
+ax2.xaxis.tick_top()
+
+# Ensure ax1 (dots) is drawn ON TOP OF ax2 (bars)
+ax1.set_zorder(ax1.get_zorder() + 1)
+ax1.patch.set_visible(False) # Make ax1 background transparent
+
+plt.show()</code></pre>
+        </div>
+       </details>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       研究のハイライト
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        <p>
+         本研究は、この分野に対して以下の重要な貢献を行ったと考えています。
+        </p>
+       </p>
+       <ul class="highlight-list stagger-wrapper">
+        <li class="stagger-item hover-card">
+         <strong>
+          船舶用ディーゼルエンジンの燃焼室部品における5つの代表的な故障に対するパラメータ化モデルを確立しました。
+         </strong>
+        </li>
+        <li class="stagger-item hover-card">
+         <strong>
+          複数の特徴選択手法との比較を通じて、SHAP手法の有効性を検証しました。
+         </strong>
+        </li>
+        <li class="stagger-item hover-card">
+         <strong>
+          データ駆動型アプローチと熱力学メカニズムモデルを融合させることで、説明可能な故障診断に新たな視点を提供しました。
+         </strong>
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
+   <div class="container is-max-desktop content">
+    <hr/>
+    <h2 class="title">
+     引用
+    </h2>
+    <div class="citation-prompt">
+     <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
+      <i class="fas fa-quote-left">
+      </i>
+     </span>
+     本研究が皆様の研究に役立つ場合は、ぜひ引用をご検討ください 😊
+    </div>
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+     BibTeX
+    </h4>
+    <pre style="margin-bottom: 5px; background-color: #fcfcfc; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem;"><code class="language-latex" id="bibtex-source" style="font-family: 'Times New Roman', Times, serif !important; font-size: 16px; line-height: 1.5;">@article{luo2025thermodynamic,
+  title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
+  author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
+  journal   = {Measurement},
+  volume    = {251},
+  pages     = {117252},
+  year      = {2025},
+  publisher = {Elsevier},
+  doi       = {10.1016/j.measurement.2025.117252},
+}</code></pre>
+    <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
+     <div class="level-left">
+      <button class="button is-dark is-small is-rounded" onclick="copyText('bibtex-source', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+       <span class="btn-text">
+        BibTeXをコピー
+       </span>
+      </button>
+     </div>
+    </div>
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+     標準フォーマット
+    </h4>
+    <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem; margin-bottom: 5px;">
+     <p id="standard-citation" style="margin-bottom: 0; font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.5;">
+      C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
+     </p>
+    </div>
+    <div class="level is-mobile" style="margin-top: 10px;">
+     <div class="level-left">
+      <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+       <span class="btn-text">
+        テキストをコピー
+       </span>
+      </button>
+      <a class="button is-text is-small" href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" style="text-decoration: none; margin-left: 10px;" target="_blank">
+       <span class="icon has-text-info">
+        <i class="fas fa-external-link-alt">
+        </i>
+       </span>
+       <span>
+        ScienceDirectで閲覧
+       </span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </section>
+  <style>
+   .citation-prompt {
+    background-color: #f5f5f5;
+    border-left: 5px solid #3273dc;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    font-weight: 500;
+  }
+  /* 确保 pre 标签不会因为框架样式干扰 padding */
+  pre {
+      padding: 1.25rem !important;
+  }
+  </style>
+  <script>
+   function copyText(elementId, btn) {
+    const textToCopy = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const icon = btn.querySelector('.fa-copy');
+      const text = btn.querySelector('.btn-text');
+      const originalText = text.innerText;
+
+      if(icon) {
+        icon.classList.remove('fa-copy');
+        icon.classList.add('fa-check');
+      }
+      if(text) text.innerText = "Copied!";
+
+      btn.classList.remove('is-dark');
+      btn.classList.add('is-success');
+
+      setTimeout(() => {
+        if(icon) {
+          icon.classList.remove('fa-check');
+          icon.classList.add('fa-copy');
+        }
+        if(text) text.innerText = originalText;
+        btn.classList.remove('is-success');
+        btn.classList.add('is-dark');
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+  </script>
+  <footer class="footer">
+   <div class="container">
+    <div class="content has-text-centered">
+     <a class="icon-link" href="https://doi.org/10.1016/j.measurement.2025.117252">
+      <i class="fas fa-file-pdf">
+      </i>
+     </a>
+     <a class="external-link" disabled="" href="#">
+      <i class="fab fa-github">
+      </i>
+     </a>
+    </div>
+    <div class="columns is-centered is-vcentered">
+     <div class="column is-6">
+      <div class="content">
+       <p>
+        This website is licensed under a
+        <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license">
+         Creative
+            Commons Attribution-ShareAlike 4.0 International License
+        </a>
+        .
+       </p>
+       <p>
+        Copyright © 2025 Congcong Luo et al. Published in
+        <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">
+         Measurement
+        </a>
+        .
+       </p>
+       <p>
+        This website is adapted from the
+        <a href="https://github.com/nerfies/nerfies.github.io">
+         Nerfies
+        </a>
+        project page template.
+       </p>
+       <p style="margin-top: 10px; font-size: 0.9rem;">
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+        </script>
+        <span id="busuanzi_container_site_uv" style="display:none">
+         訪問者数：
+         <span id="busuanzi_value_site_uv" style="font-weight: bold;">
+         </span>
+        </span>
+        <span style="margin: 0 8px; color: #ccc;">
+         |
+        </span>
+        <span id="busuanzi_container_site_pv" style="display:none">
+         総アクセス数：
+         <span id="busuanzi_value_site_pv" style="font-weight: bold;">
+         </span>
+        </span>
+       </p>
+      </div>
+     </div>
+     <div class="column is-2">
+      <div style="width: 100%; max-width: 200px; margin: 0 auto 0 0;">
+       <script id="clstr_globe" src="//clustrmaps.com/globe.js?d=_zkZv1bfxiqAq8HXllAuUZNIvCYv603-zyA7z-Vpjfw" type="text/javascript">
+       </script>
+      </div>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    // 监听 reveal 类和 stagger-wrapper 类
+    document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
+        observer.observe(el);
+    });
+});
+  </script>
+ </body>
+</html>

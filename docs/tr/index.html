@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="tr">
+ <head>
+  <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
+  <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
+  <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
+  <meta content="TSRF: Gemi Dizel Motorları İçin Açıklanabilir Arıza Teşhisi Çalışması" property="og:title"/>
+  <meta content="Termodinamik simülasyon ve Rastgele Orman (Random Forest) algoritmalarını birleştirerek, gemi motoru sağlık yönetimi için fizik tabanlı makine öğrenimi (PIML) ve açıklanabilir yapay zeka yöntemi önerilmektedir." property="og:description"/>
+  <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
+  <meta content="https://ts-rf.github.io/" property="og:url"/>
+  <meta content="website" property="og:type"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta charset="utf-8"/>
+  <meta content="Termodinamik simülasyon ve Rastgele Orman (Random Forest) algoritmalarını birleştirerek, gemi motoru sağlık yönetimi için fizik tabanlı makine öğrenimi (PIML) ve açıklanabilir yapay zeka yöntemi önerilmektedir." name="description"/>
+  <meta content="Gemi dizel motoru, Arıza teşhisi, Rastgele Orman, SHAP, Açıklanabilir Yapay Zeka, Fizik tabanlı makine öğrenimi, PIML, Mekanistik model, Sentetik veri üretimi, Kestirimci bakım, Termodinamik simülasyon, AVL BOOST" name="keywords"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   TSRF: Gemi Dizel Motorları İçin Açıklanabilir Arıza Teşhisi Çalışması
+  </title>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <script>
+   window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
+  <link href="../static/css/bulma.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-carousel.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-slider.min.css" rel="stylesheet"/>
+  <link href="../static/css/fontawesome.all.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet"/>
+  <link href="../static/css/index.css" rel="stylesheet"/>
+  <link href="../static/images/favicon.svg" rel="icon"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+  <script defer="" src="../static/js/fontawesome.all.min.js">
+  </script>
+  <script src="../static/js/bulma-carousel.min.js">
+  </script>
+  <script src="../static/js/bulma-slider.min.js">
+  </script>
+  <script src="../static/js/index.js">
+  </script>
+  <style>
+   .keyword-label {
+      font-weight: bold;
+      margin-right: 10px;
+      vertical-align: middle;
+      color: #363636;
+    }
+
+    .tags .tag {
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .tags .tag:hover {
+      background-color: #3273dc;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
+    }
+
+    /* 核心动画类 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 简单的延迟类 */
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+
+    .hover-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    .hover-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+    }
+
+    .highlight-list li {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #3273dc;
+    }
+
+    .stagger-wrapper .stagger-item {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s ease-out;
+    }
+
+    .stagger-wrapper.active .stagger-item {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+    .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
+    .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
+  </style>
+  <script type="application/ld+json">
+   {
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Termodinamik Simülasyon Destekli Rastgele Orman: Gemi Dizel Motoru Yanma Odası Bileşenleri İçin Açıklanabilir Arıza Teşhisi",
+  "image": [
+    "https://ts-rf.github.io/static/images/fig1_structure.jpg"
+  ],
+  "datePublished": "2025-01-01",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Congcong Luo"
+    },
+    {
+      "@type": "Person",
+      "name": "Minghang Zhao"
+    },
+    {
+      "@type": "Person",
+      "name": "Xuyun Fu"
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Elsevier Measurement"
+  },
+  "description": "Gemi dizel motoru arıza teşhisi için termodinamik simülasyon ve SHAP'ı birleştiren fizik tabanlı bir makine öğrenimi yöntemi."
+}
+  </script>
+ </head>
+ <body>
+  <nav aria-label="main navigation" class="navbar" role="navigation">
+   <div class="navbar-brand">
+    <a aria-expanded="false" aria-label="menu" class="navbar-burger" role="button">
+     <span aria-hidden="true">
+     </span>
+     <span aria-hidden="true">
+     </span>
+     <span aria-hidden="true">
+     </span>
+    </a>
+   </div>
+   <div class="navbar-menu">
+    <div class="navbar-start">
+    </div>
+    <a class="navbar-item navbar-absolute-center" href="https://scholar.google.com/citations?hl=zh-CN&amp;user=k82TzLwAAAAJ" target="_blank">
+     <span class="icon" style="margin-right: 0.3rem;">
+      <img alt="Google Scholar" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" style="height: 20px; width: 20px;"/>
+     </span>
+     <span>
+      Minghang Zhao (Google Akademik)
+     </span>
+    </a>
+    <div class="navbar-end">
+     <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link">
+       <span class="icon">
+        <i class="fas fa-globe">
+        </i>
+       </span>
+       <span>
+        Dil
+       </span>
+      </a>
+      <div class="navbar-dropdown is-right" style="max-height: 500px; overflow-y: auto;">
+       <a class="navbar-item" href="https://ts-rf.github.io/">
+        English
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/zh-CN/">
+        简体中文
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/zh-TW/">
+        繁體中文
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/hi/">
+        हिन्दी
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/es/">
+        Español
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/fr/">
+        Français
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ar/">
+        العربية
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/pt/">
+        Português
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ru/">
+        Русский
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/id/">
+        Indonesia
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/de/">
+        Deutsch
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ja/">
+        日本語
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/tr/">
+        Türkçe
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/vi/">
+        Tiếng Việt
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ko/">
+        한국어
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/fa/">
+        فارسی
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/it/">
+        Italiano
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/th/">
+        ไทย
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/pl/">
+        Polski
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/uk/">
+        Українська
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ro/">
+        Română
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/nl/">
+        Nederlands
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/sv/">
+        Svenska
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/cs/">
+        Čeština
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/he/">
+        עברית
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <section class="hero reveal">
+   <div class="hero-body" style="padding-top: 1rem;">
+    <div class="container is-max-desktop">
+     <div class="columns is-centered">
+      <div class="column has-text-centered">
+       <h1 class="title is-1 publication-title">
+        Termodinamik Simülasyon Destekli Rastgele Orman: Gemi Dizel Motoru Yanma Odası Bileşenleri İçin Açıklanabilir Arıza Teşhisi
+       </h1>
+       <div class="is-size-5 publication-authors">
+        <span class="author-block">
+         <strong>
+          Luo Congcong
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <a href="https://homepage.hit.edu.cn/zhaominghang?lang=zh" style="color: inherit; text-decoration: underline;" target="_blank">
+          <strong>
+           Zhao Minghang
+          </strong>
+         </a>
+         <sup>
+          a,*
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Fu Xuyun
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Zhong Shisheng
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Fu Song
+         </strong>
+         <sup>
+          b
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Zhang Kai
+         </strong>
+         <sup>
+          c
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          Yu Xiaoxia
+         </strong>
+         <sup>
+          d
+         </sup>
+        </span>
+       </div>
+       <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
+        <span class="author-block">
+         <sup>
+          a
+         </sup>
+         Makine Mühendisliği Fakültesi, Harbin Teknoloji Enstitüsü (Weihai), Weihai 264209, Çin
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          b
+         </sup>
+         Mekatronik Mühendisliği Fakültesi, Harbin Teknoloji Enstitüsü, Harbin 150001, Çin
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          c
+         </sup>
+         Makine Mühendisliği Fakültesi, Güneybatı Jiaotong Üniversitesi, Chengdu 610031, Çin
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          d
+         </sup>
+         Makine Mühendisliği Fakültesi, Chongqing Teknoloji Üniversitesi, Chongqing 400054, Çin
+        </span>
+       </div>
+       <div class="column has-text-centered">
+        <div class="publication-links">
+         <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-pdf">
+            </i>
+           </span>
+           <span>
+            Tam Makale
+           </span>
+          </a>
+         </span>
+         <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TS-RF.github.io/releases/tag/DATASET" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-csv">
+            </i>
+           </span>
+           <span>
+            Veri Seti
+           </span>
+          </a>
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section" style="padding-top: 0rem; margin-top: 0rem;">
+   <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+     <div class="column is-four-fifths">
+      <h2 class="title is-3 reveal">
+       Özet
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Geleneksel gemi dizel motoru akıllı arıza teşhis yöntemleri, arıza eğitim örneklerinin eksikliği nedeniyle genellikle zayıf genelleme yeteneğinden muzdariptir ve arıza mekanizmaları hakkındaki ön bilgileri yeterince entegre etmedikleri için düşük açıklanabilirliğe sahiptir. Bu sorunları ele almak için, bu makale bir
+        <strong>
+         Termodinamik Simülasyon Destekli Rastgele Orman (TSRF)
+        </strong>
+        yöntemi önermektedir.
+       </p>
+       <p>
+        Bu yöntem, termodinamik simülasyon yoluyla arıza gelişim özelliklerini ortaya çıkarır ve bunları akıllı arıza teşhis modelinin tasarımına ön bilgi olarak entegre eder. İlk olarak, farklı arızaların belirgin özelliklerini simüle etmek için sistemin temel parametrelerinde ince ayar yapılarak beş termodinamik arıza modeli geliştirilmiştir. Ardından, sayısal simülasyon sonuçlarına dayanarak, yanma odası bileşenlerinin bozulmasını karakterize eden potansiyel termodinamik göstergeler belirlenmiştir.
+       </p>
+       <p>
+        Özellik seçimi, SHapley Additive exPlanations (SHAP) değerleri hesaplanarak gerçekleştirilmiş ve yalnızca arıza durumuyla anlamlı bir korelasyona sahip değişkenler korunmuştur. Son olarak, seçilen parametreler kullanılarak yanma odasının sağlık durumu değerlendirilmiştir. Deneysel sonuçlar, önerilen TSRF yönteminin, arıza veri setinde %99,07'ye varan ortalama doğrulukla mükemmel sınıflandırma performansı sergilediğini göstermektedir.
+       </p>
+       <div class="keywords-container" style="margin-top: 2rem;">
+        <span class="keyword-label">
+         Anahtar Kelimeler:
+        </span>
+        <div class="tags is-inline-block">
+         <span class="tag is-light is-info">
+          Gemi dizel motoru
+         </span>
+         <span class="tag is-light is-info">
+          Arıza teşhisi
+         </span>
+         <span class="tag is-light is-info">
+          Açıklanabilir Yapay Zeka
+         </span>
+         <span class="tag is-light is-info">
+          SHAP değerleri
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section" style="padding-top: 1rem; margin-top: 1rem;">
+   <div class="container is-max-desktop">
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Araştırma Motivasyonu
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Gemi mühendisliği ve Prognostik ve Sağlık Yönetimi (PHM) alanında, endüstri iki uzun vadeli darboğazla karşı karşıyadır:
+       </p>
+       <ul>
+        <li>
+         <strong>
+          Veri Kıtlığı:
+         </strong>
+         Gemi dizel motorları (özellikle okyanus gemilerinin ana makineleri) geminin kalbidir. Denizde ciddi bir arıza, tahrik kaybına, karaya oturmaya veya hatta deniz felaketlerine yol açabilir. Bu nedenle, tasarımdaki güvenlik faktörleri son derece yüksektir ve ciddi arıza olasılığı doğası gereği çok düşüktür. Ayrıca, denizcilik endüstrisi katı önleyici bakım sistemleri (çalışma saatlerine dayalı planlı revizyonlar gibi) uygular. Aşınan parçaların büyük çoğunluğu, gerçekten arızalanıp arıza verisi üretmeden önce zorunlu olarak değiştirilir. Bu durum, bol miktarda sağlık verisi ve erken aşınma verisi olmasına rağmen, tam arıza veya ciddi arızalarla ilgili gerçek verilerin aşırı eksikliğine yol açar.
+        </li>
+        <li>
+         <strong>
+          "Kara Kutu" Sorunu:
+         </strong>
+         Derin öğrenme modelleri genellikle şeffaflıktan yoksun olduğundan, mühendislerin bir arızanın fiziksel nedenlerini açıklayamamaları durumunda onlara güvenmeleri zordur. Klas kuruluşları tarafından sıkı bir şekilde düzenlenen denizcilik endüstrisinde bu belirsizlik kritiktir. Yapay zeka, piston sarmasını veya krank mili kırılmasını yanlış teşhis ederse (veya kaçırırsa) ve sistem hatanın veri yanlılığından mı, algoritma kusurundan mı yoksa sensör sapmasından mı kaynaklandığını izleyemezse, bu izlenemezlik deniz kazası soruşturmalarında kabul edilemez.
+        </li>
+       </ul>
+       <p>
+        Bu zorlukların üstesinden gelmek için TSRF yöntemini önerdik. Fizik tabanlı mekanistik modelleri gelişmiş açıklanabilirlik teknikleriyle birleştirerek ve veri kıtlığı sorununu çözmek için yüksek doğruluğa sahip simülasyon modellerini kullanarak, teşhis kararlarının temel termodinamik ilkelerine uymasını sağlıyoruz.
+       </p>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Metodoloji
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Bu çalışmanın iş akışı aşağıdaki dört ana aşamayı içermektedir (şekilde gösterildiği gibi):
+       </p>
+       <ol>
+        <li>
+         <strong>
+          Termodinamik Modelleme:
+         </strong>
+         Yalnızca fiziksel test tezgahlarına güvenmek yerine, altı silindirli bir gemi dizel motorunun yüksek doğruluklu tek boyutlu termodinamik modelini oluşturduk. Model, gerçek çalışma verilerine dayanarak titizlikle kalibre edilmiş ve simülasyon hatası %5'in altında tutulmuştur.
+        </li>
+        <li>
+         <strong>
+          Arıza Enjeksiyonu:
+         </strong>
+         Kalibre edilmiş modele dayanarak, fiziksel parametrelerde ince ayar yaparak beş spesifik yanma odası arızasını (silindir kapağı çatlağı, piston aşınması vb.) simüle ettik ve böylece gerçek motor arızalarının çeşitli derecelerini kapsayan bir veri seti oluşturduk.
+        </li>
+        <li>
+         <strong>
+          SHAP Tabanlı Özellik Seçimi:
+         </strong>
+         Temel özellikleri nicel olarak belirlemek için SHAP değerlerini kullandık ve teşhis kararına hükmeden 14 kritik parametreyi seçtik.
+        </li>
+        <li>
+         <strong>
+          Sınıflandırma Teşhisi:
+         </strong>
+         Bu fiziksel olarak zenginleştirilmiş veri setini kullanarak, bir Rastgele Orman (RF) sınıflandırıcısını eğittik ve yüksek hassasiyetli arıza teşhisi elde ettik.
+        </li>
+       </ol>
+      </div>
+      <div class="has-text-centered reveal delay-2">
+       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <p class="subtitle is-6">
+        <strong>
+         Şekil 1:
+        </strong>
+        TSRF yöntemi mimarisi.
+       </p>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Termodinamik Modelleme Detayları
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Yüksek doğruluk sağlamak için tek boyutlu bir dizel motor simülasyon modeli oluşturduk. Bu mekanistik model, fiziksel hassasiyet ile veri seti oluşturma için gereken hesaplama verimliliği arasında bir denge kurar.
+       </p>
+      </div>
+      <div class="columns is-centered">
+       <div class="column is-6 reveal delay-2">
+        <div class="box hover-card" style="height: 100%;">
+         <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-info" style="margin-right: 8px;">
+           <i class="fas fa-network-wired">
+           </i>
+          </span>
+          Model Topolojisi
+         </h4>
+         <div class="content is-size-6">
+          <p>
+           Motor sistemi, akışkan boru hatları ve fonksiyonel bileşenlerden oluşan bir ağ olarak ayrıklaştırılmıştır:
+          </p>
+          <ul>
+           <li>
+            <strong>
+             Çekirdek Güç Ünitesi:
+            </strong>
+            Altı silindirli, iki zamanlı sıralı konfigürasyon.
+           </li>
+           <li>
+            <strong>
+             Hava Sistemi:
+            </strong>
+            Emme/egzoz manifoldları (PL1, PL2) karmaşık bir boru ağıyla birbirine bağlanmıştır.
+           </li>
+           <li>
+            <strong>
+             Takviye Sistemi:
+            </strong>
+            Turboşarj (TC1), intercooler (CO1) ile birleştirilmiştir.
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+       <div class="column is-6 reveal delay-3">
+        <div class="box hover-card" style="height: 100%;">
+         <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-success" style="margin-right: 8px;">
+           <i class="fas fa-check-double">
+           </i>
+          </span>
+          Kalibrasyon ve Doğrulama
+         </h4>
+         <div class="content is-size-6">
+          <p>
+           Arıza enjeksiyonunu gerçekleştirmeden önce, temel model ölçülen verilere dayanarak titizlikle kalibre edilmiştir.
+          </p>
+          <ul>
+           <li>
+            <strong>
+             Veri Kaynağı:
+            </strong>
+            Veri Toplama Modülü (DCM) aracılığıyla elde edilen gerçek gemi işletim verileri.
+           </li>
+           <li>
+            <strong>
+             Doğrulama:
+            </strong>
+            Temel parametrelerin (güç, egzoz sıcaklığı gibi) sapmaları kesinlikle
+            <strong>
+             ±%5 hata aralığında
+            </strong>
+            kontrol edilmiştir.
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="columns is-centered reveal" style="margin-top: 1rem; margin-bottom: 1rem;">
+       <div class="column is-8 has-text-centered">
+        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+         <img alt="1-D thermodynamic simulation model" class="hover-card" src="../static/images/fig2_simulator.png" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+        </div>
+        <p class="subtitle is-6">
+         <strong>
+          Şekil 2:
+         </strong>
+         Dizel motorun tek boyutlu termodinamik modelinin şeması.
+        </p>
+       </div>
+       <div class="column is-4 has-text-centered">
+        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+         <img alt="Model Validation Results" class="hover-card" src="../static/images/fig5_faults.jpg" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+        </div>
+        <p class="subtitle is-6">
+         <strong>
+          Şekil 5:
+         </strong>
+         Veri Toplama Modülü (DCM).
+        </p>
+       </div>
+      </div>
+      <div class="box hover-card reveal" style="margin-top: 1.5rem;">
+       <h4 class="title is-4 is-size-5" style="display: flex; align-items: center; justify-content: center;">
+        <span class="icon has-text-black" style="margin-right: 8px;">
+         <i class="fas fa-cogs">
+         </i>
+        </span>
+        <span>
+         Arıza Enjeksiyon Mekanizması
+        </span>
+       </h4>
+       <div class="content has-text-justified is-size-6">
+        <p>
+         Tek boyutlu modeller 3B yapısal kusurları doğrudan temsil edemediğinden, fiziksel bozulma mekanizmalarını eşdeğer termodinamik parametre kaymalarına dönüştürmek için fenomenolojik bir haritalama yöntemi benimsedik.
+        </p>
+       </div>
+       <div class="table-container">
+        <table class="table is-fullwidth is-striped is-hoverable is-size-6">
+         <thead>
+          <tr style="background-color: #f5f5f5;">
+           <th style="width: 20%;">
+            Arıza Tipi
+           </th>
+           <th style="width: 35%;">
+            Fiziksel Mekanizma
+           </th>
+           <th>
+            Modelleme Uygulaması
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <strong>
+             F1: Silindir Kapağı Çatlağı
+            </strong>
+           </td>
+           <td>
+            Isı iletiminin engellenmesi.
+           </td>
+           <td>
+            Silindir kapağı yüzey sıcaklığının ($T_H$) 346°C'ye yükseltilmesi.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F2: Piston Aşınması (Ablation)
+            </strong>
+           </td>
+           <td>
+            Malzeme kaybı ve sızdırmazlık hatası.
+           </td>
+           <td>
+            Piston sıcaklığının ($T_P$) artırılması + hafif karter gazı kaçağı (Blow-by) (0.01 kg/s).
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F3: Gömlek (Liner) Aşınması
+            </strong>
+           </td>
+           <td>
+            Aşınma nedeniyle silindir çapının büyümesi.
+           </td>
+           <td>
+            Çapın büyümesi + ciddi karter gazı kaçağı (0.03 kg/s).
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F4: Segman (Ring) Aşınması
+            </strong>
+           </td>
+           <td>
+            Gaz kaçağı.
+           </td>
+           <td>
+            Karter gazı kütle debisinin ayarlanması (0.02 kg/s).
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F5: Segman Sıkışması
+            </strong>
+           </td>
+           <td>
+            Sürtünme artışı ve sızdırmazlık hatası.
+           </td>
+           <td>
+            Silindir çapı değişimi + gömlek sıcaklığı artışı + karter gazı kaçağı.
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Açıklanabilirlik Analizi
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        Bu çalışmanın temel yeniliklerinden biri, odağı "Arıza nedir?" sorusundan "Neden bu arıza teşhis edildi?" sorusuna kaydırmasında yatmaktadır. Bu yeteneği piston segmanı aşınması (F4) analizi ile gösterdik:
+       </p>
+       <ul>
+        <li>
+         <strong>
+          Yerel Açıklama (Şelale Grafiği):
+         </strong>
+         Şelale grafiği, spesifik tahmin mantığını ayrıştırır. Örneğin, model "segman aşınması" tahmininde bulundu çünkü karter gazı ısı akışı (P06) ve karter gazı kütle debisi (P07) belirli değerler gösterdi ve bu da bu arızanın tahmin olasılığını artırdı. Bu, fiziksel yasalarla tutarlıdır: segman aşınması sızdırmazlığı bozar ve gaz kaçağına (Blow-by) neden olur.
+        </li>
+        <li>
+         <strong>
+          Küresel Açıklama (Arı Kovanı Grafiği):
+         </strong>
+         Küresel analiz, modelin öğrendiği genel yasaları ortaya çıkarır. Türbin öncesi egzoz basıncının (P11) düşük değerinin, segman aşınması için güçlü bir gösterge olduğunu bulduk. Fiziksel olarak bu tutarlıdır: aşınmış segmanlar silindirden gaz kaçağına neden olur ve böylece türbini çalıştırmak için mevcut enerjiyi azaltır.
+        </li>
+       </ul>
+      </div>
+      <div class="has-text-centered reveal delay-2">
+       <img alt="SHAP Analysis,including Waterfall plot, beeswarm plot, interaction plot and dependence plot" class="hover-card" src="../static/images/fig11_shap.jpg" style="width:100%; border-radius: 10px;"/>
+       <p class="subtitle is-6">
+        <strong>
+         Şekil 11:
+        </strong>
+        SHAP değerlerine dayalı piston segmanı aşınması (F4) arıza analizi: (a) Şelale Grafiği; (b) Arı Kovanı Grafiği; (c) Etkileşim Grafiği; (d) Bağımlılık Grafiği.
+       </p>
+      </div>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xcode.min.css" rel="stylesheet"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">
+      </script>
+      <script>
+       hljs.highlightAll();
+      </script>
+      <div class="reveal delay-2" style="margin-top: 2rem; margin-bottom: 2rem;">
+       <details class="box hover-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
+        <summary class="title is-5 is-size-6-mobile" style="cursor: pointer; color: #363636; margin-bottom: 0;">
+         <span class="icon has-text-info" style="margin-right: 0.5rem;">
+          <i class="fas fa-code">
+          </i>
+         </span>
+         <span>
+          SHAP Görselleştirme Kodunu Görüntüle (Python)
+         </span>
+        </summary>
+        <div class="content has-text-left" style="margin-top: 1.5rem;">
+         <p>
+          <p>
+           Yukarıdaki grafiklerin uygulama detaylarıyla ilgileniyorsanız, işte şelale, arı kovanı, etkileşim ve bağımlılık grafikleri oluşturmak için örnek kod.👇
+          </p>
+         </p>
+         <pre style="padding: 0; border-radius: 8px; overflow: hidden;"><code class="language-python" style="border-radius: 8px; font-size: 0.85rem; line-height: 1.5;">import shap
+import matplotlib.pyplot as plt
+import numpy as np
+
+# --- 0. Setup &amp; Global Settings ---
+plt.rcParams['font.family'] = 'Arial'
+plt.rcParams['font.size'] = '24'
+plt.rcParams['axes.unicode_minus'] = False
+
+# Assumption: 'best_model' is your trained XGBoost/RF model
+# Assumption: 'X_train' and 'X_test' are pandas DataFrames
+
+# 1. Calculate SHAP values as Numpy Arrays (for Beeswarm, Dependence, Interaction)
+explainer_tree = shap.TreeExplainer(best_model)
+shap_values_numpy = explainer_tree.shap_values(X_train)
+
+# 2. Calculate SHAP values as Explanation Object (Specifically for Waterfall)
+explainer_obj = shap.Explainer(best_model, X_test)
+shap_values_obj = explainer_obj(X_test)
+
+
+##################################################################
+#                                                                #
+#                      (a) Waterfall Plot                        #
+#          Visualizes contribution for a single sample           #
+#                                                                #
+##################################################################
+
+class_idx = 4  # Target class
+sample_idx = 3 # Specific sample to explain
+
+plt.figure()
+shap.plots.waterfall(
+    shap_values_obj[sample_idx, :, class_idx],
+    max_display=9,
+    show=False
+)
+
+# Customizing style
+ax = plt.gca()
+ax.set_xlabel(ax.get_xlabel(), fontsize=36)
+ax.set_ylabel(ax.get_ylabel(), fontsize=36)
+ax.spines['bottom'].set_linewidth(3)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                      (b) Beeswarm Plot                         #
+#              Global summary of feature importance              #
+#                                                                #
+##################################################################
+
+class_idx = 5
+plt.figure(figsize=(10, 8))
+
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
+    cmap='Greys' # or 'plasma'
+)
+
+# Customize Color Bar
+cbar = plt.gcf().axes[-1]
+cbar.set_ylabel('Parameter Value', fontsize=24)
+cbar.tick_params(labelsize=20)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                     (c) Interaction Plot                       #
+#          Visualizes interaction effects between features       #
+#                                                                #
+##################################################################
+
+# Note: Calculation can be expensive
+shap_interaction_values = explainer_tree.shap_interaction_values(X_test)
+class_idx = 4
+
+plt.figure()
+shap.summary_plot(
+    shap_interaction_values[..., class_idx],
+    X_test,
+    show=False,
+    max_display=6,
+    cmap='Greys'
+)
+
+# Clean up subplots
+axes = plt.gcf().axes
+for ax in axes:
+    ax.spines['bottom'].set_linewidth(2)
+    ax.tick_params(axis="x", labelsize=18, width=2)
+    ax.set_title(ax.get_title(), fontsize=14)
+
+plt.subplots_adjust(wspace=0.3, hspace=0.4)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                     (d) Dependence Plot                        #
+#           Feature relationship colored by interaction          #
+#                                                                #
+##################################################################
+
+Feature_X = 'P06'  # Main feature
+Feature_Y = 'P07'  # Interaction feature
+class_idx = 4
+
+shap.dependence_plot(
+    Feature_X,
+    shap_values_numpy[..., class_idx],
+    X_train,
+    interaction_index=Feature_Y,
+    dot_size=100,
+    show=False
+)
+
+# Customize Axes
+ax = plt.gca()
+ax.tick_params(axis='both', which='major', labelsize=36, width=2)
+ax.set_ylabel(f'SHAP value ({Feature_X})', fontsize=36)
+ax.spines['bottom'].set_linewidth(3)
+ax.spines['left'].set_linewidth(3)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#            (e) Advanced Composite Plot (Beeswarm + Bar)        #
+#      Combines Beeswarm (Bottom Axis) &amp; Importance (Top Axis)   #
+#                                                                #
+##################################################################
+
+class_idx = 5
+fig, ax1 = plt.subplots(figsize=(10, 8))
+
+# 1. Main Beeswarm Plot (on ax1)
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
+    color_bar=True,
+    cmap='Greys' # or 'plasma'
+)
+
+# Customize Color Bar
+cbar = plt.gcf().axes[-1]
+cbar.set_ylabel('Parameter Value', fontsize=24)
+cbar.tick_params(labelsize=20)
+
+# Adjust layout to make room for the top axis
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+
+# 2. Feature Importance Bar Plot (on Top Axis ax2)
+# Create a twin axis sharing the y-axis
+ax2 = ax1.twiny()
+
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    plot_type="bar",
+    show=False
+)
+
+# Align position with the main plot
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+
+# Style the bars (Transparent &amp; Light Color)
+bars = ax2.patches
+for bar in bars:
+    bar.set_color('#CCE5FB') # Light blue background bars
+    bar.set_alpha(0.4)       # Transparency
+
+# Customize Axes Labels
+ax1.set_xlabel(f'Shapley Value Contribution (F{class_idx})', fontsize=24, labelpad=5)
+ax1.set_ylabel('Parameters', fontsize=24)
+ax2.set_xlabel('Mean Shapley Value (Parameter Importance)', fontsize=24, labelpad=10)
+
+# Move ax2 (Bar plot axis) to the top
+ax2.xaxis.set_label_position('top')
+ax2.xaxis.tick_top()
+
+# Ensure ax1 (dots) is drawn ON TOP OF ax2 (bars)
+ax1.set_zorder(ax1.get_zorder() + 1)
+ax1.patch.set_visible(False) # Make ax1 background transparent
+
+plt.show()</code></pre>
+        </div>
+       </details>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       Araştırmada Öne Çıkanlar
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        <p>
+         Bu çalışmanın alana aşağıdaki temel katkıları sağladığına inanıyoruz:
+        </p>
+       </p>
+       <ul class="highlight-list stagger-wrapper">
+        <li class="stagger-item hover-card">
+         <strong>
+          Gemi dizel motoru yanma odası bileşenlerinin beş tipik arızası için parametreli modellerin oluşturulması.
+         </strong>
+        </li>
+        <li class="stagger-item hover-card">
+         <strong>
+          SHAP yönteminin etkinliğinin, çoklu özellik seçimi yöntemleriyle karşılaştırılarak doğrulanması.
+         </strong>
+        </li>
+        <li class="stagger-item hover-card">
+         <strong>
+          Veri odaklı yöntemleri termodinamik mekanistik modellerle birleştirerek açıklanabilir arıza teşhisi için yeni bir perspektif sağlanması.
+         </strong>
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
+   <div class="container is-max-desktop content">
+    <hr/>
+    <h2 class="title">
+     Atıf
+    </h2>
+    <div class="citation-prompt">
+     <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
+      <i class="fas fa-quote-left">
+      </i>
+     </span>
+     Bu çalışmayı araştırmanız için yararlı bulursanız, lütfen atıfta bulunmayı düşünün 😊
+    </div>
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+     BibTeX
+    </h4>
+    <pre style="margin-bottom: 5px; background-color: #fcfcfc; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem;"><code class="language-latex" id="bibtex-source" style="font-family: 'Times New Roman', Times, serif !important; font-size: 16px; line-height: 1.5;">@article{luo2025thermodynamic,
+  title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
+  author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
+  journal   = {Measurement},
+  volume    = {251},
+  pages     = {117252},
+  year      = {2025},
+  publisher = {Elsevier},
+  doi       = {10.1016/j.measurement.2025.117252},
+}</code></pre>
+    <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
+     <div class="level-left">
+      <button class="button is-dark is-small is-rounded" onclick="copyText('bibtex-source', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+       <span class="btn-text">
+        BibTeX Kopyala
+       </span>
+      </button>
+     </div>
+    </div>
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+     Standart Format
+    </h4>
+    <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem; margin-bottom: 5px;">
+     <p id="standard-citation" style="margin-bottom: 0; font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.5;">
+      C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
+     </p>
+    </div>
+    <div class="level is-mobile" style="margin-top: 10px;">
+     <div class="level-left">
+      <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+       <span class="btn-text">
+        Metni Kopyala
+       </span>
+      </button>
+      <a class="button is-text is-small" href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" style="text-decoration: none; margin-left: 10px;" target="_blank">
+       <span class="icon has-text-info">
+        <i class="fas fa-external-link-alt">
+        </i>
+       </span>
+       <span>
+        ScienceDirect'te Görüntüle
+       </span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </section>
+  <style>
+   .citation-prompt {
+    background-color: #f5f5f5;
+    border-left: 5px solid #3273dc;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    font-weight: 500;
+  }
+  /* 确保 pre 标签不会因为框架样式干扰 padding */
+  pre {
+      padding: 1.25rem !important;
+  }
+  </style>
+  <script>
+   function copyText(elementId, btn) {
+    const textToCopy = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const icon = btn.querySelector('.fa-copy');
+      const text = btn.querySelector('.btn-text');
+      const originalText = text.innerText;
+
+      if(icon) {
+        icon.classList.remove('fa-copy');
+        icon.classList.add('fa-check');
+      }
+      if(text) text.innerText = "Copied!";
+
+      btn.classList.remove('is-dark');
+      btn.classList.add('is-success');
+
+      setTimeout(() => {
+        if(icon) {
+          icon.classList.remove('fa-check');
+          icon.classList.add('fa-copy');
+        }
+        if(text) text.innerText = originalText;
+        btn.classList.remove('is-success');
+        btn.classList.add('is-dark');
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+  </script>
+  <footer class="footer">
+   <div class="container">
+    <div class="content has-text-centered">
+     <a class="icon-link" href="https://doi.org/10.1016/j.measurement.2025.117252">
+      <i class="fas fa-file-pdf">
+      </i>
+     </a>
+     <a class="external-link" disabled="" href="#">
+      <i class="fab fa-github">
+      </i>
+     </a>
+    </div>
+    <div class="columns is-centered is-vcentered">
+     <div class="column is-6">
+      <div class="content">
+       <p>
+        This website is licensed under a
+        <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license">
+         Creative
+            Commons Attribution-ShareAlike 4.0 International License
+        </a>
+        .
+       </p>
+       <p>
+        Copyright © 2025 Congcong Luo et al. Published in
+        <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">
+         Measurement
+        </a>
+        .
+       </p>
+       <p>
+        This website is adapted from the
+        <a href="https://github.com/nerfies/nerfies.github.io">
+         Nerfies
+        </a>
+        project page template.
+       </p>
+       <p style="margin-top: 10px; font-size: 0.9rem;">
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+        </script>
+        <span id="busuanzi_container_site_uv" style="display:none">
+         Ziyaretçiler:
+         <span id="busuanzi_value_site_uv" style="font-weight: bold;">
+         </span>
+        </span>
+        <span style="margin: 0 8px; color: #ccc;">
+         |
+        </span>
+        <span id="busuanzi_container_site_pv" style="display:none">
+         Toplam Ziyaret:
+         <span id="busuanzi_value_site_pv" style="font-weight: bold;">
+         </span>
+        </span>
+       </p>
+      </div>
+     </div>
+     <div class="column is-2">
+      <div style="width: 100%; max-width: 200px; margin: 0 auto 0 0;">
+       <script id="clstr_globe" src="//clustrmaps.com/globe.js?d=_zkZv1bfxiqAq8HXllAuUZNIvCYv603-zyA7z-Vpjfw" type="text/javascript">
+       </script>
+      </div>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    // 监听 reveal 类和 stagger-wrapper 类
+    document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
+        observer.observe(el);
+    });
+});
+  </script>
+ </body>
+</html>

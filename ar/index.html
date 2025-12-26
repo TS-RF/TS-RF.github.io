@@ -1,1232 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar">
- <head>
-  <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
-  <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
-  <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: دراسة حول تشخيص الأعطال القابل للتفسير لمحركات الديزل البحرية" property="og:title"/>
-  <meta content="الجمع بين المحاكاة الديناميكية الحرارية وخوارزميات الغابة العشوائية (Random Forest) لتقديم نهج تعلم آلي مستنير بالفيزياء (PIML) وذكاء اصطناعي قابل للتفسير لإدارة صحة المحركات البحرية." property="og:description"/>
-  <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
-  <meta content="https://ts-rf.github.io/" property="og:url"/>
-  <meta content="website" property="og:type"/>
-  <meta content="summary_large_image" name="twitter:card"/>
-  <meta charset="utf-8"/>
-  <meta content="الجمع بين المحاكاة الديناميكية الحرارية وخوارزميات الغابة العشوائية (Random Forest) لتقديم نهج تعلم آلي مستنير بالفيزياء (PIML) وذكاء اصطناعي قابل للتفسير لإدارة صحة المحركات البحرية." name="description"/>
-  <meta content="محرك ديزل بحري, تشخيص الأعطال, الغابة العشوائية, SHAP, ذكاء اصطناعي قابل للتفسير, تعلم آلي مستنير بالفيزياء, PIML, نموذج ميكانيكي, توليد بيانات اصطناعية, صيانة تنبؤية, محاكاة ديناميكية حرارية, AVL BOOST" name="keywords"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   TSRF: دراسة حول تشخيص الأعطال القابل للتفسير لمحركات الديزل البحرية
-  </title>
-  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
-  </script>
-  <script>
-   window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
-  <script>
-   window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      }
-    };
-  </script>
-  <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-  </script>
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
-  <link href="../static/css/bulma.min.css" rel="stylesheet"/>
-  <link href="../static/css/bulma-carousel.min.css" rel="stylesheet"/>
-  <link href="../static/css/bulma-slider.min.css" rel="stylesheet"/>
-  <link href="../static/css/fontawesome.all.min.css" rel="stylesheet"/>
-  <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet"/>
-  <link href="../static/css/index.css" rel="stylesheet"/>
-  <link href="../static/images/favicon.svg" rel="icon"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-  </script>
-  <script defer="" src="../static/js/fontawesome.all.min.js">
-  </script>
-  <script src="../static/js/bulma-carousel.min.js">
-  </script>
-  <script src="../static/js/bulma-slider.min.js">
-  </script>
-  <script src="../static/js/index.js">
-  </script>
-  <style>
-   .keyword-label {
-      font-weight: bold;
-      margin-right: 10px;
-      vertical-align: middle;
-      color: #363636;
-    }
-
-    .tags .tag {
-      transition: all 0.2s ease;
-      font-size: 0.9rem;
-    }
-
-    .tags .tag:hover {
-      background-color: #3273dc;
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
-    }
-
-    /* 核心动画类 */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* 简单的延迟类 */
-    .reveal.delay-1 { transition-delay: 0.1s; }
-    .reveal.delay-2 { transition-delay: 0.2s; }
-    .reveal.delay-3 { transition-delay: 0.3s; }
-
-    .hover-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      will-change: transform;
-    }
-
-    .hover-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
-    }
-
-    .highlight-list li {
-      background: #f8f9fa;
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      border-left: 4px solid #3273dc;
-    }
-
-    .stagger-wrapper .stagger-item {
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: all 0.6s ease-out;
-    }
-
-    .stagger-wrapper.active .stagger-item {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
-    .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
-    .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
-  </style>
-  <script type="application/ld+json">
-   {
-  "@context": "https://schema.org",
-  "@type": "ScholarlyArticle",
-  "headline": "الغابة العشوائية المدعومة بالمحاكاة الديناميكية الحرارية: تشخيص أعطال قابل للتفسير لمكونات غرفة الاحتراق في محركات الديزل البحرية",
-  "image": [
-    "https://ts-rf.github.io/static/images/fig1_structure.jpg"
-  ],
-  "datePublished": "2025-01-01",
-  "author": [
-    {
-      "@type": "Person",
-      "name": "Congcong Luo"
-    },
-    {
-      "@type": "Person",
-      "name": "Minghang Zhao"
-    },
-    {
-      "@type": "Person",
-      "name": "Xuyun Fu"
-    }
-  ],
-  "publisher": {
-    "@type": "Organization",
-    "name": "Elsevier Measurement"
-  },
-  "description": "طريقة تعلم آلي مستنيرة بالفيزياء تجمع بين المحاكاة الديناميكية الحرارية وSHAP لتشخيص أعطال محركات الديزل البحرية."
-}
-  </script>
- </head>
- <body>
-  <nav aria-label="main navigation" class="navbar" role="navigation">
-   <div class="navbar-brand">
-    <a aria-expanded="false" aria-label="menu" class="navbar-burger" role="button">
-     <span aria-hidden="true">
-     </span>
-     <span aria-hidden="true">
-     </span>
-     <span aria-hidden="true">
-     </span>
-    </a>
-   </div>
-   <div class="navbar-menu">
-    <div class="navbar-start">
-    </div>
-    <a class="navbar-item navbar-absolute-center" href="https://scholar.google.com/citations?hl=zh-CN&amp;user=k82TzLwAAAAJ" target="_blank">
-     <span class="icon" style="margin-right: 0.3rem;">
-      <img alt="Google Scholar" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" style="height: 20px; width: 20px;"/>
-     </span>
-     <span>
-      مينغ هانغ تشاو (Google Scholar)
-     </span>
-    </a>
-    <div class="navbar-end">
-     <div class="navbar-item has-dropdown is-hoverable">
-      <a class="navbar-link">
-       <span class="icon">
-        <i class="fas fa-globe">
-        </i>
-       </span>
-       <span>
-        اللغة
-       </span>
-      </a>
-      <div class="navbar-dropdown is-right" style="max-height: 500px; overflow-y: auto;">
-       <a class="navbar-item" href="https://ts-rf.github.io/">
-        English
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/zh-CN/">
-        简体中文
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/zh-TW/">
-        繁體中文
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/hi/">
-        हिन्दी
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/es/">
-        Español
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/fr/">
-        Français
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/ar/">
-        العربية
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/pt/">
-        Português
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/ru/">
-        Русский
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/id/">
-        Indonesia
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/de/">
-        Deutsch
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/ja/">
-        日本語
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/tr/">
-        Türkçe
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/vi/">
-        Tiếng Việt
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/ko/">
-        한국어
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/fa/">
-        فارسی
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/it/">
-        Italiano
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/th/">
-        ไทย
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/pl/">
-        Polski
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/uk/">
-        Українська
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/ro/">
-        Română
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/nl/">
-        Nederlands
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/sv/">
-        Svenska
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/cs/">
-        Čeština
-       </a>
-       <a class="navbar-item" href="https://ts-rf.github.io/he/">
-        עברית
-       </a>
-      </div>
-     </div>
-    </div>
-   </div>
-  </nav>
-  <section class="hero reveal">
-   <div class="hero-body" style="padding-top: 1rem;">
-    <div class="container is-max-desktop">
-     <div class="columns is-centered">
-      <div class="column has-text-centered">
-       <h1 class="title is-1 publication-title">
-        الغابة العشوائية المدعومة بالمحاكاة الديناميكية الحرارية: تشخيص أعطال قابل للتفسير لمكونات غرفة الاحتراق في محركات الديزل البحرية
-       </h1>
-       <div class="is-size-5 publication-authors">
-        <span class="author-block">
-         <strong>
-          لو تسونغ تسونغ (Luo Congcong)
-         </strong>
-         <sup>
-          a
-         </sup>
-         ,
-        </span>
-        <span class="author-block">
-         <a href="https://homepage.hit.edu.cn/zhaominghang?lang=zh" style="color: inherit; text-decoration: underline;" target="_blank">
-          <strong>
-           تشاو مينغ هانغ (Zhao Minghang)
-          </strong>
-         </a>
-         <sup>
-          a,*
-         </sup>
-         ,
-        </span>
-        <span class="author-block">
-         <strong>
-          فو شو يون (Fu Xuyun)
-         </strong>
-         <sup>
-          a
-         </sup>
-         ,
-        </span>
-        <span class="author-block">
-         <strong>
-          تشونغ شي شنغ (Zhong Shisheng)
-         </strong>
-         <sup>
-          a
-         </sup>
-         ,
-        </span>
-        <span class="author-block">
-         <strong>
-          فو سونغ (Fu Song)
-         </strong>
-         <sup>
-          b
-         </sup>
-         ,
-        </span>
-        <span class="author-block">
-         <strong>
-          تشانغ كاي (Zhang Kai)
-         </strong>
-         <sup>
-          c
-         </sup>
-         ,
-        </span>
-        <span class="author-block">
-         <strong>
-          يو شياو شيا (Yu Xiaoxia)
-         </strong>
-         <sup>
-          d
-         </sup>
-        </span>
-       </div>
-       <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
-        <span class="author-block">
-         <sup>
-          a
-         </sup>
-         كلية الهندسة الميكانيكية، معهد هاربين للتكنولوجيا (ويهاي)، ويهاي 264209، الصين
-        </span>
-        <br/>
-        <span class="author-block">
-         <sup>
-          b
-         </sup>
-         كلية هندسة الميكاترونكس، معهد هاربين للتكنولوجيا، هاربين 150001، الصين
-        </span>
-        <br/>
-        <span class="author-block">
-         <sup>
-          c
-         </sup>
-         كلية الهندسة الميكانيكية، جامعة جنوب غرب جياوتونغ، تشنغدو 610031، الصين
-        </span>
-        <br/>
-        <span class="author-block">
-         <sup>
-          d
-         </sup>
-         كلية الهندسة الميكانيكية، جامعة تشونغتشينغ للتكنولوجيا، تشونغتشينغ 400054، الصين
-        </span>
-       </div>
-       <div class="column has-text-centered">
-        <div class="publication-links">
-         <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
-           <span class="icon">
-            <i class="fas fa-file-pdf">
-            </i>
-           </span>
-           <span>
-            الورقة البحثية كاملة
-           </span>
-          </a>
-         </span>
-         <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TS-RF.github.io/releases/tag/DATASET" target="_blank">
-           <span class="icon">
-            <i class="fas fa-file-csv">
-            </i>
-           </span>
-           <span>
-            مجموعة البيانات
-           </span>
-          </a>
-         </span>
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
-  </section>
-  <section class="section" style="padding-top: 0rem; margin-top: 0rem;">
-   <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-     <div class="column is-four-fifths">
-      <h2 class="title is-3 reveal">
-       الملخص
-      </h2>
-      <div class="content has-text-justified reveal delay-1">
-       <p>
-        غالبًا ما تعاني طرق التشخيص الذكي لأعطال محركات الديزل البحرية التقليدية من ضعف القدرة على التعميم بسبب ندرة عينات التدريب على الأعطال، وضعف القابلية للتفسير نظرًا لعدم دمج المعرفة المسبقة حول آليات الأعطال بشكل كافٍ. لمعالجة هذه المشكلات، تقترح هذه الورقة منهجية
-        <strong>
-         الغابة العشوائية المدعومة بالمحاكاة الديناميكية الحرارية (TSRF)
-        </strong>
-        .
-       </p>
-       <p>
-        تكشف هذه الطريقة عن خصائص تطور الأعطال من خلال المحاكاة الديناميكية الحرارية وتدمجها كمعرفة مسبقة في تصميم نموذج تشخيص الأعطال الذكي. أولاً، تم تطوير خمسة نماذج للأعطال الديناميكية الحرارية من خلال ضبط المعلمات الأساسية للنظام بدقة لمحاكاة الخصائص البارزة للأعطال المختلفة. بعد ذلك، وبناءً على نتائج المحاكاة العددية، تم تحديد المؤشرات الديناميكية الحرارية المحتملة التي تميز تدهور مكونات غرفة الاحتراق.
-       </p>
-       <p>
-        تم إجراء اختيار الميزات عن طريق حساب قيم SHapley Additive exPlanations (SHAP)، مع الاحتفاظ فقط بالمتغيرات التي لها ارتباط كبير بحالة العطل. أخيرًا، تم تقييم الحالة الصحية لغرفة الاحتراق باستخدام المعلمات المختارة. تظهر النتائج التجريبية أن طريقة TSRF المقترحة تظهر أداء تصنيف ممتاز، بدقة متوسطة تصل إلى 99.07% على مجموعة بيانات الأعطال.
-       </p>
-       <div class="keywords-container" style="margin-top: 2rem;">
-        <span class="keyword-label">
-         الكلمات المفتاحية:
-        </span>
-        <div class="tags is-inline-block">
-         <span class="tag is-light is-info">
-          محرك ديزل بحري
-         </span>
-         <span class="tag is-light is-info">
-          تشخيص الأعطال
-         </span>
-         <span class="tag is-light is-info">
-          ذكاء اصطناعي قابل للتفسير
-         </span>
-         <span class="tag is-light is-info">
-          قيم SHAP
-         </span>
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
-  </section>
-  <section class="section" style="padding-top: 1rem; margin-top: 1rem;">
-   <div class="container is-max-desktop">
-    <div class="columns is-centered">
-     <div class="column is-full-width">
-      <h2 class="title is-3 reveal">
-       دافع البحث
-      </h2>
-      <div class="content has-text-justified reveal delay-1">
-       <p>
-        في مجال الهندسة البحرية وإدارة التنبؤ والصحة (PHM)، تواجه الصناعة عقبتين رئيسيتين طويلتي الأمد:
-       </p>
-       <ul>
-        <li>
-         <strong>
-          ندرة البيانات:
-         </strong>
-         محركات الديزل البحرية (خاصة المحركات الرئيسية للسفن العابرة للمحيطات) هي قلب السفينة. يمكن أن يؤدي حدوث عطل خطير في البحر إلى فقدان قوة الدفع، أو الجنوح، أو حتى كوارث بحرية. لذلك، فإن عوامل الأمان في تصميمها عالية للغاية، واحتمالية حدوث أعطال خطيرة منخفضة جدًا بطبيعتها. بالإضافة إلى ذلك، تطبق الصناعة البحرية أنظمة صيانة وقائية صارمة (مثل الإصلاح الشامل المجدول بناءً على ساعات التشغيل). يتم استبدال الغالبية العظمى من الأجزاء القابلة للتآكل قسريًا قبل أن تفشل فعليًا وتولد بيانات أعطال. يؤدي هذا إلى وفرة في البيانات الصحية وبيانات التآكل المبكر، ولكن نقصًا حادًا في البيانات الحقيقية حول الفشل الكامل أو الأعطال الخطيرة.
-        </li>
-        <li>
-         <strong>
-          مشكلة "الصندوق الأسود":
-         </strong>
-         نظرًا لأن نماذج التعلم العميق تفتقر عادةً إلى الشفافية، يصعب على المهندسين الوثوق بها إذا لم يتمكنوا من تفسير الأسباب الفيزيائية للعطل. في صناعة الشحن التي تخضع لرقابة صارمة من قبل هيئات التصنيف، يعد هذا الغموض أمرًا حاسمًا. إذا أخطأ الذكاء الاصطناعي في تشخيص (أو فاته) تآكل المكبس أو كسر العمود المرفقي، ولم يتمكن النظام من تتبع ما إذا كان الخطأ نابعًا من تحيز البيانات أو عيب في الخوارزمية أو انحراف المستشعر، فإن عدم القدرة على التتبع هذا غير مقبول في تحقيقات الحوادث البحرية.
-        </li>
-       </ul>
-       <p>
-        لمواجهة هذه التحديات، اقترحنا طريقة TSRF. من خلال دمج النماذج الميكانيكية القائمة على الفيزياء مع تقنيات القابلية للتفسير المتقدمة واستخدام نماذج محاكاة عالية الدقة لحل مشكلة ندرة البيانات، نضمن أن قرارات التشخيص تتوافق مع المبادئ الأساسية للديناميكا الحرارية.
-       </p>
-      </div>
-     </div>
-    </div>
-    <hr/>
-    <div class="columns is-centered">
-     <div class="column is-full-width">
-      <h2 class="title is-3 reveal">
-       المنهجية
-      </h2>
-      <div class="content has-text-justified reveal delay-1">
-       <p>
-        يتضمن سير العمل في هذه الدراسة المراحل الأربع الرئيسية التالية (كما هو موضح في الشكل):
-       </p>
-       <ol>
-        <li>
-         <strong>
-          النمذجة الديناميكية الحرارية:
-         </strong>
-         بدلاً من الاعتماد فقط على منصات الاختبار الفيزيائية، قمنا ببناء نموذج ديناميكي حراري أحادي البعد عالي الدقة لمحرك ديزل بحري سداسي الأسطوانات. تمت معايرة النموذج بدقة بناءً على بيانات التشغيل الحقيقية، مع الحفاظ على خطأ المحاكاة في حدود 5%.
-        </li>
-        <li>
-         <strong>
-          حقن الأعطال:
-         </strong>
-         بناءً على النموذج المعاير، قمنا بمحاكاة خمسة أعطال محددة لغرفة الاحتراق (مثل شقوق رأس الأسطوانة، تآكل المكبس، وما إلى ذلك) عن طريق ضبط المعلمات الفيزيائية، وبالتالي إنشاء مجموعة بيانات تغطي درجات مختلفة من أعطال المحرك الحقيقية.
-        </li>
-        <li>
-         <strong>
-          اختيار الميزات القائم على SHAP:
-         </strong>
-         استخدمنا قيم SHAP لتحديد الميزات الرئيسية كميًا، واخترنا 14 معلمة حاسمة تتحكم في قرار التشخيص.
-        </li>
-        <li>
-         <strong>
-          تشخيص التصنيف:
-         </strong>
-         باستخدام مجموعة البيانات المعززة فيزيائيًا هذه، قمنا بتدريب مصنف الغابة العشوائية (RF) وحققنا تشخيصًا عالي الدقة للأعطال.
-        </li>
-       </ol>
-      </div>
-      <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
-       <p class="subtitle is-6">
-        <strong>
-         الشكل 1:
-        </strong>
-        هيكلية طريقة TSRF.
-       </p>
-      </div>
-     </div>
-    </div>
-    <hr/>
-    <div class="columns is-centered">
-     <div class="column is-full-width">
-      <h2 class="title is-3 reveal">
-       تفاصيل النمذجة الديناميكية الحرارية
-      </h2>
-      <div class="content has-text-justified reveal delay-1">
-       <p>
-        لضمان دقة عالية، قمنا ببناء نموذج محاكاة لمحرك الديزل أحادي البعد. يوازن هذا النموذج الميكانيكي بين الدقة الفيزيائية وكفاءة الحساب المطلوبة لتوليد مجموعة البيانات.
-       </p>
-      </div>
-      <div class="columns is-centered">
-       <div class="column is-6 reveal delay-2">
-        <div class="box hover-card" style="height: 100%;">
-         <h4 class="title is-4 is-size-5">
-          <span class="icon has-text-info" style="margin-right: 8px;">
-           <i class="fas fa-network-wired">
-           </i>
-          </span>
-          طوبولوجيا النموذج
-         </h4>
-         <div class="content is-size-6">
-          <p>
-           يتم تمثيل نظام المحرك كشبكة من خطوط الموائع والمكونات الوظيفية:
-          </p>
-          <ul>
-           <li>
-            <strong>
-             وحدة الطاقة الأساسية:
-            </strong>
-            تكوين خطي، سداسي الأسطوانات، ثنائي الشوط.
-           </li>
-           <li>
-            <strong>
-             نظام الهواء:
-            </strong>
-            ترتبط متشعبات السحب/العادم (PL1, PL2) عبر شبكة أنابيب معقدة.
-           </li>
-           <li>
-            <strong>
-             نظام الشحن التوربيني:
-            </strong>
-            شاحن توربيني (TC1) مقترن بمبرد داخلي (CO1).
-           </li>
-          </ul>
-         </div>
-        </div>
-       </div>
-       <div class="column is-6 reveal delay-3">
-        <div class="box hover-card" style="height: 100%;">
-         <h4 class="title is-4 is-size-5">
-          <span class="icon has-text-success" style="margin-right: 8px;">
-           <i class="fas fa-check-double">
-           </i>
-          </span>
-          المعايرة والتحقق
-         </h4>
-         <div class="content is-size-6">
-          <p>
-           قبل إجراء حقن الأعطال، تمت معايرة النموذج الأساسي بدقة بناءً على البيانات المقاسة.
-          </p>
-          <ul>
-           <li>
-            <strong>
-             مصدر البيانات:
-            </strong>
-            بيانات تشغيل السفينة الحقيقية التي تم الحصول عليها من خلال وحدة الحصول على البيانات (DCM).
-           </li>
-           <li>
-            <strong>
-             التحقق:
-            </strong>
-            تم التحكم في انحرافات المعلمات الرئيسية (مثل الطاقة، درجة حرارة العادم) بدقة ضمن
-            <strong>
-             نطاق خطأ ±5%
-            </strong>
-            .
-           </li>
-          </ul>
-         </div>
-        </div>
-       </div>
-      </div>
-      <div class="columns is-centered reveal" style="margin-top: 1rem; margin-bottom: 1rem;">
-       <div class="column is-8 has-text-centered">
-        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-         <img alt="1-D thermodynamic simulation model" class="hover-card" src="../static/images/fig2_simulator.png" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
-        </div>
-        <p class="subtitle is-6">
-         <strong>
-          الشكل 2:
-         </strong>
-         مخطط للنموذج الديناميكي الحراري أحادي البعد لمحرك الديزل.
-        </p>
-       </div>
-       <div class="column is-4 has-text-centered">
-        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-         <img alt="Model Validation Results" class="hover-card" src="../static/images/fig5_faults.jpg" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
-        </div>
-        <p class="subtitle is-6">
-         <strong>
-          الشكل 5:
-         </strong>
-         وحدة الحصول على البيانات (DCM).
-        </p>
-       </div>
-      </div>
-      <div class="box hover-card reveal" style="margin-top: 1.5rem;">
-       <h4 class="title is-4 is-size-5" style="display: flex; align-items: center; justify-content: center;">
-        <span class="icon has-text-black" style="margin-right: 8px;">
-         <i class="fas fa-cogs">
-         </i>
-        </span>
-        <span>
-         آلية حقن الأعطال
-        </span>
-       </h4>
-       <div class="content has-text-justified is-size-6">
-        <p>
-         نظرًا لأن النماذج أحادية البعد لا يمكنها تمثيل العيوب الهيكلية ثلاثية الأبعاد بشكل مباشر، فقد اعتمدنا طريقة رسم الخرائط الظاهراتية لترجمة آليات التدهور الفيزيائي إلى انحرافات مكافئة في المعلمات الديناميكية الحرارية.
-        </p>
-       </div>
-       <div class="table-container">
-        <table class="table is-fullwidth is-striped is-hoverable is-size-6">
-         <thead>
-          <tr style="background-color: #f5f5f5;">
-           <th style="width: 20%;">
-            نوع العطل
-           </th>
-           <th style="width: 35%;">
-            الآلية الفيزيائية
-           </th>
-           <th>
-            تنفيذ النمذجة
-           </th>
-          </tr>
-         </thead>
-         <tbody>
-          <tr>
-           <td>
-            <strong>
-             F1: شق في رأس الأسطوانة
-            </strong>
-           </td>
-           <td>
-            إعاقة التوصيل الحراري.
-           </td>
-           <td>
-            رفع درجة حرارة سطح رأس الأسطوانة ($T_H$) إلى 346 درجة مئوية.
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <strong>
-             F2: تآكل المكبس (Ablation)
-            </strong>
-           </td>
-           <td>
-            فقدان المواد وفشل الختم.
-           </td>
-           <td>
-            زيادة درجة حرارة المكبس ($T_P$) + تسرب غاز خفيف (Blow-by) (0.01 كجم/ثانية).
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <strong>
-             F3: تآكل البطانة
-            </strong>
-           </td>
-           <td>
-            زيادة قطر التجويف بسبب التآكل.
-           </td>
-           <td>
-            زيادة التجويف + تسرب غاز شديد (0.03 كجم/ثانية).
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <strong>
-             F4: تآكل الحلقات
-            </strong>
-           </td>
-           <td>
-            تسرب الغاز.
-           </td>
-           <td>
-            تعديل معدل تدفق كتلة تسرب الغاز (0.02 كجم/ثانية).
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <strong>
-             F5: التصاق الحلقات
-            </strong>
-           </td>
-           <td>
-            زيادة الاحتكاك وفشل الختم.
-           </td>
-           <td>
-            تغيير قطر التجويف + زيادة درجة حرارة البطانة + تسرب الغاز.
-           </td>
-          </tr>
-         </tbody>
-        </table>
-       </div>
-      </div>
-     </div>
-    </div>
-    <hr/>
-    <div class="columns is-centered">
-     <div class="column is-full-width">
-      <h2 class="title is-3 reveal">
-       تحليل القابلية للتفسير
-      </h2>
-      <div class="content has-text-justified reveal delay-1">
-       <p>
-        يكمن الابتكار الجوهري لهذه الدراسة في تحويل التركيز من "ما هو العطل؟" إلى "لماذا تم تشخيص هذا العطل؟". لقد أظهرنا هذه القدرة من خلال تحليل حالة تآكل حلقات المكبس (F4):
-       </p>
-       <ul>
-        <li>
-         <strong>
-          التفسير المحلي (مخطط الشلال):
-         </strong>
-         يحلل مخطط الشلال منطق التنبؤ المحدد. على سبيل المثال، تنبأ النموذج بـ "تآكل الحلقات" لأن التدفق الحراري لتسرب الغاز (P06) ومعدل تدفق كتلة تسرب الغاز (P07) أظهرا قيمًا محددة، مما زاد من احتمالية التنبؤ بهذا العطل. هذا يتوافق مع القوانين الفيزيائية: تآكل الحلقات يدمر الختم، مما يؤدي إلى تسرب الغاز.
-        </li>
-        <li>
-         <strong>
-          التفسير العالمي (مخطط السرب):
-         </strong>
-         يكشف التحليل العالمي عن القوانين العامة التي تعلمها النموذج. وجدنا أن انخفاض ضغط العادم قبل التوربين (P11) هو مؤشر قوي على تآكل الحلقات. من الناحية الفيزيائية، هذا متسق: الحلقات المتآكلة تؤدي إلى تسرب الغاز من الأسطوانة، مما يقلل من الطاقة المتاحة لتشغيل التوربين.
-        </li>
-       </ul>
-      </div>
-      <div class="has-text-centered reveal delay-2">
-       <img alt="SHAP Analysis,including Waterfall plot, beeswarm plot, interaction plot and dependence plot" class="hover-card" src="../static/images/fig11_shap.jpg" style="width:100%; border-radius: 10px;"/>
-       <p class="subtitle is-6">
-        <strong>
-         الشكل 11:
-        </strong>
-        تحليل عطل تآكل الحلقات (F4) بناءً على قيم SHAP: (أ) مخطط الشلال؛ (ب) مخطط السرب؛ (ج) مخطط التفاعل؛ (د) مخطط الاعتماد.
-       </p>
-      </div>
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xcode.min.css" rel="stylesheet"/>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">
-      </script>
-      <script>
-       hljs.highlightAll();
-      </script>
-      <div class="reveal delay-2" style="margin-top: 2rem; margin-bottom: 2rem;">
-       <details class="box hover-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
-        <summary class="title is-5 is-size-6-mobile" style="cursor: pointer; color: #363636; margin-bottom: 0;">
-         <span class="icon has-text-info" style="margin-right: 0.5rem;">
-          <i class="fas fa-code">
-          </i>
-         </span>
-         <span>
-          عرض كود تصور SHAP (بايثون)
-         </span>
-        </summary>
-        <div class="content has-text-left" style="margin-top: 1.5rem;">
-         <p>
-          <p>
-           إذا كنت مهتمًا بتفاصيل تنفيذ الرسوم البيانية أعلاه، فإليك مثال للكود لإنشاء مخططات الشلال والسرب والتفاعل والاعتماد.👇
-          </p>
-         </p>
-         <pre style="padding: 0; border-radius: 8px; overflow: hidden;"><code class="language-python" style="border-radius: 8px; font-size: 0.85rem; line-height: 1.5;">import shap
-import matplotlib.pyplot as plt
-import numpy as np
-
-# --- 0. Setup &amp; Global Settings ---
-plt.rcParams['font.family'] = 'Arial'
-plt.rcParams['font.size'] = '24'
-plt.rcParams['axes.unicode_minus'] = False
-
-# Assumption: 'best_model' is your trained XGBoost/RF model
-# Assumption: 'X_train' and 'X_test' are pandas DataFrames
-
-# 1. Calculate SHAP values as Numpy Arrays (for Beeswarm, Dependence, Interaction)
-explainer_tree = shap.TreeExplainer(best_model)
-shap_values_numpy = explainer_tree.shap_values(X_train)
-
-# 2. Calculate SHAP values as Explanation Object (Specifically for Waterfall)
-explainer_obj = shap.Explainer(best_model, X_test)
-shap_values_obj = explainer_obj(X_test)
-
-
-##################################################################
-#                                                                #
-#                      (a) Waterfall Plot                        #
-#          Visualizes contribution for a single sample           #
-#                                                                #
-##################################################################
-
-class_idx = 4  # Target class
-sample_idx = 3 # Specific sample to explain
-
-plt.figure()
-shap.plots.waterfall(
-    shap_values_obj[sample_idx, :, class_idx],
-    max_display=9,
-    show=False
-)
-
-# Customizing style
-ax = plt.gca()
-ax.set_xlabel(ax.get_xlabel(), fontsize=36)
-ax.set_ylabel(ax.get_ylabel(), fontsize=36)
-ax.spines['bottom'].set_linewidth(3)
-plt.show()
-
-
-##################################################################
-#                                                                #
-#                      (b) Beeswarm Plot                         #
-#              Global summary of feature importance              #
-#                                                                #
-##################################################################
-
-class_idx = 5
-plt.figure(figsize=(10, 8))
-
-shap.summary_plot(
-    shap_values_numpy[..., class_idx],
-    X_train,
-    feature_names=X_train.columns,
-    plot_type="dot",
-    show=False,
-    cmap='Greys' # or 'plasma'
-)
-
-# Customize Color Bar
-cbar = plt.gcf().axes[-1]
-cbar.set_ylabel('Parameter Value', fontsize=24)
-cbar.tick_params(labelsize=20)
-plt.show()
-
-
-##################################################################
-#                                                                #
-#                     (c) Interaction Plot                       #
-#          Visualizes interaction effects between features       #
-#                                                                #
-##################################################################
-
-# Note: Calculation can be expensive
-shap_interaction_values = explainer_tree.shap_interaction_values(X_test)
-class_idx = 4
-
-plt.figure()
-shap.summary_plot(
-    shap_interaction_values[..., class_idx],
-    X_test,
-    show=False,
-    max_display=6,
-    cmap='Greys'
-)
-
-# Clean up subplots
-axes = plt.gcf().axes
-for ax in axes:
-    ax.spines['bottom'].set_linewidth(2)
-    ax.tick_params(axis="x", labelsize=18, width=2)
-    ax.set_title(ax.get_title(), fontsize=14)
-
-plt.subplots_adjust(wspace=0.3, hspace=0.4)
-plt.show()
-
-
-##################################################################
-#                                                                #
-#                     (d) Dependence Plot                        #
-#           Feature relationship colored by interaction          #
-#                                                                #
-##################################################################
-
-Feature_X = 'P06'  # Main feature
-Feature_Y = 'P07'  # Interaction feature
-class_idx = 4
-
-shap.dependence_plot(
-    Feature_X,
-    shap_values_numpy[..., class_idx],
-    X_train,
-    interaction_index=Feature_Y,
-    dot_size=100,
-    show=False
-)
-
-# Customize Axes
-ax = plt.gca()
-ax.tick_params(axis='both', which='major', labelsize=36, width=2)
-ax.set_ylabel(f'SHAP value ({Feature_X})', fontsize=36)
-ax.spines['bottom'].set_linewidth(3)
-ax.spines['left'].set_linewidth(3)
-plt.show()
-
-
-##################################################################
-#                                                                #
-#            (e) Advanced Composite Plot (Beeswarm + Bar)        #
-#      Combines Beeswarm (Bottom Axis) &amp; Importance (Top Axis)   #
-#                                                                #
-##################################################################
-
-class_idx = 5
-fig, ax1 = plt.subplots(figsize=(10, 8))
-
-# 1. Main Beeswarm Plot (on ax1)
-shap.summary_plot(
-    shap_values_numpy[..., class_idx],
-    X_train,
-    feature_names=X_train.columns,
-    plot_type="dot",
-    show=False,
-    color_bar=True,
-    cmap='Greys' # or 'plasma'
-)
-
-# Customize Color Bar
-cbar = plt.gcf().axes[-1]
-cbar.set_ylabel('Parameter Value', fontsize=24)
-cbar.tick_params(labelsize=20)
-
-# Adjust layout to make room for the top axis
-plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
-
-# 2. Feature Importance Bar Plot (on Top Axis ax2)
-# Create a twin axis sharing the y-axis
-ax2 = ax1.twiny()
-
-shap.summary_plot(
-    shap_values_numpy[..., class_idx],
-    X_train,
-    plot_type="bar",
-    show=False
-)
-
-# Align position with the main plot
-plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
-
-# Style the bars (Transparent &amp; Light Color)
-bars = ax2.patches
-for bar in bars:
-    bar.set_color('#CCE5FB') # Light blue background bars
-    bar.set_alpha(0.4)       # Transparency
-
-# Customize Axes Labels
-ax1.set_xlabel(f'Shapley Value Contribution (F{class_idx})', fontsize=24, labelpad=5)
-ax1.set_ylabel('Parameters', fontsize=24)
-ax2.set_xlabel('Mean Shapley Value (Parameter Importance)', fontsize=24, labelpad=10)
-
-# Move ax2 (Bar plot axis) to the top
-ax2.xaxis.set_label_position('top')
-ax2.xaxis.tick_top()
-
-# Ensure ax1 (dots) is drawn ON TOP OF ax2 (bars)
-ax1.set_zorder(ax1.get_zorder() + 1)
-ax1.patch.set_visible(False) # Make ax1 background transparent
-
-plt.show()</code></pre>
-        </div>
-       </details>
-      </div>
-     </div>
-    </div>
-    <hr/>
-    <div class="columns is-centered">
-     <div class="column is-full-width">
-      <h2 class="title is-3 reveal">
-       أبرز النقاط البحثية
-      </h2>
-      <div class="content has-text-justified reveal delay-1">
-       <p>
-        <p>
-         نعتقد أن هذا العمل قد قدم المساهمات الرئيسية التالية في هذا المجال:
-        </p>
-       </p>
-       <ul class="highlight-list stagger-wrapper">
-        <li class="stagger-item hover-card">
-         <strong>
-          إنشاء نماذج ذات معاملات لخمسة أعطال نموذجية لمكونات غرفة الاحتراق في محركات الديزل البحرية.
-         </strong>
-        </li>
-        <li class="stagger-item hover-card">
-         <strong>
-          التحقق من فعالية طريقة SHAP من خلال المقارنة مع طرق اختيار الميزات المتعددة.
-         </strong>
-        </li>
-        <li class="stagger-item hover-card">
-         <strong>
-          توفير منظور جديد لتشخيص الأعطال القابل للتفسير من خلال دمج الأساليب القائمة على البيانات مع النماذج الميكانيكية الديناميكية الحرارية.
-         </strong>
-        </li>
-       </ul>
-      </div>
-     </div>
-    </div>
-   </div>
-  </section>
-  <section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
-   <div class="container is-max-desktop content">
-    <hr/>
-    <h2 class="title">
-     الاقتباس
-    </h2>
-    <div class="citation-prompt">
-     <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
-      <i class="fas fa-quote-left">
-      </i>
-     </span>
-     إذا وجدت هذا العمل مفيدًا لبحثك، يرجى النظر في اقتباسه 😊
-    </div>
-    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
-     BibTeX
-    </h4>
-    <pre style="margin-bottom: 5px; background-color: #fcfcfc; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem;"><code class="language-latex" id="bibtex-source" style="font-family: 'Times New Roman', Times, serif !important; font-size: 16px; line-height: 1.5;">@article{luo2025thermodynamic,
-  title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
-  author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
-  journal   = {Measurement},
-  volume    = {251},
-  pages     = {117252},
-  year      = {2025},
-  publisher = {Elsevier},
-  doi       = {10.1016/j.measurement.2025.117252},
-}</code></pre>
-    <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
-     <div class="level-left">
-      <button class="button is-dark is-small is-rounded" onclick="copyText('bibtex-source', this)">
-       <span class="icon is-small">
-        <i class="fas fa-copy">
-        </i>
-       </span>
-       <span class="btn-text">
-        نسخ BibTeX
-       </span>
-      </button>
-     </div>
-    </div>
-    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
-     التنسيق القياسي
-    </h4>
-    <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem; margin-bottom: 5px;">
-     <p id="standard-citation" style="margin-bottom: 0; font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.5;">
-      C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
-     </p>
-    </div>
-    <div class="level is-mobile" style="margin-top: 10px;">
-     <div class="level-left">
-      <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
-       <span class="icon is-small">
-        <i class="fas fa-copy">
-        </i>
-       </span>
-       <span class="btn-text">
-        نسخ النص
-       </span>
-      </button>
-      <a class="button is-text is-small" href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" style="text-decoration: none; margin-left: 10px;" target="_blank">
-       <span class="icon has-text-info">
-        <i class="fas fa-external-link-alt">
-        </i>
-       </span>
-       <span>
-        العرض على ScienceDirect
-       </span>
-      </a>
-     </div>
-    </div>
-   </div>
-  </section>
-  <style>
-   .citation-prompt {
-    background-color: #f5f5f5;
-    border-left: 5px solid #3273dc;
-    padding: 1rem 1.5rem;
-    margin-bottom: 2rem;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    color: #4a4a4a;
-    font-weight: 500;
-  }
-  /* 确保 pre 标签不会因为框架样式干扰 padding */
-  pre {
-      padding: 1.25rem !important;
-  }
-  </style>
-  <script>
-   function copyText(elementId, btn) {
-    const textToCopy = document.getElementById(elementId).innerText;
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      const icon = btn.querySelector('.fa-copy');
-      const text = btn.querySelector('.btn-text');
-      const originalText = text.innerText;
-
-      if(icon) {
-        icon.classList.remove('fa-copy');
-        icon.classList.add('fa-check');
-      }
-      if(text) text.innerText = "Copied!";
-
-      btn.classList.remove('is-dark');
-      btn.classList.add('is-success');
-
-      setTimeout(() => {
-        if(icon) {
-          icon.classList.remove('fa-check');
-          icon.classList.add('fa-copy');
-        }
-        if(text) text.innerText = originalText;
-        btn.classList.remove('is-success');
-        btn.classList.add('is-dark');
-      }, 2000);
-    }).catch(err => {
-      console.error('Failed to copy: ', err);
-    });
-  }
-  </script>
-  <footer class="footer">
-   <div class="container">
-    <div class="content has-text-centered">
-     <a class="icon-link" href="https://doi.org/10.1016/j.measurement.2025.117252">
-      <i class="fas fa-file-pdf">
-      </i>
-     </a>
-     <a class="external-link" disabled="" href="#">
-      <i class="fab fa-github">
-      </i>
-     </a>
-    </div>
-    <div class="columns is-centered is-vcentered">
-     <div class="column is-6">
-      <div class="content">
-       <p>
-        This website is licensed under a
-        <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license">
-         Creative
-            Commons Attribution-ShareAlike 4.0 International License
-        </a>
-        .
-       </p>
-       <p>
-        Copyright © 2025 Congcong Luo et al. Published in
-        <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">
-         Measurement
-        </a>
-        .
-       </p>
-       <p>
-        This website is adapted from the
-        <a href="https://github.com/nerfies/nerfies.github.io">
-         Nerfies
-        </a>
-        project page template.
-       </p>
-       <p style="margin-top: 10px; font-size: 0.9rem;">
-        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-        </script>
-        <span id="busuanzi_container_site_uv" style="display:none">
-         الزوار:
-         <span id="busuanzi_value_site_uv" style="font-weight: bold;">
-         </span>
-        </span>
-        <span style="margin: 0 8px; color: #ccc;">
-         |
-        </span>
-        <span id="busuanzi_container_site_pv" style="display:none">
-         إجمالي الزيارات:
-         <span id="busuanzi_value_site_pv" style="font-weight: bold;">
-         </span>
-        </span>
-       </p>
-      </div>
-     </div>
-     <div class="column is-2">
-      <div style="width: 100%; max-width: 200px; margin: 0 auto 0 0;">
-       <script id="clstr_globe" src="//clustrmaps.com/globe.js?d=_zkZv1bfxiqAq8HXllAuUZNIvCYv603-zyA7z-Vpjfw" type="text/javascript">
-       </script>
-      </div>
-     </div>
-    </div>
-   </div>
-  </footer>
-  <script>
-   document.addEventListener('DOMContentLoaded', () => {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-
-    // 监听 reveal 类和 stagger-wrapper 类
-    document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
-        observer.observe(el);
-    });
-});
-  </script>
- </body>
-</html>
