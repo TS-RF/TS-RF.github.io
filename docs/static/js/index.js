@@ -1,3 +1,40 @@
+// 自动处理 RTL (从右向左) 语言的布局
+(function() {
+    // 定义 RTL 语言列表
+    const rtlLanguages = ['ar', 'fa', 'he', 'ur'];
+    
+    // 获取当前页面 html 标签上的 lang 属性
+    const currentLang = document.documentElement.getAttribute('lang');
+    
+    // 如果当前语言在列表中
+    if (rtlLanguages.includes(currentLang)) {
+        // 1. 设置 dir="rtl" 属性，这是最关键的一步
+        document.documentElement.setAttribute('dir', 'rtl');
+        
+        // 2. (可选) 添加一个类名，方便在 CSS 中做特殊修正
+        document.documentElement.classList.add('is-rtl');
+        
+        // 3. 修正 Bulma 框架在 RTL 下可能出现的问题 (动态注入 CSS)
+        const style = document.createElement('style');
+        style.innerHTML = `
+            /* 修正图标间距：原本在右边的 margin 现在应该在左边 */
+            .is-rtl .icon { margin-left: 0.3rem !important; margin-right: 0 !important; }
+            .is-rtl .navbar-item .icon { margin-left: 0.3rem; margin-right: 0; }
+            
+            /* 修正列表边框：原本在左边的边框现在应该在右边 */
+            .is-rtl .highlight-list li { border-left: none; border-right: 4px solid #3273dc; }
+            
+            /* 修正引用块的边框 */
+            .is-rtl .citation-prompt { border-left: none; border-right: 5px solid #3273dc; }
+            
+            /* 确保文字对齐跟随方向 (通常 dir="rtl" 会自动处理，但有时候需要强制) */
+            .is-rtl .has-text-left { text-align: right !important; }
+            .is-rtl .has-text-right { text-align: left !important; }
+        `;
+        document.head.appendChild(style);
+    }
+})();
+
 window.HELP_IMPROVE_VIDEOJS = false;
 
 var INTERP_BASE = "./static/interpolation/stacked";
