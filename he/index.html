@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="he">
+ <head>
+  <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
+  <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
+  <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
+  <meta content="TSRF: מחקר בנושא אבחון תקלות מוסבר למנועי דיזל ימיים" property="og:title"/>
+  <meta content="שילוב של סימולציה תרמודינמית ואלגוריתמי יער אקראי (Random Forest) להצגת גישת למידת מכונה מודעת-פיזיקה (PIML) ובינה מלאכותית מוסברת לניהול בריאות המנוע הימי." property="og:description"/>
+  <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
+  <meta content="https://ts-rf.github.io/" property="og:url"/>
+  <meta content="website" property="og:type"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta charset="utf-8"/>
+  <meta content="שילוב של סימולציה תרמודינמית ואלגוריתמי יער אקראי (Random Forest) להצגת גישת למידת מכונה מודעת-פיזיקה (PIML) ובינה מלאכותית מוסברת לניהול בריאות המנוע הימי." name="description"/>
+  <meta content="מנוע דיזל ימי, אבחון תקלות, יער אקראי, SHAP, בינה מלאכותית מוסברת, למידת מכונה מודעת-פיזיקה, PIML, מודל מכניסטי, יצירת נתונים סינתטיים, תחזוקה חזויה, סימולציה תרמודינמית, AVL BOOST" name="keywords"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   TSRF: מחקר בנושא אבחון תקלות מוסבר למנועי דיזל ימיים
+  </title>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <script>
+   window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
+  <link href="../static/css/bulma.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-carousel.min.css" rel="stylesheet"/>
+  <link href="../static/css/bulma-slider.min.css" rel="stylesheet"/>
+  <link href="../static/css/fontawesome.all.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet"/>
+  <link href="../static/css/index.css" rel="stylesheet"/>
+  <link href="../static/images/favicon.svg" rel="icon"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+  <script defer="" src="../static/js/fontawesome.all.min.js">
+  </script>
+  <script src="../static/js/bulma-carousel.min.js">
+  </script>
+  <script src="../static/js/bulma-slider.min.js">
+  </script>
+  <script src="../static/js/index.js">
+  </script>
+  <style>
+   .keyword-label {
+      font-weight: bold;
+      margin-right: 10px;
+      vertical-align: middle;
+      color: #363636;
+    }
+
+    .tags .tag {
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .tags .tag:hover {
+      background-color: #3273dc;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
+    }
+
+    /* 核心动画类 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 简单的延迟类 */
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+
+    .hover-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    .hover-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+    }
+
+    .highlight-list li {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #3273dc;
+    }
+
+    .stagger-wrapper .stagger-item {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s ease-out;
+    }
+
+    .stagger-wrapper.active .stagger-item {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+    .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
+    .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
+  </style>
+  <script type="application/ld+json">
+   {
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "יער אקראי בסיוע סימולציה תרמודינמית: אבחון תקלות מוסבר לרכיבי תא הבעירה במנועי דיזל ימיים",
+  "image": [
+    "https://ts-rf.github.io/static/images/fig1_structure.jpg"
+  ],
+  "datePublished": "2025-01-01",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Congcong Luo"
+    },
+    {
+      "@type": "Person",
+      "name": "Minghang Zhao"
+    },
+    {
+      "@type": "Person",
+      "name": "Xuyun Fu"
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Elsevier Measurement"
+  },
+  "description": "שיטת למידת מכונה מודעת-פיזיקה המשלבת סימולציה תרמודינמית ו-SHAP לאבחון תקלות במנועי דיזל ימיים."
+}
+  </script>
+ </head>
+ <body>
+  <nav aria-label="main navigation" class="navbar" role="navigation">
+   <div class="navbar-brand">
+    <a aria-expanded="false" aria-label="menu" class="navbar-burger" role="button">
+     <span aria-hidden="true">
+     </span>
+     <span aria-hidden="true">
+     </span>
+     <span aria-hidden="true">
+     </span>
+    </a>
+   </div>
+   <div class="navbar-menu">
+    <div class="navbar-start">
+    </div>
+    <a class="navbar-item navbar-absolute-center" href="https://scholar.google.com/citations?hl=zh-CN&amp;user=k82TzLwAAAAJ" target="_blank">
+     <span class="icon" style="margin-right: 0.3rem;">
+      <img alt="Google Scholar" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" style="height: 20px; width: 20px;"/>
+     </span>
+     <span>
+      מינגהאנג ג'או (Google Scholar)
+     </span>
+    </a>
+    <div class="navbar-end">
+     <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link">
+       <span class="icon">
+        <i class="fas fa-globe">
+        </i>
+       </span>
+       <span>
+        שפות
+       </span>
+      </a>
+      <div class="navbar-dropdown is-right" style="max-height: 500px; overflow-y: auto;">
+       <a class="navbar-item" href="https://ts-rf.github.io/">
+        English
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/zh-CN/">
+        简体中文
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/zh-TW/">
+        繁體中文
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/hi/">
+        हिन्दी
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/es/">
+        Español
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/fr/">
+        Français
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ar/">
+        العربية
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/pt/">
+        Português
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ru/">
+        Русский
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/id/">
+        Indonesia
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/de/">
+        Deutsch
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ja/">
+        日本語
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/tr/">
+        Türkçe
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/vi/">
+        Tiếng Việt
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ko/">
+        한국어
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/fa/">
+        فارسی
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/it/">
+        Italiano
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/th/">
+        ไทย
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/pl/">
+        Polski
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/uk/">
+        Українська
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/ro/">
+        Română
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/nl/">
+        Nederlands
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/sv/">
+        Svenska
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/cs/">
+        Čeština
+       </a>
+       <a class="navbar-item" href="https://ts-rf.github.io/he/">
+        עברית
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <section class="hero reveal">
+   <div class="hero-body" style="padding-top: 1rem;">
+    <div class="container is-max-desktop">
+     <div class="columns is-centered">
+      <div class="column has-text-centered">
+       <h1 class="title is-1 publication-title">
+        יער אקראי בסיוע סימולציה תרמודינמית: אבחון תקלות מוסבר לרכיבי תא הבעירה במנועי דיזל ימיים
+       </h1>
+       <div class="is-size-5 publication-authors">
+        <span class="author-block">
+         <strong>
+          לואו קונגקונג (Luo Congcong)
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <a href="https://homepage.hit.edu.cn/zhaominghang?lang=zh" style="color: inherit; text-decoration: underline;" target="_blank">
+          <strong>
+           ג'או מינגהאנג (Zhao Minghang)
+          </strong>
+         </a>
+         <sup>
+          a,*
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          פו שו-יון (Fu Xuyun)
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          ג'ונג שישנג (Zhong Shisheng)
+         </strong>
+         <sup>
+          a
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          פו סונג (Fu Song)
+         </strong>
+         <sup>
+          b
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          ג'אנג קאי (Zhang Kai)
+         </strong>
+         <sup>
+          c
+         </sup>
+         ,
+        </span>
+        <span class="author-block">
+         <strong>
+          יו שיאו-שיה (Yu Xiaoxia)
+         </strong>
+         <sup>
+          d
+         </sup>
+        </span>
+       </div>
+       <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
+        <span class="author-block">
+         <sup>
+          a
+         </sup>
+         בית הספר להנדסת מכונות, המכון הטכנולוגי של חרבין (ווייהאי), ווייהאי 264209, סין
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          b
+         </sup>
+         בית הספר להנדסת מכטרוניקה, המכון הטכנולוגי של חרבין, חרבין 150001, סין
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          c
+         </sup>
+         בית הספר להנדסת מכונות, אוניברסיטת סאות'ווסט ג'יאוטונג, צ'נגדו 610031, סין
+        </span>
+        <br/>
+        <span class="author-block">
+         <sup>
+          d
+         </sup>
+         בית הספר להנדסת מכונות, האוניברסיטה הטכנולוגית של צ'ונגצ'ינג, צ'ונגצ'ינג 400054, סין
+        </span>
+       </div>
+       <div class="column has-text-centered">
+        <div class="publication-links">
+         <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-pdf">
+            </i>
+           </span>
+           <span>
+            המאמר המלא
+           </span>
+          </a>
+         </span>
+         <span class="link-block">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TS-RF.github.io/releases/tag/DATASET" target="_blank">
+           <span class="icon">
+            <i class="fas fa-file-csv">
+            </i>
+           </span>
+           <span>
+            ערכת נתונים
+           </span>
+          </a>
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section" style="padding-top: 0rem; margin-top: 0rem;">
+   <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+     <div class="column is-four-fifths">
+      <h2 class="title is-3 reveal">
+       תקציר
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        שיטות מסורתיות לאבחון חכם של תקלות במנועי דיזל ימיים סובלות לעיתים קרובות מיכולת הכללה ירודה בשל המחסור בדוגמאות אימון של תקלות, ומרמת הסבר נמוכה בשל חוסר שילוב מספק של ידע מוקדם על מנגנוני הכשל. כדי להתמודד עם בעיות אלו, מאמר זה מציע שיטת
+        <strong>
+         יער אקראי בסיוע סימולציה תרמודינמית (TSRF)
+        </strong>
+        .
+       </p>
+       <p>
+        שיטה זו חושפת את מאפייני התפתחות התקלות באמצעות סימולציה תרמודינמית ומשלבת אותם כידע מוקדם בתכנון המודל לאבחון תקלות חכם. תחילה, פותחו חמישה מודלים תרמודינמיים של תקלות על ידי כוונון עדין של פרמטרים בסיסיים במערכת כדי לדמות את המאפיינים המובהקים של כשלים שונים. לאחר מכן, בהתבסס על תוצאות הסימולציה המספרית, זוהו אינדיקטורים תרמודינמיים פוטנציאליים המאפיינים את ההתדרדרות של רכיבי תא הבעירה.
+       </p>
+       <p>
+        בחירת מאפיינים בוצעה על ידי חישוב ערכי SHapley Additive exPlanations (SHAP), תוך שמירה רק על משתנים בעלי מתאם מובהק למצב התקלה. לבסוף, מצב הבריאות של תא הבעירה הוערך באמצעות הפרמטרים שנבחרו. תוצאות הניסוי מראות כי שיטת TSRF המוצעת מפגינה ביצועי סיווג מצוינים, עם דיוק ממוצע של 99.07% על סט נתוני התקלות.
+       </p>
+       <div class="keywords-container" style="margin-top: 2rem;">
+        <span class="keyword-label">
+         מילות מפתח:
+        </span>
+        <div class="tags is-inline-block">
+         <span class="tag is-light is-info">
+          מנוע דיזל ימי
+         </span>
+         <span class="tag is-light is-info">
+          אבחון תקלות
+         </span>
+         <span class="tag is-light is-info">
+          בינה מלאכותית מוסברת
+         </span>
+         <span class="tag is-light is-info">
+          ערכי SHAP
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section" style="padding-top: 1rem; margin-top: 1rem;">
+   <div class="container is-max-desktop">
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       מוטיבציה למחקר
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        בתחום ההנדסה הימית וניהול פרוגנוסטיקה ובריאות (PHM), התעשייה מתמודדת עם שני צווארי בקבוק ארוכי טווח:
+       </p>
+       <ul>
+        <li>
+         <strong>
+          מחסור בנתונים:
+         </strong>
+         מנועי דיזל ימיים (במיוחד מנועים ראשיים של ספינות אוקיינוס) הם לב הספינה. תקלה חמורה בים עלולה להוביל לאובדן כוח הנעה, עלייה על שרטון או אפילו אסון ימי. לכן, מקדמי הבטיחות בתכנון שלהם גבוהים במיוחד, וההסתברות לתקלות חמורות נמוכה מעצם טבעה. בנוסף, התעשייה הימית מיישמת מערכות תחזוקה מונעת קפדניות (כגון שיפוץ מתוזמן לפי שעות עבודה). הרוב המכריע של החלקים המתכלים מוחלפים בכפייה לפני שהם באמת כושלים ומייצרים נתוני תקלה. זה מוביל לשפע של נתוני בריאות ונתוני בלאי מוקדם, אך למחסור קיצוני בנתונים אמיתיים על כשל מלא או תקלות חמורות.
+        </li>
+        <li>
+         <strong>
+          בעיית "הקופסה השחורה":
+         </strong>
+         מכיוון שמודלים של למידה עמוקה חסרים בדרך כלל שקיפות, קשה למהנדסים לסמוך עליהם אם אינם יכולים להסביר את הסיבות הפיזיקליות לתקלה. בתעשיית הספנות, המפוקחת בקפדנות על ידי חברות סיווג, חוסר שקיפות זה הוא קריטי. אם בינה מלאכותית מאבחנת בטעות (או מפספסת) תפיסת בוכנה (scuffing) או שבר בגל הארכובה, והמערכת לא יכולה לעקוב אם השגיאה נובעת מהטיית נתונים, פגם באלגוריתם או סחיפת חיישן, חוסר עקיבות זה אינו מתקבל על הדעת בחקירות תאונות ימיות.
+        </li>
+       </ul>
+       <p>
+        כדי להתמודד עם אתגרים אלו, הצענו את שיטת TSRF. על ידי מיזוג מודלים מכניסטיים מבוססי-פיזיקה עם טכניקות הסבר מתקדמות ושימוש במודלים של סימולציה בנאמנות גבוהה כדי לפתור את בעיית המחסור בנתונים, אנו מבטיחים שהחלטות האבחון תואמות לעקרונות תרמודינמיים בסיסיים.
+       </p>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       מתודולוגיה
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        זרימת העבודה של מחקר זה כוללת את ארבעת השלבים העיקריים הבאים (כפי שמוצג באיור):
+       </p>
+       <ol>
+        <li>
+         <strong>
+          מודלים תרמודינמיים:
+         </strong>
+         במקום להסתמך רק על ספסלי ניסוי פיזיים, בנינו מודל תרמודינמי חד-ממדי בנאמנות גבוהה של מנוע דיזל ימי בעל שישה צילינדרים. המודל כויל בקפדנות על סמך נתוני הפעלה אמיתיים, תוך שמירה על שגיאת סימולציה מתחת ל-5%.
+        </li>
+        <li>
+         <strong>
+          הזרקת תקלות:
+         </strong>
+         בהתבסס על המודל המכויל, דימינו חמש תקלות ספציפיות בתא הבעירה (כגון סדקים בראש הצילינדר, אבלציה של הבוכנה וכו') על ידי כוונון עדין של פרמטרים פיזיקליים, ובכך יצרנו סט נתונים המכסה דרגות שונות של תקלות מנוע אמיתיות.
+        </li>
+        <li>
+         <strong>
+          בחירת מאפיינים מבוססת SHAP:
+         </strong>
+         השתמשנו בערכי SHAP כדי לזהות באופן כמותי תכונות מפתח, ובחרנו 14 פרמטרים קריטיים השולטים בהחלטת האבחון.
+        </li>
+        <li>
+         <strong>
+          אבחון סיווג:
+         </strong>
+         באמצעות סט נתונים זה המועשר פיזיקלית, אימנו מסווג יער אקראי (RF) והשגנו אבחון תקלות ברמת דיוק גבוהה.
+        </li>
+       </ol>
+      </div>
+      <div class="has-text-centered reveal delay-2">
+       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <p class="subtitle is-6">
+        <strong>
+         איור 1:
+        </strong>
+        ארכיטקטורת שיטת TSRF.
+       </p>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       פרטי המידול התרמודינמי
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        כדי להבטיח נאמנות גבוהה, בנינו מודל סימולציה של מנוע דיזל חד-ממדי. מודל מכניסטי זה מאזן בין דיוק פיזיקלי ליעילות חישובית הנדרשת ליצירת סט הנתונים.
+       </p>
+      </div>
+      <div class="columns is-centered">
+       <div class="column is-6 reveal delay-2">
+        <div class="box hover-card" style="height: 100%;">
+         <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-info" style="margin-right: 8px;">
+           <i class="fas fa-network-wired">
+           </i>
+          </span>
+          טופולוגיית המודל
+         </h4>
+         <div class="content is-size-6">
+          <p>
+           מערכת המנוע מתוארת כרשת של צינורות נוזל ורכיבים פונקציונליים:
+          </p>
+          <ul>
+           <li>
+            <strong>
+             יחידת כוח ליבה:
+            </strong>
+            תצורת שורה, שישה צילינדרים, שתי פעימות.
+           </li>
+           <li>
+            <strong>
+             מערכת אוויר:
+            </strong>
+            סעפות יניקה/פליטה (PL1, PL2) מחוברות באמצעות רשת צנרת מורכבת.
+           </li>
+           <li>
+            <strong>
+             מערכת גדישה:
+            </strong>
+            מגדש טורבו (TC1) מצומד למצנן ביניים (CO1).
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+       <div class="column is-6 reveal delay-3">
+        <div class="box hover-card" style="height: 100%;">
+         <h4 class="title is-4 is-size-5">
+          <span class="icon has-text-success" style="margin-right: 8px;">
+           <i class="fas fa-check-double">
+           </i>
+          </span>
+          כיול ואימות
+         </h4>
+         <div class="content is-size-6">
+          <p>
+           לפני ביצוע הזרקת התקלות, המודל הבסיסי כויל בקפדנות על סמך נתונים מדודים.
+          </p>
+          <ul>
+           <li>
+            <strong>
+             מקור נתונים:
+            </strong>
+            נתוני הפעלה אמיתיים של הספינה שנרכשו באמצעות מודול איסוף הנתונים (DCM).
+           </li>
+           <li>
+            <strong>
+             אימות:
+            </strong>
+            סטירות של פרמטרים מרכזיים (כגון כוח, טמפרטורת פליטה) נשלטו בקפדנות בתוך
+            <strong>
+             טווח שגיאה של ±5%
+            </strong>
+            .
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="columns is-centered reveal" style="margin-top: 1rem; margin-bottom: 1rem;">
+       <div class="column is-8 has-text-centered">
+        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+         <img alt="1-D thermodynamic simulation model" class="hover-card" src="../static/images/fig2_simulator.png" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+        </div>
+        <p class="subtitle is-6">
+         <strong>
+          איור 2:
+         </strong>
+         סכמה של המודל התרמודינמי החד-ממדי של מנוע הדיזל.
+        </p>
+       </div>
+       <div class="column is-4 has-text-centered">
+        <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+         <img alt="Model Validation Results" class="hover-card" src="../static/images/fig5_faults.jpg" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
+        </div>
+        <p class="subtitle is-6">
+         <strong>
+          איור 5:
+         </strong>
+         מודול איסוף נתונים (DCM).
+        </p>
+       </div>
+      </div>
+      <div class="box hover-card reveal" style="margin-top: 1.5rem;">
+       <h4 class="title is-4 is-size-5" style="display: flex; align-items: center; justify-content: center;">
+        <span class="icon has-text-black" style="margin-right: 8px;">
+         <i class="fas fa-cogs">
+         </i>
+        </span>
+        <span>
+         מנגנון הזרקת תקלות
+        </span>
+       </h4>
+       <div class="content has-text-justified is-size-6">
+        <p>
+         מכיוון שמודלים חד-ממדיים אינם יכולים לייצג ישירות פגמים מבניים תלת-ממדיים, אימצנו שיטת מיפוי פנומנולוגית כדי לתרגם מנגנוני התדרדרות פיזיקליים להזזות שוות ערך של פרמטרים תרמודינמיים.
+        </p>
+       </div>
+       <div class="table-container">
+        <table class="table is-fullwidth is-striped is-hoverable is-size-6">
+         <thead>
+          <tr style="background-color: #f5f5f5;">
+           <th style="width: 20%;">
+            סוג תקלה
+           </th>
+           <th style="width: 35%;">
+            מנגנון פיזיקלי
+           </th>
+           <th>
+            יישום במודל
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            <strong>
+             F1: סדק בראש הצילינדר
+            </strong>
+           </td>
+           <td>
+            הולכת חום מופרעת.
+           </td>
+           <td>
+            העלאת טמפרטורת פני השטח של ראש הצילינדר ($T_H$) ל-346°C.
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F2: אבלציה של הבוכנה
+            </strong>
+           </td>
+           <td>
+            אובדן חומר וכשל באיטום.
+           </td>
+           <td>
+            העלאת טמפרטורת הבוכנה ($T_P$) + דליפת גזים (Blow-by) קלה (0.01 ק"ג/שנייה).
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F3: שחיקת שרוול (Liner)
+            </strong>
+           </td>
+           <td>
+            הגדלת הקדח עקב שחיקה.
+           </td>
+           <td>
+            הגדלת הקדח + דליפת גזים חמורה (0.03 ק"ג/שנייה).
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F4: שחיקת טבעות
+            </strong>
+           </td>
+           <td>
+            דליפת גז.
+           </td>
+           <td>
+            התאמת קצב זרימת המסה של דליפת הגזים (0.02 ק"ג/שנייה).
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <strong>
+             F5: היתפסות טבעות
+            </strong>
+           </td>
+           <td>
+            חיכוך מוגבר וכשל באיטום.
+           </td>
+           <td>
+            שינוי קוטר הקדח + עליית טמפרטורת השרוול + דליפת גזים.
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       ניתוח יכולת ההסבר
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        חידוש מרכזי במחקר זה טמון בהסטת המיקוד מ"מהי התקלה?" ל"מדוע אובחנה תקלה זו?". הדגמנו יכולת זו באמצעות ניתוח שחיקת טבעות הבוכנה (F4):
+       </p>
+       <ul>
+        <li>
+         <strong>
+          הסבר מקומי (גרף מפל):
+         </strong>
+         גרף המפל מפרק את לוגיקת החיזוי הספציפית. למשל, המודל חזה "שחיקת טבעות" משום ששטף החום של דליפת הגזים (P06) וקצב זרימת המסה של דליפת הגזים (P07) הציגו ערכים ספציפיים, ובכך העלו את הסתברות החיזוי לתקלה זו. זה עולה בקנה אחד עם החוקים הפיזיקליים: שחיקת טבעות הורסת את האיטום, ומובילה לדליפת גז (Blow-by).
+        </li>
+        <li>
+         <strong>
+          הסבר גלובלי (גרף נחיל דבורים):
+         </strong>
+         הניתוח הגלובלי חושף את החוקים הכלליים שנלמדו על ידי המודל. מצאנו כי ערך נמוך של לחץ פליטה לפני הטורבינה (P11) הוא אינדיקטור חזק לשחיקת טבעות. מבחינה פיזיקלית, זה עקבי: טבעות שחוקות גורמות לדליפת גז מהצילינדר, ובכך מפחיתות את האנרגיה הזמינה להנעת הטורבינה.
+        </li>
+       </ul>
+      </div>
+      <div class="has-text-centered reveal delay-2">
+       <img alt="SHAP Analysis,including Waterfall plot, beeswarm plot, interaction plot and dependence plot" class="hover-card" src="../static/images/fig11_shap.jpg" style="width:100%; border-radius: 10px;"/>
+       <p class="subtitle is-6">
+        <strong>
+         איור 11:
+        </strong>
+        ניתוח תקלת שחיקת טבעות (F4) מבוסס ערכי SHAP: (א) גרף מפל; (ב) גרף נחיל דבורים; (ג) גרף אינטראקציה; (ד) גרף תלות.
+       </p>
+      </div>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xcode.min.css" rel="stylesheet"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">
+      </script>
+      <script>
+       hljs.highlightAll();
+      </script>
+      <div class="reveal delay-2" style="margin-top: 2rem; margin-bottom: 2rem;">
+       <details class="box hover-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
+        <summary class="title is-5 is-size-6-mobile" style="cursor: pointer; color: #363636; margin-bottom: 0;">
+         <span class="icon has-text-info" style="margin-right: 0.5rem;">
+          <i class="fas fa-code">
+          </i>
+         </span>
+         <span>
+          הצג קוד ויזואליזציה של SHAP (Python)
+         </span>
+        </summary>
+        <div class="content has-text-left" style="margin-top: 1.5rem;">
+         <p>
+          <p>
+           אם אתם מעוניינים בפרטי היישום של הגרפים לעיל, הנה קוד לדוגמה ליצירת גרפי מפל, נחיל, אינטראקציה ותלות.👇
+          </p>
+         </p>
+         <pre style="padding: 0; border-radius: 8px; overflow: hidden;"><code class="language-python" style="border-radius: 8px; font-size: 0.85rem; line-height: 1.5;">import shap
+import matplotlib.pyplot as plt
+import numpy as np
+
+# --- 0. Setup &amp; Global Settings ---
+plt.rcParams['font.family'] = 'Arial'
+plt.rcParams['font.size'] = '24'
+plt.rcParams['axes.unicode_minus'] = False
+
+# Assumption: 'best_model' is your trained XGBoost/RF model
+# Assumption: 'X_train' and 'X_test' are pandas DataFrames
+
+# 1. Calculate SHAP values as Numpy Arrays (for Beeswarm, Dependence, Interaction)
+explainer_tree = shap.TreeExplainer(best_model)
+shap_values_numpy = explainer_tree.shap_values(X_train)
+
+# 2. Calculate SHAP values as Explanation Object (Specifically for Waterfall)
+explainer_obj = shap.Explainer(best_model, X_test)
+shap_values_obj = explainer_obj(X_test)
+
+
+##################################################################
+#                                                                #
+#                      (a) Waterfall Plot                        #
+#          Visualizes contribution for a single sample           #
+#                                                                #
+##################################################################
+
+class_idx = 4  # Target class
+sample_idx = 3 # Specific sample to explain
+
+plt.figure()
+shap.plots.waterfall(
+    shap_values_obj[sample_idx, :, class_idx],
+    max_display=9,
+    show=False
+)
+
+# Customizing style
+ax = plt.gca()
+ax.set_xlabel(ax.get_xlabel(), fontsize=36)
+ax.set_ylabel(ax.get_ylabel(), fontsize=36)
+ax.spines['bottom'].set_linewidth(3)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                      (b) Beeswarm Plot                         #
+#              Global summary of feature importance              #
+#                                                                #
+##################################################################
+
+class_idx = 5
+plt.figure(figsize=(10, 8))
+
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
+    cmap='Greys' # or 'plasma'
+)
+
+# Customize Color Bar
+cbar = plt.gcf().axes[-1]
+cbar.set_ylabel('Parameter Value', fontsize=24)
+cbar.tick_params(labelsize=20)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                     (c) Interaction Plot                       #
+#          Visualizes interaction effects between features       #
+#                                                                #
+##################################################################
+
+# Note: Calculation can be expensive
+shap_interaction_values = explainer_tree.shap_interaction_values(X_test)
+class_idx = 4
+
+plt.figure()
+shap.summary_plot(
+    shap_interaction_values[..., class_idx],
+    X_test,
+    show=False,
+    max_display=6,
+    cmap='Greys'
+)
+
+# Clean up subplots
+axes = plt.gcf().axes
+for ax in axes:
+    ax.spines['bottom'].set_linewidth(2)
+    ax.tick_params(axis="x", labelsize=18, width=2)
+    ax.set_title(ax.get_title(), fontsize=14)
+
+plt.subplots_adjust(wspace=0.3, hspace=0.4)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#                     (d) Dependence Plot                        #
+#           Feature relationship colored by interaction          #
+#                                                                #
+##################################################################
+
+Feature_X = 'P06'  # Main feature
+Feature_Y = 'P07'  # Interaction feature
+class_idx = 4
+
+shap.dependence_plot(
+    Feature_X,
+    shap_values_numpy[..., class_idx],
+    X_train,
+    interaction_index=Feature_Y,
+    dot_size=100,
+    show=False
+)
+
+# Customize Axes
+ax = plt.gca()
+ax.tick_params(axis='both', which='major', labelsize=36, width=2)
+ax.set_ylabel(f'SHAP value ({Feature_X})', fontsize=36)
+ax.spines['bottom'].set_linewidth(3)
+ax.spines['left'].set_linewidth(3)
+plt.show()
+
+
+##################################################################
+#                                                                #
+#            (e) Advanced Composite Plot (Beeswarm + Bar)        #
+#      Combines Beeswarm (Bottom Axis) &amp; Importance (Top Axis)   #
+#                                                                #
+##################################################################
+
+class_idx = 5
+fig, ax1 = plt.subplots(figsize=(10, 8))
+
+# 1. Main Beeswarm Plot (on ax1)
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    feature_names=X_train.columns,
+    plot_type="dot",
+    show=False,
+    color_bar=True,
+    cmap='Greys' # or 'plasma'
+)
+
+# Customize Color Bar
+cbar = plt.gcf().axes[-1]
+cbar.set_ylabel('Parameter Value', fontsize=24)
+cbar.tick_params(labelsize=20)
+
+# Adjust layout to make room for the top axis
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+
+# 2. Feature Importance Bar Plot (on Top Axis ax2)
+# Create a twin axis sharing the y-axis
+ax2 = ax1.twiny()
+
+shap.summary_plot(
+    shap_values_numpy[..., class_idx],
+    X_train,
+    plot_type="bar",
+    show=False
+)
+
+# Align position with the main plot
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+
+# Style the bars (Transparent &amp; Light Color)
+bars = ax2.patches
+for bar in bars:
+    bar.set_color('#CCE5FB') # Light blue background bars
+    bar.set_alpha(0.4)       # Transparency
+
+# Customize Axes Labels
+ax1.set_xlabel(f'Shapley Value Contribution (F{class_idx})', fontsize=24, labelpad=5)
+ax1.set_ylabel('Parameters', fontsize=24)
+ax2.set_xlabel('Mean Shapley Value (Parameter Importance)', fontsize=24, labelpad=10)
+
+# Move ax2 (Bar plot axis) to the top
+ax2.xaxis.set_label_position('top')
+ax2.xaxis.tick_top()
+
+# Ensure ax1 (dots) is drawn ON TOP OF ax2 (bars)
+ax1.set_zorder(ax1.get_zorder() + 1)
+ax1.patch.set_visible(False) # Make ax1 background transparent
+
+plt.show()</code></pre>
+        </div>
+       </details>
+      </div>
+     </div>
+    </div>
+    <hr/>
+    <div class="columns is-centered">
+     <div class="column is-full-width">
+      <h2 class="title is-3 reveal">
+       נקודות עיקריות במחקר
+      </h2>
+      <div class="content has-text-justified reveal delay-1">
+       <p>
+        <p>
+         אנו מאמינים כי עבודה זו תרמה את התרומות המרכזיות הבאות לתחום:
+        </p>
+       </p>
+       <ul class="highlight-list stagger-wrapper">
+        <li class="stagger-item hover-card">
+         <strong>
+          ביסוס מודלים פרמטריים לחמש תקלות אופייניות של רכיבי תא הבעירה במנועי דיזל ימיים.
+         </strong>
+        </li>
+        <li class="stagger-item hover-card">
+         <strong>
+          אימות היעילות של שיטת SHAP באמצעות השוואה למספר שיטות לבחירת מאפיינים.
+         </strong>
+        </li>
+        <li class="stagger-item hover-card">
+         <strong>
+          מתן פרספקטיבה חדשה לאבחון תקלות מוסבר על ידי מיזוג שיטות מונחות-נתונים עם מודלים מכניסטיים תרמודינמיים.
+         </strong>
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
+   <div class="container is-max-desktop content">
+    <hr/>
+    <h2 class="title">
+     ציטוט
+    </h2>
+    <div class="citation-prompt">
+     <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
+      <i class="fas fa-quote-left">
+      </i>
+     </span>
+     אם מצאתם עבודה זו מועילה למחקר שלכם, אנא שקלו לצטט אותה 😊
+    </div>
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+     BibTeX
+    </h4>
+    <pre style="margin-bottom: 5px; background-color: #fcfcfc; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem;"><code class="language-latex" id="bibtex-source" style="font-family: 'Times New Roman', Times, serif !important; font-size: 16px; line-height: 1.5;">@article{luo2025thermodynamic,
+  title     = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
+  author    = {Luo, Congcong and Zhao, Minghang and Fu, Xuyun and Zhong, Shisheng and Fu, Song and Zhang, Kai and Yu, Xiaoxia},
+  journal   = {Measurement},
+  volume    = {251},
+  pages     = {117252},
+  year      = {2025},
+  publisher = {Elsevier},
+  doi       = {10.1016/j.measurement.2025.117252},
+}</code></pre>
+    <div class="level is-mobile" style="margin-top: 10px; margin-bottom: 2rem;">
+     <div class="level-left">
+      <button class="button is-dark is-small is-rounded" onclick="copyText('bibtex-source', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+       <span class="btn-text">
+        העתק BibTeX
+       </span>
+      </button>
+     </div>
+    </div>
+    <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
+     פורמט סטנדרטי
+    </h4>
+    <div class="box" style="background-color: #fcfcfc; border: 1px solid #e5e5e5; padding: 1.25rem; margin-bottom: 5px;">
+     <p id="standard-citation" style="margin-bottom: 0; font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.5;">
+      C. Luo, M. Zhao, X. Fu, S. Zhong, S. Fu, K. Zhang, X. Yu. Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines[J]. Measurement, 2025, 251: 117252.
+     </p>
+    </div>
+    <div class="level is-mobile" style="margin-top: 10px;">
+     <div class="level-left">
+      <button class="button is-dark is-small is-rounded" onclick="copyText('standard-citation', this)">
+       <span class="icon is-small">
+        <i class="fas fa-copy">
+        </i>
+       </span>
+       <span class="btn-text">
+        העתק טקסט
+       </span>
+      </button>
+      <a class="button is-text is-small" href="https://www.sciencedirect.com/science/article/pii/S0263224125006116" style="text-decoration: none; margin-left: 10px;" target="_blank">
+       <span class="icon has-text-info">
+        <i class="fas fa-external-link-alt">
+        </i>
+       </span>
+       <span>
+        צפה ב-ScienceDirect
+       </span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </section>
+  <style>
+   .citation-prompt {
+    background-color: #f5f5f5;
+    border-left: 5px solid #3273dc;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    font-weight: 500;
+  }
+  /* 确保 pre 标签不会因为框架样式干扰 padding */
+  pre {
+      padding: 1.25rem !important;
+  }
+  </style>
+  <script>
+   function copyText(elementId, btn) {
+    const textToCopy = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const icon = btn.querySelector('.fa-copy');
+      const text = btn.querySelector('.btn-text');
+      const originalText = text.innerText;
+
+      if(icon) {
+        icon.classList.remove('fa-copy');
+        icon.classList.add('fa-check');
+      }
+      if(text) text.innerText = "Copied!";
+
+      btn.classList.remove('is-dark');
+      btn.classList.add('is-success');
+
+      setTimeout(() => {
+        if(icon) {
+          icon.classList.remove('fa-check');
+          icon.classList.add('fa-copy');
+        }
+        if(text) text.innerText = originalText;
+        btn.classList.remove('is-success');
+        btn.classList.add('is-dark');
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+  </script>
+  <footer class="footer">
+   <div class="container">
+    <div class="content has-text-centered">
+     <a class="icon-link" href="https://doi.org/10.1016/j.measurement.2025.117252">
+      <i class="fas fa-file-pdf">
+      </i>
+     </a>
+     <a class="external-link" disabled="" href="#">
+      <i class="fab fa-github">
+      </i>
+     </a>
+    </div>
+    <div class="columns is-centered is-vcentered">
+     <div class="column is-6">
+      <div class="content">
+       <p>
+        This website is licensed under a
+        <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license">
+         Creative
+            Commons Attribution-ShareAlike 4.0 International License
+        </a>
+        .
+       </p>
+       <p>
+        Copyright © 2025 Congcong Luo et al. Published in
+        <a href="https://doi.org/10.1016/j.measurement.2025.117252" target="_blank">
+         Measurement
+        </a>
+        .
+       </p>
+       <p>
+        This website is adapted from the
+        <a href="https://github.com/nerfies/nerfies.github.io">
+         Nerfies
+        </a>
+        project page template.
+       </p>
+       <p style="margin-top: 10px; font-size: 0.9rem;">
+        <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+        </script>
+        <span id="busuanzi_container_site_uv" style="display:none">
+         מבקרים:
+         <span id="busuanzi_value_site_uv" style="font-weight: bold;">
+         </span>
+        </span>
+        <span style="margin: 0 8px; color: #ccc;">
+         |
+        </span>
+        <span id="busuanzi_container_site_pv" style="display:none">
+         סך הביקורים:
+         <span id="busuanzi_value_site_pv" style="font-weight: bold;">
+         </span>
+        </span>
+       </p>
+      </div>
+     </div>
+     <div class="column is-2">
+      <div style="width: 100%; max-width: 200px; margin: 0 auto 0 0;">
+       <script id="clstr_globe" src="//clustrmaps.com/globe.js?d=_zkZv1bfxiqAq8HXllAuUZNIvCYv603-zyA7z-Vpjfw" type="text/javascript">
+       </script>
+      </div>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    // 监听 reveal 类和 stagger-wrapper 类
+    document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
+        observer.observe(el);
+    });
+});
+  </script>
+ </body>
+</html>
