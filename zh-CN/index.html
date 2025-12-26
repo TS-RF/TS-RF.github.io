@@ -4,18 +4,18 @@
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: 船用柴油机可解释性故障诊断" property="og:title"/>
-  <meta content="结合热力学仿真与随机森林算法，实现船用发动机健康管理的解释性人工智能。" property="og:description"/>
+  <meta content="TSRF: 船用柴油机可解释性故障诊断研究" property="og:title"/>
+  <meta content="结合热力学仿真与随机森林算法，提出一种面向船用发动机健康管理的物理信息机器学习（PIML）与可解释性人工智能方法。" property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
   <meta content="website" property="og:type"/>
   <meta content="summary_large_image" name="twitter:card"/>
   <meta charset="utf-8"/>
-  <meta content="结合热力学仿真与随机森林算法，实现船用发动机健康管理的解释性人工智能。" name="description"/>
+  <meta content="结合热力学仿真与随机森林算法，提出一种面向船用发动机健康管理的物理信息机器学习（PIML）与可解释性人工智能方法。" name="description"/>
   <meta content="船用柴油机, 故障诊断, 随机森林, SHAP, 可解释性AI, 物理信息机器学习, PIML, 机理模型, 合成数据生成, 预测性维护, 热力学仿真, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-    TSRF: 船用柴油机可解释性故障诊断
+    TSRF: 船用柴油机可解释性故障诊断研究
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -59,46 +59,46 @@
        vertical-align: middle;
        color: #363636;
      }
-
+ 
      .tags .tag {
        transition: all 0.2s ease;
        font-size: 0.9rem;
      }
-
+ 
      .tags .tag:hover {
        background-color: #3273dc;
        color: #fff;
        transform: translateY(-2px);
        box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
      }
-
+ 
      /* 核心动画类 */
      .reveal {
        opacity: 0;
        transform: translateY(30px);
        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
      }
-
+ 
      .reveal.active {
        opacity: 1;
        transform: translateY(0);
      }
-
+ 
      /* 简单的延迟类 */
      .reveal.delay-1 { transition-delay: 0.1s; }
      .reveal.delay-2 { transition-delay: 0.2s; }
      .reveal.delay-3 { transition-delay: 0.3s; }
-
+ 
      .hover-card {
        transition: transform 0.3s ease, box-shadow 0.3s ease;
        will-change: transform;
      }
-
+ 
      .hover-card:hover {
        transform: translateY(-5px);
        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
      }
-
+ 
      .highlight-list li {
        background: #f8f9fa;
        padding: 1.5rem;
@@ -106,18 +106,18 @@
        margin-bottom: 1rem;
        border-left: 4px solid #3273dc;
      }
-
+ 
      .stagger-wrapper .stagger-item {
        opacity: 0;
        transform: translateX(-20px);
        transition: all 0.6s ease-out;
      }
-
+ 
      .stagger-wrapper.active .stagger-item {
        opacity: 1;
        transform: translateX(0);
      }
-
+ 
      .stagger-wrapper.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
      .stagger-wrapper.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
      .stagger-wrapper.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
@@ -380,7 +380,7 @@
             </i>
            </span>
            <span>
-            论文
+            论文全文
            </span>
           </a>
          </span>
@@ -411,17 +411,17 @@
           </h2>
           <div class="content has-text-justified reveal delay-1">
             <p>
-              针对传统船用柴油机智能故障诊断方法常因缺乏故障训练样本而导致泛化能力低，以及因未充分结合故障机理领域知识而导致可解释性差的问题，本文提出了一种
+              传统船用柴油机智能故障诊断方法常因故障训练样本匮乏导致泛化能力不足，且因未充分融合故障机理领域的先验知识而造成可解释性较差。针对上述问题，本文提出了一种
               <strong>
                 热力学仿真辅助随机森林 (TSRF)
               </strong>
               方法。
             </p>
             <p>
-              该方法通过热力学仿真揭示故障特征，并在设计智能故障诊断模型时将其作为先验知识。首先，通过微调基本系统参数以对应不同故障的显著属性，开发了五个热力学故障模型。然后，通过数值模拟结果确定燃烧室组件退化的潜在热力学指标。
+              该方法通过热力学仿真揭示故障演化特征，并将其作为先验知识融入智能故障诊断模型的设计中。首先，通过微调系统基础参数以模拟不同故障的显著特征，开发了五个热力学故障模型。随后，基于数值模拟结果确定了表征燃烧室组件退化的潜在热力学指标。
             </p>
             <p>
-              通过计算 SHapley Additive explanations (SHAP) 值，进行参数选择过程，仅保留与故障状态显示出显著相关性的变量。最后，利用选定的参数评估燃烧室的状态。所提出的 TSRF 实现了卓越的分类性能，在故障数据集上的平均准确率达到 99.07%。
+              通过计算 SHapley Additive explanations (SHAP) 值进行特征筛选，仅保留与故障状态具有显著相关性的变量。最后，利用筛选出的参数评估燃烧室健康状态。实验结果表明，所提出的 TSRF 方法表现出优异的分类性能，在故障数据集上的平均准确率高达 99.07%。
             </p>
             <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -438,7 +438,7 @@
           可解释性AI
          </span>
                 <span class="tag is-light is-info">
-          SHAP
+          SHAP值
          </span>
               </div>
             </div>
@@ -456,24 +456,24 @@
           </h2>
           <div class="content has-text-justified reveal delay-1">
             <p>
-              在海洋工程和预测与健康管理 (PHM) 领域，行业面临两个持久的瓶颈：
+              在海洋工程与预测与健康管理 (PHM) 领域，行业面临两大长期瓶颈：
             </p>
             <ul>
               <li>
                 <strong>
                   数据稀缺：
                 </strong>
-                船用发动机是高价值资产，很少运行到故障。这导致训练鲁棒机器学习模型所需的标记“故障数据”严重短缺。
+                船用发动机作为高价值资产，极少运行至故障状态。这导致训练鲁棒机器学习模型所需的标记“故障数据”严重短缺。
               </li>
               <li>
                 <strong>
                   “黑盒”问题：
                 </strong>
-                深度学习模型通常缺乏透明度。如果 AI 诊断出故障但无法解释物理原因，工程师很难信任它。缺乏可解释性是行业广泛采用的主要障碍。
+                深度学习模型通常缺乏透明度。若 AI 诊断出故障却无法阐明物理成因，工程师将难以信任其决策。可解释性的缺失是阻碍行业广泛应用的主要障碍。
               </li>
             </ul>
             <p>
-              为了克服这些挑战，我们引入了 TSRF。通过将基于物理的机理模型与先进的 XAI 技术融合，我们通过大量合成数据生成解决了数据稀缺问题，并确保诊断决策符合热力学原理。
+              为克服上述挑战，我们提出了 TSRF 方法。通过将基于物理的机理模型与先进的 XAI 技术相融合，我们利用大规模合成数据生成解决了数据稀缺问题，并确保诊断决策符合热力学基本原理。
             </p>
           </div>
         </div>
@@ -486,32 +486,32 @@
           </h2>
           <div class="content has-text-justified reveal delay-1">
             <p>
-              我们的工作流程由四个不同的阶段组成，如下图所示：
+              本研究的工作流程包含以下四个主要阶段（如图所示）：
             </p>
             <ol>
               <li>
                 <strong>
                   热力学建模：
                 </strong>
-                我们不仅仅依赖物理试验台，而是构建了 6 缸船用柴油机的高保真一维热力学模型。该模型使用真实世界的运行数据进行了严格校准，仿真误差保持在 5% 以内。
+                我们不单纯依赖物理试验台，而是构建了六缸船用柴油机的高保真一维热力学模型。该模型基于真实运行数据进行了严格校准，仿真误差控制在 5% 以内。
               </li>
               <li>
                 <strong>
                   故障注入：
                 </strong>
-                使用校准后的模型，我们通过微调物理参数模拟了五种特定的燃烧室故障（例如，气缸盖裂纹，活塞烧蚀）。这使得生成涵盖真实发动机无法捕获的场景的综合数据集成为可能。
+                基于校准后的模型，我们通过微调物理参数模拟了五种特定的燃烧室故障（如气缸盖裂纹、活塞烧蚀等）。这使得生成涵盖真实发动机难以捕捉的极端工况的综合数据集成为可能。
               </li>
               <li>
                 <strong>
                   基于 SHAP 的特征选择：
                 </strong>
-                我们利用 SHAP 值定量识别关键特征——具体来说，是驱动诊断决策的 14 个关键参数。
+                我们利用 SHAP 值定量识别关键特征——具体而言，筛选出主导诊断决策的 14 个关键参数。
               </li>
               <li>
                 <strong>
-                  分类：
+                  分类诊断：
                 </strong>
-                使用这个物理增强的数据集训练随机森林 (RF) 分类器，以实现高诊断精度。
+                利用这一物理增强的数据集训练随机森林 (RF) 分类器，实现了高精度的故障诊断。
               </li>
             </ol>
           </div>
@@ -521,7 +521,7 @@
               <strong>
                 图 1：
               </strong>
-              我们提出的 TSRF 方法结构。它结合了热力学建模与基于 SHAP 的参数选择。
+              TSRF 方法架构图。该方法有机结合了热力学建模与基于 SHAP 的参数选择策略。
             </p>
           </div>
         </div>
@@ -534,7 +534,7 @@
           </h2>
           <div class="content has-text-justified reveal delay-1">
             <p>
-              为了确保高保真度，我们构建了一维 (1-D) 运行循环模拟。该机理模型平衡了物理精度与大规模数据集生成所需的计算效率。
+              为确保高保真度，我们构建了一维 (1-D) 运行循环模拟。该机理模型在物理精度与大规模数据集生成所需的计算效率之间取得了平衡。
             </p>
           </div>
           <div class="columns is-centered">
@@ -549,20 +549,20 @@
                 </h4>
                 <div class="content is-size-6">
                   <p>
-                    发动机被离散化为流体管道和功能组件网络：
+                    发动机系统被离散化为流体管路与功能组件网络：
                   </p>
                   <ul>
                     <li>
                       <strong>
                         核心动力单元：
                       </strong>
-                      6 缸，2 冲程直列配置。
+                      六缸、二冲程直列配置。
                     </li>
                     <li>
                       <strong>
                         气路系统：
                       </strong>
-                      进/排气歧管 (PL1, PL2) 通过复杂的管道网络连接。
+                      进/排气歧管 (PL1, PL2) 通过错综复杂的管路网络连接。
                     </li>
                     <li>
                       <strong>
@@ -585,20 +585,20 @@
                 </h4>
                 <div class="content is-size-6">
                   <p>
-                    在故障注入之前，基线模型根据经验数据进行了严格校准。
+                    在进行故障注入之前，基线模型已基于实测数据进行了严格校准。
                   </p>
                   <ul>
                     <li>
                       <strong>
                         数据来源：
                       </strong>
-                      通过数据采集模块 (DCM) 获取的真实船舶数据。
+                      通过数据采集模块 (DCM) 获取的真实船舶运行数据。
                     </li>
                     <li>
                       <strong>
                         验证：
                       </strong>
-                      关键参数（例如，功率，排气温度）的偏差保持在
+                      关键参数（如功率、排气温度）的偏差严格控制在
                       <strong>
                         ±5% 误差范围内
                       </strong>
@@ -618,7 +618,7 @@
                 <strong>
                   图 2：
                 </strong>
-                柴油机的一维热力学模型。
+                柴油机一维热力学模型示意图。
               </p>
             </div>
             <div class="column is-4 has-text-centered">
@@ -645,7 +645,7 @@
             </h4>
             <div class="content has-text-justified is-size-6">
               <p>
-                由于一维模型不能直接表示 3D 结构缺陷，我们采用了现象学映射方法，将物理退化机制转化为等效的热力学参数偏移。
+                由于一维模型无法直接表征 3D 结构缺陷，我们采用了现象学映射法，将物理退化机制转化为等效的热力学参数偏移。
               </p>
             </div>
             <div class="table-container">
@@ -671,10 +671,10 @@
                       </strong>
                     </td>
                     <td>
-                      热传导中断。
+                      热传导受阻。
                     </td>
                     <td>
-                      将气缸盖表面温度 ($T_H$) 提高到 346&amp;deg;C。
+                      将气缸盖表面温度 ($T_H$) 提升至 346&amp;deg;C。
                     </td>
                   </tr>
                   <tr>
@@ -684,10 +684,10 @@
                       </strong>
                     </td>
                     <td>
-                      材料损失和密封受损。
+                      材料缺损与密封受损。
                     </td>
                     <td>
-                      增加活塞温度 ($T_P$) + 轻微窜气 (0.01 kg/s)。
+                      提高活塞温度 ($T_P$) + 轻微窜气 (0.01 kg/s)。
                     </td>
                   </tr>
                   <tr>
@@ -697,10 +697,10 @@
                       </strong>
                     </td>
                     <td>
-                      磨料磨损增加缸径。
+                      磨料磨损导致缸径增大。
                     </td>
                     <td>
-                      增加缸径 + 大量窜气 (0.03 kg/s)。
+                      增大缸径 + 大量窜气 (0.03 kg/s)。
                     </td>
                   </tr>
                   <tr>
@@ -710,7 +710,7 @@
                       </strong>
                     </td>
                     <td>
-                      仅气体泄漏。
+                      单纯气体泄漏。
                     </td>
                     <td>
                       调节窜气质量流量 (0.02 kg/s)。
@@ -723,7 +723,7 @@
                       </strong>
                     </td>
                     <td>
-                      摩擦和密封失效。
+                      摩擦力增大与密封失效。
                     </td>
                     <td>
                       缸径变化 + 缸套温度升高 + 窜气。
@@ -743,20 +743,20 @@
           </h2>
           <div class="content has-text-justified reveal delay-1">
             <p>
-              我们工作的一个关键创新是将重点从“故障是什么？”转移到“为什么是这个故障？”。我们通过活塞环磨损 (F4) 的案例研究展示了这种能力：
+              本研究的一大核心创新在于将重心从“故障是什么？”转向“为何判定为该故障？”。我们通过活塞环磨损 (F4) 的实例分析展示了这一能力：
             </p>
             <ul>
               <li>
                 <strong>
                   局部解释 (瀑布图)：
                 </strong>
-                瀑布图解释了具体的预测。例如，模型预测“活塞环磨损”，因为窜气热流 (P06) 和窜气质量流量 (P07) 表现出特定的值，增加了概率。这符合物理学：活塞环磨损破坏了密封，导致气体泄漏（窜气）。
+                瀑布图解析了具体的预测逻辑。例如，模型预测“活塞环磨损”，是因为窜气热流 (P06) 和窜气质量流量 (P07) 呈现特定数值，从而提高了该故障的预测概率。这符合物理规律：活塞环磨损破坏了密封性，导致气体泄漏（窜气）。
               </li>
               <li>
                 <strong>
                   全局解释 (蜂群图)：
                 </strong>
-                全局分析揭示了模型学到的一般规则。我们发现涡轮前排气压力 (P11) 的低值是活塞环磨损的强指标。在物理上，这是一致的：磨损的活塞环允许气体从气缸泄漏，减少了涡轮可用的能量。
+                全局分析揭示了模型习得的普遍规律。我们发现涡轮前排气压力 (P11) 的低值是活塞环磨损的强有力指标。从物理角度看这具有一致性：磨损的活塞环导致气体从气缸泄漏，从而减少了驱动涡轮的可用能量。
               </li>
             </ul>
           </div>
@@ -789,7 +789,7 @@
               <div class="content has-text-left" style="margin-top: 1.5rem;">
                 <p>
                 <p>
-                  如果您对上图的实现细节感兴趣，这里是用于生成瀑布图、蜂群图、交互图和依赖图的示例代码。👇
+                  若您对上述图表的实现细节感兴趣，以下是用于生成瀑布图、蜂群图、交互图和依赖图的示例代码。👇
                 </p>
                 </p>
                 <pre style="padding: 0; border-radius: 8px; overflow: hidden;"><code class="language-python" style="border-radius: 8px; font-size: 0.85rem; line-height: 1.5;">import shap
@@ -1001,23 +1001,23 @@ plt.show()</code></pre>
           <div class="content has-text-justified reveal delay-1">
             <p>
             <p>
-              我们认为这项工作为该领域提供了几个关键贡献：
+              我们认为本项工作为该领域做出了以下关键贡献：
             </p>
             </p>
             <ul class="highlight-list stagger-wrapper">
               <li class="stagger-item hover-card">
                 <strong>
-                  对船用柴油机燃烧室组件的五种故障进行了参数化建模。
+                  建立了针对船用柴油机燃烧室组件五种典型故障的参数化模型。
                 </strong>
               </li>
               <li class="stagger-item hover-card">
                 <strong>
-                  通过与多种特征选择方法的比较，评估了 SHAP 方法的有效性。
+                  通过与多种特征选择方法的对比，验证了 SHAP 方法的有效性。
                 </strong>
               </li>
               <li class="stagger-item hover-card">
                 <strong>
-                  通过将数据驱动方法与热力学模型相结合，为可解释的故障诊断提供了新的见解。
+                  通过融合数据驱动方法与热力学机理模型，为可解释的故障诊断提供了新视角。
                 </strong>
               </li>
             </ul>
@@ -1037,7 +1037,7 @@ plt.show()</code></pre>
       <i class="fas fa-quote-left">
       </i>
      </span>
-        如果您发现这项工作对您的研究有用，请考虑引用 😊
+        如果您发现这项工作对您的研究有益，请考虑引用 😊
       </div>
       <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
         BibTeX
@@ -1090,7 +1090,7 @@ plt.show()</code></pre>
         </i>
        </span>
             <span>
-        在 ScienceDirect 上查看
+        前往 ScienceDirect 查看
        </span>
           </a>
         </div>
@@ -1120,16 +1120,16 @@ plt.show()</code></pre>
        const icon = btn.querySelector('.fa-copy');
        const text = btn.querySelector('.btn-text');
        const originalText = text.innerText;
-
+ 
        if(icon) {
          icon.classList.remove('fa-copy');
          icon.classList.add('fa-check');
        }
        if(text) text.innerText = "Copied!";
-
+ 
        btn.classList.remove('is-dark');
        btn.classList.add('is-success');
-
+ 
        setTimeout(() => {
          if(icon) {
            icon.classList.remove('fa-check');
@@ -1215,13 +1215,13 @@ plt.show()</code></pre>
          entries.forEach(entry => {
              if (entry.isIntersecting) {
                  entry.target.classList.add('active');
-
+ 
              }
          });
      }, {
          threshold: 0.1
      });
-
+ 
      // 监听 reveal 类和 stagger-wrapper 类
      document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
          observer.observe(el);
