@@ -2,7 +2,7 @@
 
 This is the repository that contains source code for the [TSRF website](https://ts-rf.github.io/).
 
-If you find Nerfies useful for your work please cite:
+If you find this paper useful for your work please cite:
 ```
 @article{LUO2025117252,
 title = {Thermodynamic simulation-assisted random forest: Towards explainable fault diagnosis of combustion chamber components of marine diesel engines},
