@@ -42,6 +42,9 @@
   <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet"/>
   <link href="../static/css/index.css" rel="stylesheet"/>
   <link href="../static/images/favicon.svg" rel="icon"/>
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
   </script>
   <script defer="" src="../static/js/fontawesome.all.min.js">
@@ -72,24 +75,18 @@
        box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
      }
  
-     /* 核心动画类 */
-     .reveal {
-       opacity: 0;
-       transform: translateY(30px);
-       transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+     /* Vanta.js & AOS adjustments */
+     #hero-section {
+       position: relative;
+       background: transparent !important;
      }
- 
-     .reveal.active {
-       opacity: 1;
-       transform: translateY(0);
+
+     #hero-section .hero-body {
+       position: relative;
+       z-index: 2;
      }
- 
-     /* 简单的延迟类 */
-     .reveal.delay-1 { transition-delay: 0.1s; }
-     .reveal.delay-2 { transition-delay: 0.2s; }
-     .reveal.delay-3 { transition-delay: 0.3s; }
- 
-     .hover-card {
+     
+     /* Keeping hover-card */
        transition: transform 0.3s ease, box-shadow 0.3s ease;
        will-change: transform;
      }
@@ -268,7 +265,7 @@
       </div>
     </div>
   </nav>
-  <section class="hero reveal">
+  <section class="hero" id="hero-section">
     <div class="hero-body" style="padding-top: 1rem;">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
@@ -406,10 +403,10 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3 reveal">
+          <h2 class="title is-3" data-aos="fade-up">
             摘要
           </h2>
-          <div class="content has-text-justified reveal delay-1">
+          <div class="content has-text-justified" data-aos="fade-up" data-aos-delay="100">
             <p>
               传统船用柴油机智能故障诊断方法常因故障训练样本匮乏导致泛化能力不足，且因未充分融合故障机理领域的先验知识而造成可解释性较差。针对上述问题，本文提出了一种
               <strong>
@@ -451,10 +448,10 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3 reveal">
+          <h2 class="title is-3" data-aos="fade-up">
             研究动机
           </h2>
-          <div class="content has-text-justified reveal delay-1">
+          <div class="content has-text-justified" data-aos="fade-up" data-aos-delay="100">
             <p>
               在海洋工程与预测与健康管理 (PHM) 领域，行业面临两大长期瓶颈：
             </p>
@@ -481,10 +478,10 @@
       <hr/>
       <div class="columns is-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3 reveal">
+          <h2 class="title is-3" data-aos="fade-up">
             方法论
           </h2>
-          <div class="content has-text-justified reveal delay-1">
+          <div class="content has-text-justified" data-aos="fade-up" data-aos-delay="100">
             <p>
               本研究的工作流程包含以下四个主要阶段（如图所示）：
             </p>
@@ -515,7 +512,7 @@
               </li>
             </ol>
           </div>
-          <div class="has-text-centered reveal delay-2">
+          <div class="has-text-centered" data-aos="fade-up" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
             <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
             <p class="subtitle is-6">
               <strong>
@@ -529,16 +526,16 @@
       <hr/>
       <div class="columns is-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3 reveal">
+          <h2 class="title is-3" data-aos="fade-up">
             热力学建模细节
           </h2>
-          <div class="content has-text-justified reveal delay-1">
+          <div class="content has-text-justified" data-aos="fade-up" data-aos-delay="100">
             <p>
               为确保高保真度，我们构建了一维柴油机仿真模型。该机理模型在物理精度与数据集生成所需的计算效率之间取得了平衡。
             </p>
           </div>
           <div class="columns is-centered">
-            <div class="column is-6 reveal delay-2">
+            <div class="column is-6" data-aos="fade-up" data-aos-delay="200">
               <div class="box hover-card" style="height: 100%;">
                 <h4 class="title is-4 is-size-5">
           <span class="icon has-text-info" style="margin-right: 8px;">
@@ -574,7 +571,7 @@
                 </div>
               </div>
             </div>
-            <div class="column is-6 reveal delay-3">
+            <div class="column is-6" data-aos="fade-up" data-aos-delay="300">
               <div class="box hover-card" style="height: 100%;">
                 <h4 class="title is-4 is-size-5">
           <span class="icon has-text-success" style="margin-right: 8px;">
@@ -609,7 +606,7 @@
               </div>
             </div>
           </div>
-          <div class="columns is-centered reveal" style="margin-top: 1rem; margin-bottom: 1rem;">
+          <div class="columns is-centered" data-aos="fade-up" style="margin-top: 1rem; margin-bottom: 1rem;">
             <div class="column is-8 has-text-centered">
               <div style="height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
                 <img alt="1-D thermodynamic simulation model" class="hover-card" src="../static/images/fig2_simulator.png" style="height: 100%; width: auto; max-width: 100%; object-fit: contain; border-radius: 8px;"/>
@@ -633,7 +630,7 @@
               </p>
             </div>
           </div>
-          <div class="box hover-card reveal" style="margin-top: 1.5rem;">
+          <div class="box hover-card" data-aos="fade-up" style="margin-top: 1.5rem;">
             <h4 class="title is-4 is-size-5" style="display: flex; align-items: center; justify-content: center;">
         <span class="icon has-text-black" style="margin-right: 8px;">
          <i class="fas fa-cogs">
@@ -738,10 +735,10 @@
       <hr/>
       <div class="columns is-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3 reveal">
+          <h2 class="title is-3" data-aos="fade-up">
             可解释性分析
           </h2>
-          <div class="content has-text-justified reveal delay-1">
+          <div class="content has-text-justified" data-aos="fade-up" data-aos-delay="100">
             <p>
               本研究的一大核心创新在于将重心从“故障是什么？”转向“为何判定为该故障？”。我们通过活塞环磨损 (F4) 的实例分析展示了这一能力：
             </p>
@@ -760,7 +757,7 @@
               </li>
             </ul>
           </div>
-          <div class="has-text-centered reveal delay-2">
+          <div class="has-text-centered" data-aos="fade-up" data-aos-delay="200">
             <img alt="SHAP Analysis,including Waterfall plot, beeswarm plot, interaction plot and dependence plot" class="hover-card" src="../static/images/fig11_shap.jpg" style="width:100%; border-radius: 10px;"/>
             <p class="subtitle is-6">
               <strong>
@@ -775,7 +772,7 @@
           <script>
             hljs.highlightAll();
           </script>
-          <div class="reveal delay-2" style="margin-top: 2rem; margin-bottom: 2rem;">
+          <div data-aos="fade-up" data-aos-delay="200" style="margin-top: 2rem; margin-bottom: 2rem;">
             <details class="box hover-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
               <summary class="title is-5 is-size-6-mobile" style="cursor: pointer; color: #363636; margin-bottom: 0;">
          <span class="icon has-text-info" style="margin-right: 0.5rem;">
@@ -995,10 +992,10 @@ plt.show()</code></pre>
       <hr/>
       <div class="columns is-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3 reveal">
+          <h2 class="title is-3" data-aos="fade-up">
             研究亮点
           </h2>
-          <div class="content has-text-justified reveal delay-1">
+          <div class="content has-text-justified" data-aos="fade-up" data-aos-delay="100">
             <p>
             <p>
               我们认为本项工作为该领域做出了以下关键贡献：
@@ -1026,7 +1023,7 @@ plt.show()</code></pre>
       </div>
     </div>
   </section>
-  <section class="section reveal" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
+  <section class="section" data-aos="fade-up" id="BibTeX" style="padding-top: 0; margin-top: -2rem;">
     <div class="container is-max-desktop content">
       <hr/>
       <h2 class="title">
@@ -1209,24 +1206,36 @@ plt.show()</code></pre>
       </div>
     </div>
   </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-     const observer = new IntersectionObserver((entries) => {
-         entries.forEach(entry => {
-             if (entry.isIntersecting) {
-                 entry.target.classList.add('active');
- 
-             }
-         });
-     }, {
-         threshold: 0.1
-     });
- 
-     // 监听 reveal 类和 stagger-wrapper 类
-     document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
-         observer.observe(el);
-     });
- });
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      offset: 100,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Initialize Vanta.js
+    VANTA.NET({
+      el: "#hero-section",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x3273dc,
+      backgroundColor: 0xffffff,
+      points: 12.00,
+      maxDistance: 22.00,
+      spacing: 16.00
+    })
   </script>
 </body>
 </html>
