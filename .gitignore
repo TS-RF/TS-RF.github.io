@@ -1,0 +1,5 @@
+# Python files
+*.py
+
+# Locales folder
+locales/
