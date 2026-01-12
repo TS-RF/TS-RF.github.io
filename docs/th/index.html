@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="th">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
@@ -59,19 +60,19 @@
       vertical-align: middle;
       color: #363636;
     }
-
+    
     .tags .tag {
       transition: all 0.2s ease;
       font-size: 0.9rem;
     }
-
+    
     .tags .tag:hover {
       background-color: #3273dc;
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
     }
-
+    
     /* 核心动画类 */
     .reveal {
       opacity: 0;
@@ -93,7 +94,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       will-change: transform;
     }
-
+    
     .hover-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
@@ -391,7 +392,7 @@
             </i>
            </span>
            <span>
-            โค้ด
+            Code
            </span>
           </a>
          </span>
@@ -424,14 +425,14 @@
        <p>
         วิธีการวินิจฉัยข้อบกพร่องอัจฉริยะสำหรับเครื่องยนต์ดีเซลเรือแบบดั้งเดิมมักประสบปัญหาความสามารถในการสรุปผลทั่วไปที่ไม่ดี เนื่องจากขาดแคลนตัวอย่างการฝึกฝนที่มีข้อบกพร่อง และความสามารถในการอธิบายต่ำ เนื่องจากไม่ได้บูรณาการความรู้ก่อนหน้าเกี่ยวกับกลไกความล้มเหลวอย่างเพียงพอ เพื่อแก้ไขปัญหาเหล่านี้ บทความนี้นำเสนอวิธีการ
         <strong>
-         Random Forest ที่ช่วยด้วยการจำลองทางอุณหพลศาสตร์ (ThermoRF)
+         Random Forest ที่ช่วยด้วยการจำลองทางอุณหพลศาสตร์ (TSRF)
         </strong>
        </p>
        <p>
         วิธีการนี้เปิดเผยลักษณะวิวัฒนาการของข้อบกพร่องผ่านการจำลองทางอุณหพลศาสตร์ และบูรณาการสิ่งเหล่านี้เป็นความรู้ก่อนหน้าในการออกแบบแบบจำลองการวินิจฉัยข้อบกพร่องอัจฉริยะ ขั้นแรก ได้พัฒนาแบบจำลองข้อบกพร่องทางอุณหพลศาสตร์ห้าแบบ โดยการปรับแต่งพารามิเตอร์พื้นฐานของระบบอย่างละเอียด เพื่อจำลองลักษณะเด่นของความล้มเหลวต่างๆ ต่อมา จากผลการจำลองเชิงตัวเลข ได้ระบุตัวบ่งชี้ทางอุณหพลศาสตร์ที่มีศักยภาพ ซึ่งแสดงถึงการเสื่อมสภาพของส่วนประกอบห้องเผาไหม้
        </p>
        <p>
-        การเลือกคุณลักษณะดำเนินการโดยการคำนวณค่า SHapley Additive exPlanations (SHAP) โดยเก็บเฉพาะตัวแปรที่มีความสัมพันธ์อย่างมีนัยสำคัญกับสถานะข้อบกพร่อง สุดท้าย สถานะสุขภาพของห้องเผาไหม้ได้รับการประเมินโดยใช้พารามิเตอร์ที่เลือก ผลการทดลองแสดงให้เห็นว่าวิธีการ ThermoRF ที่นำเสนอ แสดงประสิทธิภาพการจำแนกประเภทที่ยอดเยี่ยม โดยมีความแม่นยำเฉลี่ยสูงถึง 99.07% ในชุดข้อมูลข้อบกพร่อง
+        การเลือกคุณลักษณะดำเนินการโดยการคำนวณค่า SHapley Additive exPlanations (SHAP) โดยเก็บเฉพาะตัวแปรที่มีความสัมพันธ์อย่างมีนัยสำคัญกับสถานะข้อบกพร่อง สุดท้าย สถานะสุขภาพของห้องเผาไหม้ได้รับการประเมินโดยใช้พารามิเตอร์ที่เลือก ผลการทดลองแสดงให้เห็นว่าวิธีการ TSRF ที่นำเสนอ แสดงประสิทธิภาพการจำแนกประเภทที่ยอดเยี่ยม โดยมีความแม่นยำเฉลี่ยสูงถึง 99.07% ในชุดข้อมูลข้อบกพร่อง
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -483,7 +484,7 @@
         </li>
        </ul>
        <p>
-        เพื่อตอบสนองต่อความท้าทายเหล่านี้ เราได้เสนอวิธีการ ThermoRF โดยการรวมแบบจำลองเชิงกลไกที่ใช้ฟิสิกส์เข้ากับเทคนิคความสามารถในการอธิบายขั้นสูง และใช้แบบจำลองการจำลองที่มีความแม่นยำสูงเพื่อแก้ปัญหาการขาดแคลนข้อมูล เรารับประกันว่าการตัดสินใจวินิจฉัยสอดคล้องกับหลักการพื้นฐานของอุณหพลศาสตร์
+        เพื่อตอบสนองต่อความท้าทายเหล่านี้ เราได้เสนอวิธีการ TSRF โดยการรวมแบบจำลองเชิงกลไกที่ใช้ฟิสิกส์เข้ากับเทคนิคความสามารถในการอธิบายขั้นสูง และใช้แบบจำลองการจำลองที่มีความแม่นยำสูงเพื่อแก้ปัญหาการขาดแคลนข้อมูล เรารับประกันว่าการตัดสินใจวินิจฉัยสอดคล้องกับหลักการพื้นฐานของอุณหพลศาสตร์
        </p>
       </div>
      </div>
@@ -531,7 +532,7 @@
         <strong>
          รูปที่ 1:
         </strong>
-        สถาปัตยกรรมของวิธีการ ThermoRF
+        สถาปัตยกรรมของวิธีการ TSRF
        </p>
       </div>
      </div>
@@ -815,7 +816,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # 1. Calculate SHAP values as Numpy Arrays (for Beeswarm, Dependence, Interaction)
 explainer_tree = shap.TreeExplainer(best_model)
-shap_values_numpy = explainer_tree.shap_values(X_train)
+shap_values_numpy = explainer_tree.shap_values(X_train) 
 
 # 2. Calculate SHAP values as Explanation Object (Specifically for Waterfall)
 explainer_obj = shap.Explainer(best_model, X_test)
@@ -834,8 +835,8 @@ sample_idx = 3 # Specific sample to explain
 
 plt.figure()
 shap.plots.waterfall(
-    shap_values_obj[sample_idx, :, class_idx],
-    max_display=9,
+    shap_values_obj[sample_idx, :, class_idx], 
+    max_display=9, 
     show=False
 )
 
@@ -858,16 +859,16 @@ class_idx = 5
 plt.figure(figsize=(10, 8))
 
 shap.summary_plot(
-    shap_values_numpy[..., class_idx],
-    X_train,
-    feature_names=X_train.columns,
-    plot_type="dot",
-    show=False,
+    shap_values_numpy[..., class_idx], 
+    X_train, 
+    feature_names=X_train.columns, 
+    plot_type="dot", 
+    show=False, 
     cmap='Greys' # or 'plasma'
 )
 
 # Customize Color Bar
-cbar = plt.gcf().axes[-1]
+cbar = plt.gcf().axes[-1] 
 cbar.set_ylabel('Parameter Value', fontsize=24)
 cbar.tick_params(labelsize=20)
 plt.show()
@@ -886,11 +887,11 @@ class_idx = 4
 
 plt.figure()
 shap.summary_plot(
-    shap_interaction_values[..., class_idx],
-    X_test,
-    show=False,
-    max_display=6,
-    cmap='Greys'
+    shap_interaction_values[..., class_idx], 
+    X_test, 
+    show=False, 
+    max_display=6, 
+    cmap='Greys' 
 )
 
 # Clean up subplots
@@ -898,9 +899,9 @@ axes = plt.gcf().axes
 for ax in axes:
     ax.spines['bottom'].set_linewidth(2)
     ax.tick_params(axis="x", labelsize=18, width=2)
-    ax.set_title(ax.get_title(), fontsize=14)
+    ax.set_title(ax.get_title(), fontsize=14) 
 
-plt.subplots_adjust(wspace=0.3, hspace=0.4)
+plt.subplots_adjust(wspace=0.3, hspace=0.4)    
 plt.show()
 
 
@@ -916,11 +917,11 @@ Feature_Y = 'P07'  # Interaction feature
 class_idx = 4
 
 shap.dependence_plot(
-    Feature_X,
-    shap_values_numpy[..., class_idx],
-    X_train,
-    interaction_index=Feature_Y,
-    dot_size=100,
+    Feature_X, 
+    shap_values_numpy[..., class_idx], 
+    X_train, 
+    interaction_index=Feature_Y, 
+    dot_size=100, 
     show=False
 )
 
@@ -945,36 +946,36 @@ fig, ax1 = plt.subplots(figsize=(10, 8))
 
 # 1. Main Beeswarm Plot (on ax1)
 shap.summary_plot(
-    shap_values_numpy[..., class_idx],
-    X_train,
-    feature_names=X_train.columns,
-    plot_type="dot",
-    show=False,
-    color_bar=True,
+    shap_values_numpy[..., class_idx], 
+    X_train, 
+    feature_names=X_train.columns, 
+    plot_type="dot", 
+    show=False, 
+    color_bar=True, 
     cmap='Greys' # or 'plasma'
 )
 
 # Customize Color Bar
-cbar = plt.gcf().axes[-1]
+cbar = plt.gcf().axes[-1] 
 cbar.set_ylabel('Parameter Value', fontsize=24)
 cbar.tick_params(labelsize=20)
 
 # Adjust layout to make room for the top axis
-plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65]) 
 
 # 2. Feature Importance Bar Plot (on Top Axis ax2)
 # Create a twin axis sharing the y-axis
-ax2 = ax1.twiny()
+ax2 = ax1.twiny() 
 
 shap.summary_plot(
-    shap_values_numpy[..., class_idx],
-    X_train,
-    plot_type="bar",
+    shap_values_numpy[..., class_idx], 
+    X_train, 
+    plot_type="bar", 
     show=False
 )
 
 # Align position with the main plot
-plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65]) 
 
 # Style the bars (Transparent &amp; Light Color)
 bars = ax2.patches
@@ -988,11 +989,11 @@ ax1.set_ylabel('Parameters', fontsize=24)
 ax2.set_xlabel('Mean Shapley Value (Parameter Importance)', fontsize=24, labelpad=10)
 
 # Move ax2 (Bar plot axis) to the top
-ax2.xaxis.set_label_position('top')
+ax2.xaxis.set_label_position('top') 
 ax2.xaxis.tick_top()
 
 # Ensure ax1 (dots) is drawn ON TOP OF ax2 (bars)
-ax1.set_zorder(ax1.get_zorder() + 1)
+ax1.set_zorder(ax1.get_zorder() + 1) 
 ax1.patch.set_visible(False) # Make ax1 background transparent
 
 plt.show()</code></pre>
@@ -1129,16 +1130,16 @@ plt.show()</code></pre>
       const icon = btn.querySelector('.fa-copy');
       const text = btn.querySelector('.btn-text');
       const originalText = text.innerText;
-
+      
       if(icon) {
         icon.classList.remove('fa-copy');
         icon.classList.add('fa-check');
       }
       if(text) text.innerText = "Copied!";
-
+      
       btn.classList.remove('is-dark');
       btn.classList.add('is-success');
-
+      
       setTimeout(() => {
         if(icon) {
           icon.classList.remove('fa-check');
@@ -1224,13 +1225,13 @@ plt.show()</code></pre>
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-
+                
             }
         });
     }, {
-        threshold: 0.1
+        threshold: 0.1 
     });
-
+  
     // 监听 reveal 类和 stagger-wrapper 类
     document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
         observer.observe(el);

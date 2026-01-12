@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="tr">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
@@ -59,19 +60,19 @@
       vertical-align: middle;
       color: #363636;
     }
-
+    
     .tags .tag {
       transition: all 0.2s ease;
       font-size: 0.9rem;
     }
-
+    
     .tags .tag:hover {
       background-color: #3273dc;
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 0 4px 6px rgba(50, 115, 220, 0.2);
     }
-
+    
     /* 核心动画类 */
     .reveal {
       opacity: 0;
@@ -93,7 +94,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       will-change: transform;
     }
-
+    
     .hover-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
@@ -391,7 +392,7 @@
             </i>
            </span>
            <span>
-            Kod
+            Code
            </span>
           </a>
          </span>
@@ -424,7 +425,7 @@
        <p>
         Geleneksel gemi dizel motoru akıllı arıza teşhis yöntemleri, arıza eğitim örneklerinin eksikliği nedeniyle genellikle zayıf genelleme yeteneğinden muzdariptir ve arıza mekanizmaları hakkındaki ön bilgileri yeterince entegre etmedikleri için düşük açıklanabilirliğe sahiptir. Bu sorunları ele almak için, bu makale bir
         <strong>
-         Termodinamik Simülasyon Destekli Rastgele Orman (ThermoRF)
+         Termodinamik Simülasyon Destekli Rastgele Orman (TSRF)
         </strong>
         yöntemi önermektedir.
        </p>
@@ -432,7 +433,7 @@
         Bu yöntem, termodinamik simülasyon yoluyla arıza gelişim özelliklerini ortaya çıkarır ve bunları akıllı arıza teşhis modelinin tasarımına ön bilgi olarak entegre eder. İlk olarak, farklı arızaların belirgin özelliklerini simüle etmek için sistemin temel parametrelerinde ince ayar yapılarak beş termodinamik arıza modeli geliştirilmiştir. Ardından, sayısal simülasyon sonuçlarına dayanarak, yanma odası bileşenlerinin bozulmasını karakterize eden potansiyel termodinamik göstergeler belirlenmiştir.
        </p>
        <p>
-        Özellik seçimi, SHapley Additive exPlanations (SHAP) değerleri hesaplanarak gerçekleştirilmiş ve yalnızca arıza durumuyla anlamlı bir korelasyona sahip değişkenler korunmuştur. Son olarak, seçilen parametreler kullanılarak yanma odasının sağlık durumu değerlendirilmiştir. Deneysel sonuçlar, önerilen ThermoRF yönteminin, arıza veri setinde %99,07'ye varan ortalama doğrulukla mükemmel sınıflandırma performansı sergilediğini göstermektedir.
+        Özellik seçimi, SHapley Additive exPlanations (SHAP) değerleri hesaplanarak gerçekleştirilmiş ve yalnızca arıza durumuyla anlamlı bir korelasyona sahip değişkenler korunmuştur. Son olarak, seçilen parametreler kullanılarak yanma odasının sağlık durumu değerlendirilmiştir. Deneysel sonuçlar, önerilen TSRF yönteminin, arıza veri setinde %99,07'ye varan ortalama doğrulukla mükemmel sınıflandırma performansı sergilediğini göstermektedir.
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -484,7 +485,7 @@
         </li>
        </ul>
        <p>
-        Bu zorlukların üstesinden gelmek için ThermoRF yöntemini önerdik. Fizik tabanlı mekanistik modelleri gelişmiş açıklanabilirlik teknikleriyle birleştirerek ve veri kıtlığı sorununu çözmek için yüksek doğruluğa sahip simülasyon modellerini kullanarak, teşhis kararlarının temel termodinamik ilkelerine uymasını sağlıyoruz.
+        Bu zorlukların üstesinden gelmek için TSRF yöntemini önerdik. Fizik tabanlı mekanistik modelleri gelişmiş açıklanabilirlik teknikleriyle birleştirerek ve veri kıtlığı sorununu çözmek için yüksek doğruluğa sahip simülasyon modellerini kullanarak, teşhis kararlarının temel termodinamik ilkelerine uymasını sağlıyoruz.
        </p>
       </div>
      </div>
@@ -532,7 +533,7 @@
         <strong>
          Şekil 1:
         </strong>
-        ThermoRF yöntemi mimarisi.
+        TSRF yöntemi mimarisi.
        </p>
       </div>
      </div>
@@ -817,7 +818,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # 1. Calculate SHAP values as Numpy Arrays (for Beeswarm, Dependence, Interaction)
 explainer_tree = shap.TreeExplainer(best_model)
-shap_values_numpy = explainer_tree.shap_values(X_train)
+shap_values_numpy = explainer_tree.shap_values(X_train) 
 
 # 2. Calculate SHAP values as Explanation Object (Specifically for Waterfall)
 explainer_obj = shap.Explainer(best_model, X_test)
@@ -836,8 +837,8 @@ sample_idx = 3 # Specific sample to explain
 
 plt.figure()
 shap.plots.waterfall(
-    shap_values_obj[sample_idx, :, class_idx],
-    max_display=9,
+    shap_values_obj[sample_idx, :, class_idx], 
+    max_display=9, 
     show=False
 )
 
@@ -860,16 +861,16 @@ class_idx = 5
 plt.figure(figsize=(10, 8))
 
 shap.summary_plot(
-    shap_values_numpy[..., class_idx],
-    X_train,
-    feature_names=X_train.columns,
-    plot_type="dot",
-    show=False,
+    shap_values_numpy[..., class_idx], 
+    X_train, 
+    feature_names=X_train.columns, 
+    plot_type="dot", 
+    show=False, 
     cmap='Greys' # or 'plasma'
 )
 
 # Customize Color Bar
-cbar = plt.gcf().axes[-1]
+cbar = plt.gcf().axes[-1] 
 cbar.set_ylabel('Parameter Value', fontsize=24)
 cbar.tick_params(labelsize=20)
 plt.show()
@@ -888,11 +889,11 @@ class_idx = 4
 
 plt.figure()
 shap.summary_plot(
-    shap_interaction_values[..., class_idx],
-    X_test,
-    show=False,
-    max_display=6,
-    cmap='Greys'
+    shap_interaction_values[..., class_idx], 
+    X_test, 
+    show=False, 
+    max_display=6, 
+    cmap='Greys' 
 )
 
 # Clean up subplots
@@ -900,9 +901,9 @@ axes = plt.gcf().axes
 for ax in axes:
     ax.spines['bottom'].set_linewidth(2)
     ax.tick_params(axis="x", labelsize=18, width=2)
-    ax.set_title(ax.get_title(), fontsize=14)
+    ax.set_title(ax.get_title(), fontsize=14) 
 
-plt.subplots_adjust(wspace=0.3, hspace=0.4)
+plt.subplots_adjust(wspace=0.3, hspace=0.4)    
 plt.show()
 
 
@@ -918,11 +919,11 @@ Feature_Y = 'P07'  # Interaction feature
 class_idx = 4
 
 shap.dependence_plot(
-    Feature_X,
-    shap_values_numpy[..., class_idx],
-    X_train,
-    interaction_index=Feature_Y,
-    dot_size=100,
+    Feature_X, 
+    shap_values_numpy[..., class_idx], 
+    X_train, 
+    interaction_index=Feature_Y, 
+    dot_size=100, 
     show=False
 )
 
@@ -947,36 +948,36 @@ fig, ax1 = plt.subplots(figsize=(10, 8))
 
 # 1. Main Beeswarm Plot (on ax1)
 shap.summary_plot(
-    shap_values_numpy[..., class_idx],
-    X_train,
-    feature_names=X_train.columns,
-    plot_type="dot",
-    show=False,
-    color_bar=True,
+    shap_values_numpy[..., class_idx], 
+    X_train, 
+    feature_names=X_train.columns, 
+    plot_type="dot", 
+    show=False, 
+    color_bar=True, 
     cmap='Greys' # or 'plasma'
 )
 
 # Customize Color Bar
-cbar = plt.gcf().axes[-1]
+cbar = plt.gcf().axes[-1] 
 cbar.set_ylabel('Parameter Value', fontsize=24)
 cbar.tick_params(labelsize=20)
 
 # Adjust layout to make room for the top axis
-plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65]) 
 
 # 2. Feature Importance Bar Plot (on Top Axis ax2)
 # Create a twin axis sharing the y-axis
-ax2 = ax1.twiny()
+ax2 = ax1.twiny() 
 
 shap.summary_plot(
-    shap_values_numpy[..., class_idx],
-    X_train,
-    plot_type="bar",
+    shap_values_numpy[..., class_idx], 
+    X_train, 
+    plot_type="bar", 
     show=False
 )
 
 # Align position with the main plot
-plt.gca().set_position([0.2, 0.2, 0.65, 0.65])
+plt.gca().set_position([0.2, 0.2, 0.65, 0.65]) 
 
 # Style the bars (Transparent &amp; Light Color)
 bars = ax2.patches
@@ -990,11 +991,11 @@ ax1.set_ylabel('Parameters', fontsize=24)
 ax2.set_xlabel('Mean Shapley Value (Parameter Importance)', fontsize=24, labelpad=10)
 
 # Move ax2 (Bar plot axis) to the top
-ax2.xaxis.set_label_position('top')
+ax2.xaxis.set_label_position('top') 
 ax2.xaxis.tick_top()
 
 # Ensure ax1 (dots) is drawn ON TOP OF ax2 (bars)
-ax1.set_zorder(ax1.get_zorder() + 1)
+ax1.set_zorder(ax1.get_zorder() + 1) 
 ax1.patch.set_visible(False) # Make ax1 background transparent
 
 plt.show()</code></pre>
@@ -1131,16 +1132,16 @@ plt.show()</code></pre>
       const icon = btn.querySelector('.fa-copy');
       const text = btn.querySelector('.btn-text');
       const originalText = text.innerText;
-
+      
       if(icon) {
         icon.classList.remove('fa-copy');
         icon.classList.add('fa-check');
       }
       if(text) text.innerText = "Copied!";
-
+      
       btn.classList.remove('is-dark');
       btn.classList.add('is-success');
-
+      
       setTimeout(() => {
         if(icon) {
           icon.classList.remove('fa-check');
@@ -1226,13 +1227,13 @@ plt.show()</code></pre>
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-
+                
             }
         });
     }, {
-        threshold: 0.1
+        threshold: 0.1 
     });
-
+  
     // 监听 reveal 类和 stagger-wrapper 类
     document.querySelectorAll('.reveal, .stagger-wrapper').forEach(el => {
         observer.observe(el);
