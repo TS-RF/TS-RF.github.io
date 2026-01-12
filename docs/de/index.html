@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: Erklärbare Fehlerdiagnose für Schiffsdieselmotoren" property="og:title"/>
+  <meta content="ThermoRF: Erklärbare Fehlerdiagnose für Schiffsdieselmotoren" property="og:title"/>
   <meta content="Kombination von thermodynamischer Simulation und Random-Forest-Algorithmen: Ein Ansatz des physik-informierten maschinellen Lernens (PIML) und der erklärbaren KI für das Zustandsmanagement von Schiffsmotoren." property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
@@ -15,7 +15,7 @@
   <meta content="Schiffsdieselmotor, Fehlerdiagnose, Random Forest, SHAP, Erklärbare KI, Physik-informiertes maschinelles Lernen, PIML, Mechanistisches Modell, Synthetische Datenerzeugung, Vorausschauende Wartung, Thermodynamische Simulation, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   TSRF: Erklärbare Fehlerdiagnose für Schiffsdieselmotoren
+   ThermoRF: Erklärbare Fehlerdiagnose für Schiffsdieselmotoren
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -374,7 +374,7 @@
        <div class="column has-text-centered">
         <div class="publication-links">
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../ThermoRF.pdf" target="_blank">
            <span class="icon">
             <i class="fas fa-file-pdf">
             </i>
@@ -385,7 +385,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF" target="_blank">
            <span class="icon">
             <i class="fab fa-github">
             </i>
@@ -396,7 +396,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF/releases/tag/dataset" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -424,7 +424,7 @@
        <p>
         Herkömmliche intelligente Fehlerdiagnoseverfahren für Schiffsdieselmotoren leiden oft unter mangelnder Generalisierungsfähigkeit aufgrund fehlender Fehlertrainingsdaten und geringer Erklärbarkeit, da Vorwissen über Fehlermechanismen nicht ausreichend integriert wird. Um diese Probleme anzugehen, schlägt diese Arbeit eine Methode namens
         <strong>
-         Thermodynamic Simulation-Assisted Random Forest (TSRF)
+         Thermodynamic Simulation-Assisted Random Forest (ThermoRF)
         </strong>
         vor.
        </p>
@@ -432,7 +432,7 @@
         Diese Methode nutzt thermodynamische Simulationen, um Charakteristika der Fehlerentwicklung aufzudecken, und integriert diese als Vorwissen in das Design des intelligenten Diagnosemodells. Zunächst wurden fünf thermodynamische Fehlermodelle entwickelt, indem grundlegende Systemparameter feinjustiert wurden, um die signifikanten Merkmale verschiedener Fehler zu simulieren. Anschließend wurden basierend auf numerischen Simulationsergebnissen potenzielle thermodynamische Indikatoren identifiziert, die die Degradation der Brennraumkomponenten charakterisieren.
        </p>
        <p>
-        Durch die Berechnung von SHapley Additive exPlanations (SHAP)-Werten wurde eine Merkmalsselektion durchgeführt, bei der nur Variablen beibehalten wurden, die eine signifikante Korrelation mit dem Fehlerzustand aufweisen. Schließlich wurde der Gesundheitszustand des Brennraums unter Verwendung der ausgewählten Parameter bewertet. Die experimentellen Ergebnisse zeigen, dass die vorgeschlagene TSRF-Methode eine hervorragende Klassifikationsleistung mit einer durchschnittlichen Genauigkeit von 99,07 % auf dem Fehlerdatensatz erreicht.
+        Durch die Berechnung von SHapley Additive exPlanations (SHAP)-Werten wurde eine Merkmalsselektion durchgeführt, bei der nur Variablen beibehalten wurden, die eine signifikante Korrelation mit dem Fehlerzustand aufweisen. Schließlich wurde der Gesundheitszustand des Brennraums unter Verwendung der ausgewählten Parameter bewertet. Die experimentellen Ergebnisse zeigen, dass die vorgeschlagene ThermoRF-Methode eine hervorragende Klassifikationsleistung mit einer durchschnittlichen Genauigkeit von 99,07 % auf dem Fehlerdatensatz erreicht.
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -484,7 +484,7 @@
         </li>
        </ul>
        <p>
-        Um diesen Herausforderungen zu begegnen, haben wir die TSRF-Methode vorgeschlagen. Durch die Fusion von physikbasierten mechanistischen Modellen mit fortschrittlichen Techniken der Erklärbarkeit und der Nutzung von High-Fidelity-Simulationsmodellen lösen wir das Problem der Datenknappheit und stellen sicher, dass Diagnoseentscheidungen den thermodynamischen Grundprinzipien entsprechen.
+        Um diesen Herausforderungen zu begegnen, haben wir die ThermoRF-Methode vorgeschlagen. Durch die Fusion von physikbasierten mechanistischen Modellen mit fortschrittlichen Techniken der Erklärbarkeit und der Nutzung von High-Fidelity-Simulationsmodellen lösen wir das Problem der Datenknappheit und stellen sicher, dass Diagnoseentscheidungen den thermodynamischen Grundprinzipien entsprechen.
        </p>
       </div>
      </div>
@@ -527,12 +527,12 @@
        </ol>
       </div>
       <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <img alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
        <p class="subtitle is-6">
         <strong>
          Abb. 1:
         </strong>
-        Architektur der TSRF-Methode.
+        Architektur der ThermoRF-Methode.
        </p>
       </div>
      </div>
@@ -1048,7 +1048,7 @@ plt.show()</code></pre>
       <i class="fas fa-quote-left">
       </i>
      </span>
-     Wenn Sie diese Arbeit für Ihre Forschung nützlich finden, ziehen Sie bitte eine Zitation in Betracht 😊
+     Wenn Sie diese Arbeit für Ihre Forschung nützlich finden, lesen Sie bitte die folgende Veröffentlichung 😊
     </div>
     <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
      BibTeX

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: 船舶用ディーゼルエンジンのための説明可能な故障診断研究" property="og:title"/>
+  <meta content="ThermoRF: 船舶用ディーゼルエンジンのための説明可能な故障診断研究" property="og:title"/>
   <meta content="熱力学シミュレーションとランダムフォレストアルゴリズムを組み合わせ、船舶エンジンの健全性管理に向けた物理情報に基づく機械学習（PIML）および説明可能AI（XAI）手法を提案します。" property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
@@ -15,7 +15,7 @@
   <meta content="船舶用ディーゼルエンジン, 故障診断, ランダムフォレスト, SHAP, 説明可能AI, 物理情報に基づく機械学習, PIML, メカニズムモデル, 合成データ生成, 予知保全, 熱力学シミュレーション, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   TSRF: 船舶用ディーゼルエンジンのための説明可能な故障診断研究
+   ThermoRF: 船舶用ディーゼルエンジンのための説明可能な故障診断研究
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -374,7 +374,7 @@
        <div class="column has-text-centered">
         <div class="publication-links">
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../ThermoRF.pdf" target="_blank">
            <span class="icon">
             <i class="fas fa-file-pdf">
             </i>
@@ -385,7 +385,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF" target="_blank">
            <span class="icon">
             <i class="fab fa-github">
             </i>
@@ -396,7 +396,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF/releases/tag/dataset" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -424,7 +424,7 @@
        <p>
         従来の船舶用ディーゼルエンジンの知的故障診断手法は、故障訓練データの不足による汎化能力の低さや、故障メカニズムに関する事前知識の統合不足による説明性の欠如といった課題を抱えています。これらの問題に対処するため、本研究では
         <strong>
-         熱力学シミュレーション支援型ランダムフォレスト (TSRF)
+         熱力学シミュレーション支援型ランダムフォレスト (ThermoRF)
         </strong>
         手法を提案します。
        </p>
@@ -432,7 +432,7 @@
         この手法は、熱力学シミュレーションによって故障の進展特性を明らかにし、それを事前知識として知的故障診断モデルの設計に組み込むものです。まず、システムの基本パラメータを微調整して様々な故障の顕著な特徴をシミュレートし、5つの熱力学故障モデルを開発しました。次に、数値シミュレーションの結果に基づき、燃焼室部品の劣化を表す潜在的な熱力学指標を特定しました。
        </p>
        <p>
-        さらに、SHapley Additive explanations (SHAP) 値を計算して特徴選択を行い、故障状態と有意な相関を持つ変数のみを保持しました。最後に、選別されたパラメータを用いて燃焼室の健全性を評価しました。実験の結果、提案するTSRF手法は優れた分類性能を示し、故障データセットにおいて99.07%という高い平均精度を達成しました。
+        さらに、SHapley Additive explanations (SHAP) 値を計算して特徴選択を行い、故障状態と有意な相関を持つ変数のみを保持しました。最後に、選別されたパラメータを用いて燃焼室の健全性を評価しました。実験の結果、提案するThermoRF手法は優れた分類性能を示し、故障データセットにおいて99.07%という高い平均精度を達成しました。
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -484,7 +484,7 @@
         </li>
        </ul>
        <p>
-        これらの課題に対処するため、私たちはTSRF手法を提案しました。物理ベースのメカニズムモデルと高度な説明可能技術を融合させ、高忠実度のシミュレーションモデルを活用することでデータの希少性問題を解決し、同時に診断の意思決定が熱力学の基本原理に準拠していることを保証します。
+        これらの課題に対処するため、私たちはThermoRF手法を提案しました。物理ベースのメカニズムモデルと高度な説明可能技術を融合させ、高忠実度のシミュレーションモデルを活用することでデータの希少性問題を解決し、同時に診断の意思決定が熱力学の基本原理に準拠していることを保証します。
        </p>
       </div>
      </div>
@@ -527,12 +527,12 @@
        </ol>
       </div>
       <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <img alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
        <p class="subtitle is-6">
         <strong>
          図 1：
         </strong>
-        TSRF手法のアーキテクチャ。
+        ThermoRF手法のアーキテクチャ。
        </p>
       </div>
      </div>
@@ -1048,7 +1048,7 @@ plt.show()</code></pre>
       <i class="fas fa-quote-left">
       </i>
      </span>
-     本研究が皆様の研究に役立つ場合は、ぜひ引用をご検討ください 😊
+     本研究が皆様の研究に役立つ場合は、ぜひ以下の論文をお読みください 😊
     </div>
     <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
      BibTeX

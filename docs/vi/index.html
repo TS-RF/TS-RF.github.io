@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: Nghiên cứu chẩn đoán lỗi có thể giải thích được cho động cơ diesel hàng hải" property="og:title"/>
+  <meta content="ThermoRF: Nghiên cứu chẩn đoán lỗi có thể giải thích được cho động cơ diesel hàng hải" property="og:title"/>
   <meta content="Kết hợp mô phỏng nhiệt động lực học và thuật toán Rừng ngẫu nhiên (Random Forest), đề xuất một phương pháp học máy thông tin vật lý (PIML) và AI có thể giải thích được để quản lý sức khỏe động cơ hàng hải." property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
@@ -15,7 +15,7 @@
   <meta content="Động cơ diesel hàng hải, Chẩn đoán lỗi, Rừng ngẫu nhiên, SHAP, AI có thể giải thích, Học máy thông tin vật lý, PIML, Mô hình cơ chế, Tạo dữ liệu tổng hợp, Bảo trì dự đoán, Mô phỏng nhiệt động lực học, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   TSRF: Nghiên cứu chẩn đoán lỗi có thể giải thích được cho động cơ diesel hàng hải
+   ThermoRF: Nghiên cứu chẩn đoán lỗi có thể giải thích được cho động cơ diesel hàng hải
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -374,7 +374,7 @@
        <div class="column has-text-centered">
         <div class="publication-links">
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../ThermoRF.pdf" target="_blank">
            <span class="icon">
             <i class="fas fa-file-pdf">
             </i>
@@ -385,7 +385,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF" target="_blank">
            <span class="icon">
             <i class="fab fa-github">
             </i>
@@ -396,7 +396,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF/releases/tag/dataset" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -424,7 +424,7 @@
        <p>
         Các phương pháp chẩn đoán lỗi thông minh truyền thống cho động cơ diesel hàng hải thường có khả năng khái quát hóa kém do thiếu mẫu huấn luyện về lỗi, và khả năng giải thích thấp do chưa tích hợp đầy đủ kiến thức tiên nghiệm về cơ chế hư hỏng. Để giải quyết các vấn đề trên, bài báo này đề xuất phương pháp
         <strong>
-         Rừng ngẫu nhiên hỗ trợ bởi mô phỏng nhiệt động lực học (TSRF)
+         Rừng ngẫu nhiên hỗ trợ bởi mô phỏng nhiệt động lực học (ThermoRF)
         </strong>
         .
        </p>
@@ -432,7 +432,7 @@
         Phương pháp này làm sáng tỏ các đặc điểm diễn biến lỗi thông qua mô phỏng nhiệt động lực học và tích hợp chúng làm kiến thức tiên nghiệm trong thiết kế mô hình chẩn đoán lỗi thông minh. Đầu tiên, năm mô hình lỗi nhiệt động lực học đã được phát triển bằng cách tinh chỉnh các thông số cơ bản của hệ thống để mô phỏng các đặc điểm quan trọng của các sự cố khác nhau. Sau đó, dựa trên kết quả mô phỏng số, các chỉ số nhiệt động lực học tiềm năng đặc trưng cho sự suy giảm của các bộ phận buồng đốt đã được xác định.
        </p>
        <p>
-        Việc lựa chọn đặc trưng được thực hiện bằng cách tính toán các giá trị SHapley Additive exPlanations (SHAP), chỉ giữ lại các biến có mối tương quan đáng kể với trạng thái lỗi. Cuối cùng, trạng thái sức khỏe của buồng đốt được đánh giá bằng cách sử dụng các thông số đã chọn. Kết quả thực nghiệm cho thấy phương pháp TSRF được đề xuất thể hiện hiệu suất phân loại xuất sắc, với độ chính xác trung bình đạt 99,07% trên bộ dữ liệu lỗi.
+        Việc lựa chọn đặc trưng được thực hiện bằng cách tính toán các giá trị SHapley Additive exPlanations (SHAP), chỉ giữ lại các biến có mối tương quan đáng kể với trạng thái lỗi. Cuối cùng, trạng thái sức khỏe của buồng đốt được đánh giá bằng cách sử dụng các thông số đã chọn. Kết quả thực nghiệm cho thấy phương pháp ThermoRF được đề xuất thể hiện hiệu suất phân loại xuất sắc, với độ chính xác trung bình đạt 99,07% trên bộ dữ liệu lỗi.
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -484,7 +484,7 @@
         </li>
        </ul>
        <p>
-        Để giải quyết những thách thức này, chúng tôi đã đề xuất phương pháp TSRF. Bằng cách kết hợp các mô hình cơ chế dựa trên vật lý với các kỹ thuật giải thích tiên tiến và sử dụng các mô hình mô phỏng độ trung thực cao để giải quyết vấn đề khan hiếm dữ liệu, chúng tôi đảm bảo rằng các quyết định chẩn đoán tuân thủ các nguyên lý nhiệt động lực học cơ bản.
+        Để giải quyết những thách thức này, chúng tôi đã đề xuất phương pháp ThermoRF. Bằng cách kết hợp các mô hình cơ chế dựa trên vật lý với các kỹ thuật giải thích tiên tiến và sử dụng các mô hình mô phỏng độ trung thực cao để giải quyết vấn đề khan hiếm dữ liệu, chúng tôi đảm bảo rằng các quyết định chẩn đoán tuân thủ các nguyên lý nhiệt động lực học cơ bản.
        </p>
       </div>
      </div>
@@ -527,12 +527,12 @@
        </ol>
       </div>
       <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <img alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
        <p class="subtitle is-6">
         <strong>
          Hình 1:
         </strong>
-        Kiến trúc phương pháp TSRF.
+        Kiến trúc phương pháp ThermoRF.
        </p>
       </div>
      </div>
@@ -1048,7 +1048,7 @@ plt.show()</code></pre>
       <i class="fas fa-quote-left">
       </i>
      </span>
-     Nếu bạn thấy công trình này hữu ích cho nghiên cứu của mình, vui lòng xem xét trích dẫn 😊
+     Nếu bạn thấy công trình này hữu ích cho nghiên cứu của mình, vui lòng đọc bài báo sau 😊
     </div>
     <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
      BibTeX

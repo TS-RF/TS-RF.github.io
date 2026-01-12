@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uk">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: Дослідження пояснюваної діагностики несправностей суднових дизельних двигунів" property="og:title"/>
+  <meta content="ThermoRF: Дослідження пояснюваної діагностики несправностей суднових дизельних двигунів" property="og:title"/>
   <meta content="Поєднуючи термодинамічне моделювання та алгоритми випадкового лісу (Random Forest), пропонується метод фізично обґрунтованого машинного навчання (PIML) та пояснюваного ШІ для управління станом суднових двигунів." property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
@@ -15,7 +15,7 @@
   <meta content="Судновий дизельний двигун, Діагностика несправностей, Випадковий ліс, SHAP, Пояснюваний ШІ, Фізично обґрунтоване машинне навчання, PIML, Механістична модель, Генерація синтетичних даних, Предиктивне обслуговування, Термодинамічне моделювання, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   TSRF: Дослідження пояснюваної діагностики несправностей суднових дизельних двигунів
+   ThermoRF: Дослідження пояснюваної діагностики несправностей суднових дизельних двигунів
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -374,7 +374,7 @@
        <div class="column has-text-centered">
         <div class="publication-links">
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../ThermoRF.pdf" target="_blank">
            <span class="icon">
             <i class="fas fa-file-pdf">
             </i>
@@ -385,7 +385,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF" target="_blank">
            <span class="icon">
             <i class="fab fa-github">
             </i>
@@ -396,7 +396,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF/releases/tag/dataset" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -424,7 +424,7 @@
        <p>
         Традиційні методи інтелектуальної діагностики несправностей суднових дизельних двигунів часто страждають від слабкої узагальнюючої здатності через брак навчальних вибірок з несправностями, а також від низької пояснюваності через недостатню інтеграцію апріорних знань про механізми відмов. Для вирішення цих проблем у даній статті пропонується метод
         <strong>
-         Випадкового лісу за підтримки термодинамічного моделювання (TSRF)
+         Випадкового лісу за підтримки термодинамічного моделювання (ThermoRF)
         </strong>
         .
        </p>
@@ -432,7 +432,7 @@
         Цей метод виявляє характеристики розвитку несправностей за допомогою термодинамічного моделювання та інтегрує їх як апріорні знання в структуру моделі інтелектуальної діагностики. Спочатку було розроблено п'ять термодинамічних моделей несправностей шляхом точного налаштування базових параметрів системи для імітації значущих ознак різних відмов. Потім, на основі результатів чисельного моделювання, було визначено потенційні термодинамічні індикатори, що характеризують деградацію компонентів камери згоряння.
        </p>
        <p>
-        Відбір ознак проводився шляхом розрахунку значень SHapley Additive exPlanations (SHAP), при цьому зберігалися лише ті змінні, які мають значущу кореляцію зі станом несправності. Нарешті, оцінка стану здоров'я камери згоряння проводилася з використанням відібраних параметрів. Експериментальні результати показують, що запропонований метод TSRF демонструє відмінну класифікаційну ефективність, досягаючи середньої точності 99,07% на наборі даних з несправностями.
+        Відбір ознак проводився шляхом розрахунку значень SHapley Additive exPlanations (SHAP), при цьому зберігалися лише ті змінні, які мають значущу кореляцію зі станом несправності. Нарешті, оцінка стану здоров'я камери згоряння проводилася з використанням відібраних параметрів. Експериментальні результати показують, що запропонований метод ThermoRF демонструє відмінну класифікаційну ефективність, досягаючи середньої точності 99,07% на наборі даних з несправностями.
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -484,7 +484,7 @@
         </li>
        </ul>
        <p>
-        Для вирішення цих завдань ми запропонували метод TSRF. Поєднуючи фізично обґрунтовані механістичні моделі з передовими методами пояснюваності та використовуючи високоточні імітаційні моделі для вирішення проблеми нестачі даних, ми гарантуємо, що діагностичні рішення відповідають фундаментальним принципам термодинаміки.
+        Для вирішення цих завдань ми запропонували метод ThermoRF. Поєднуючи фізично обґрунтовані механістичні моделі з передовими методами пояснюваності та використовуючи високоточні імітаційні моделі для вирішення проблеми нестачі даних, ми гарантуємо, що діагностичні рішення відповідають фундаментальним принципам термодинаміки.
        </p>
       </div>
      </div>
@@ -527,12 +527,12 @@
        </ol>
       </div>
       <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <img alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
        <p class="subtitle is-6">
         <strong>
          Рис. 1:
         </strong>
-        Архітектура методу TSRF.
+        Архітектура методу ThermoRF.
        </p>
       </div>
      </div>
@@ -1048,7 +1048,7 @@ plt.show()</code></pre>
       <i class="fas fa-quote-left">
       </i>
      </span>
-     Якщо ви вважаєте цю роботу корисною для вашого дослідження, будь ласка, розгляньте можливість цитування 😊
+     Якщо ви вважаєте цю роботу корисною для вашого дослідження, будь ласка, ознайомтесь з наступною статтею 😊
     </div>
     <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
      BibTeX

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: 船用柴油機可解釋性故障診斷研究" property="og:title"/>
+  <meta content="ThermoRF: 船用柴油機可解釋性故障診斷研究" property="og:title"/>
   <meta content="結合熱力學仿真與隨機森林演算法，提出一種面向船用發動機健康管理的物理資訊機器學習（PIML）與可解釋性人工智慧方法。" property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
@@ -15,7 +15,7 @@
   <meta content="船用柴油機, 故障診斷, 隨機森林, SHAP, 可解釋性AI, 物理資訊機器學習, PIML, 機理模型, 合成數據生成, 預測性維護, 熱力學仿真, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   TSRF: 船用柴油機可解釋性故障診斷研究
+   ThermoRF: 船用柴油機可解釋性故障診斷研究
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -374,7 +374,7 @@
        <div class="column has-text-centered">
         <div class="publication-links">
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../ThermoRF.pdf" target="_blank">
            <span class="icon">
             <i class="fas fa-file-pdf">
             </i>
@@ -385,7 +385,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF" target="_blank">
            <span class="icon">
             <i class="fab fa-github">
             </i>
@@ -396,7 +396,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF/releases/tag/dataset" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -424,7 +424,7 @@
        <p>
         傳統船用柴油機智慧故障診斷方法常因故障訓練樣本匱乏導致泛化能力不足，且因未充分融合故障機理領域的先驗知識而造成可解釋性較差。針對上述問題，本文提出了一種
         <strong>
-         熱力學仿真輔助隨機森林 (TSRF)
+         熱力學仿真輔助隨機森林 (ThermoRF)
         </strong>
         方法。
        </p>
@@ -432,7 +432,7 @@
         該方法通過熱力學仿真揭示故障演化特徵，並將其作為先驗知識融入智慧故障診斷模型的設計中。首先，通過微調系統基礎參數以類比不同故障的顯著特徵，開發了五個熱力學故障模型。隨後，基於數值模擬結果確定了表徵燃燒室組件退化的潛在熱力學指標。
        </p>
        <p>
-        通過計算 SHapley Additive explanations (SHAP) 值進行特徵篩選，僅保留與故障狀態具有顯著相關性的變數。最後，利用篩選出的參數評估燃燒室健康狀態。實驗結果表明，所提出的 TSRF 方法表現出優異的分類性能，在故障數據集上的平均準確率高達 99.07%。
+        通過計算 SHapley Additive explanations (SHAP) 值進行特徵篩選，僅保留與故障狀態具有顯著相關性的變數。最後，利用篩選出的參數評估燃燒室健康狀態。實驗結果表明，所提出的 ThermoRF 方法表現出優異的分類性能，在故障數據集上的平均準確率高達 99.07%。
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -484,7 +484,7 @@
         </li>
        </ul>
        <p>
-        為應對上述挑戰，我們提出了 TSRF 方法。通過將基於物理的機理模型與先進的可解釋性技術相融合，並利用高保真仿真模型生成解決了數據稀缺問題，並確保診斷決策符合熱力學基本原理。
+        為應對上述挑戰，我們提出了 ThermoRF 方法。通過將基於物理的機理模型與先進的可解釋性技術相融合，並利用高保真仿真模型生成解決了數據稀缺問題，並確保診斷決策符合熱力學基本原理。
        </p>
       </div>
      </div>
@@ -527,12 +527,12 @@
        </ol>
       </div>
       <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <img alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
        <p class="subtitle is-6">
         <strong>
          圖 1：
         </strong>
-        TSRF 方法架構圖。
+        ThermoRF 方法架構圖。
        </p>
       </div>
      </div>
@@ -1048,7 +1048,7 @@ plt.show()</code></pre>
       <i class="fas fa-quote-left">
       </i>
      </span>
-     如果您發現這項工作對您的研究有益，請考慮引用 😊
+     如果您發現這項工作對您的研究有益，請考慮閱讀以下論文 😊
     </div>
     <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
      BibTeX

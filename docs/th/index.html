@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="th">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: การวิจัยการวินิจฉัยข้อบกพร่องที่อธิบายได้สำหรับเครื่องยนต์ดีเซลเรือ" property="og:title"/>
+  <meta content="ThermoRF: การวิจัยการวินิจฉัยข้อบกพร่องที่อธิบายได้สำหรับเครื่องยนต์ดีเซลเรือ" property="og:title"/>
   <meta content="การผสมผสานการจำลองทางอุณหพลศาสตร์และอัลกอริทึม Random Forest เพื่อนำเสนอวิธีการเรียนรู้ของเครื่องที่ใช้องค์ความรู้ทางฟิสิกส์ (PIML) และ AI ที่อธิบายได้ สำหรับการจัดการสุขภาพเครื่องยนต์เรือ" property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
@@ -15,7 +15,7 @@
   <meta content="เครื่องยนต์ดีเซลเรือ, การวินิจฉัยข้อบกพร่อง, Random Forest, SHAP, AI ที่อธิบายได้, การเรียนรู้ของเครื่องที่ใช้องค์ความรู้ทางฟิสิกส์, PIML, แบบจำลองเชิงกลไก, การสร้างข้อมูลสังเคราะห์, การบำรุงรักษาเชิงพยากรณ์, การจำลองทางอุณหพลศาสตร์, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   TSRF: การวิจัยการวินิจฉัยข้อบกพร่องที่อธิบายได้สำหรับเครื่องยนต์ดีเซลเรือ
+   ThermoRF: การวิจัยการวินิจฉัยข้อบกพร่องที่อธิบายได้สำหรับเครื่องยนต์ดีเซลเรือ
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -374,7 +374,7 @@
        <div class="column has-text-centered">
         <div class="publication-links">
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../ThermoRF.pdf" target="_blank">
            <span class="icon">
             <i class="fas fa-file-pdf">
             </i>
@@ -385,7 +385,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF" target="_blank">
            <span class="icon">
             <i class="fab fa-github">
             </i>
@@ -396,7 +396,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF/releases/tag/dataset" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -424,14 +424,14 @@
        <p>
         วิธีการวินิจฉัยข้อบกพร่องอัจฉริยะสำหรับเครื่องยนต์ดีเซลเรือแบบดั้งเดิมมักประสบปัญหาความสามารถในการสรุปผลทั่วไปที่ไม่ดี เนื่องจากขาดแคลนตัวอย่างการฝึกฝนที่มีข้อบกพร่อง และความสามารถในการอธิบายต่ำ เนื่องจากไม่ได้บูรณาการความรู้ก่อนหน้าเกี่ยวกับกลไกความล้มเหลวอย่างเพียงพอ เพื่อแก้ไขปัญหาเหล่านี้ บทความนี้นำเสนอวิธีการ
         <strong>
-         Random Forest ที่ช่วยด้วยการจำลองทางอุณหพลศาสตร์ (TSRF)
+         Random Forest ที่ช่วยด้วยการจำลองทางอุณหพลศาสตร์ (ThermoRF)
         </strong>
        </p>
        <p>
         วิธีการนี้เปิดเผยลักษณะวิวัฒนาการของข้อบกพร่องผ่านการจำลองทางอุณหพลศาสตร์ และบูรณาการสิ่งเหล่านี้เป็นความรู้ก่อนหน้าในการออกแบบแบบจำลองการวินิจฉัยข้อบกพร่องอัจฉริยะ ขั้นแรก ได้พัฒนาแบบจำลองข้อบกพร่องทางอุณหพลศาสตร์ห้าแบบ โดยการปรับแต่งพารามิเตอร์พื้นฐานของระบบอย่างละเอียด เพื่อจำลองลักษณะเด่นของความล้มเหลวต่างๆ ต่อมา จากผลการจำลองเชิงตัวเลข ได้ระบุตัวบ่งชี้ทางอุณหพลศาสตร์ที่มีศักยภาพ ซึ่งแสดงถึงการเสื่อมสภาพของส่วนประกอบห้องเผาไหม้
        </p>
        <p>
-        การเลือกคุณลักษณะดำเนินการโดยการคำนวณค่า SHapley Additive exPlanations (SHAP) โดยเก็บเฉพาะตัวแปรที่มีความสัมพันธ์อย่างมีนัยสำคัญกับสถานะข้อบกพร่อง สุดท้าย สถานะสุขภาพของห้องเผาไหม้ได้รับการประเมินโดยใช้พารามิเตอร์ที่เลือก ผลการทดลองแสดงให้เห็นว่าวิธีการ TSRF ที่นำเสนอ แสดงประสิทธิภาพการจำแนกประเภทที่ยอดเยี่ยม โดยมีความแม่นยำเฉลี่ยสูงถึง 99.07% ในชุดข้อมูลข้อบกพร่อง
+        การเลือกคุณลักษณะดำเนินการโดยการคำนวณค่า SHapley Additive exPlanations (SHAP) โดยเก็บเฉพาะตัวแปรที่มีความสัมพันธ์อย่างมีนัยสำคัญกับสถานะข้อบกพร่อง สุดท้าย สถานะสุขภาพของห้องเผาไหม้ได้รับการประเมินโดยใช้พารามิเตอร์ที่เลือก ผลการทดลองแสดงให้เห็นว่าวิธีการ ThermoRF ที่นำเสนอ แสดงประสิทธิภาพการจำแนกประเภทที่ยอดเยี่ยม โดยมีความแม่นยำเฉลี่ยสูงถึง 99.07% ในชุดข้อมูลข้อบกพร่อง
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -483,7 +483,7 @@
         </li>
        </ul>
        <p>
-        เพื่อตอบสนองต่อความท้าทายเหล่านี้ เราได้เสนอวิธีการ TSRF โดยการรวมแบบจำลองเชิงกลไกที่ใช้ฟิสิกส์เข้ากับเทคนิคความสามารถในการอธิบายขั้นสูง และใช้แบบจำลองการจำลองที่มีความแม่นยำสูงเพื่อแก้ปัญหาการขาดแคลนข้อมูล เรารับประกันว่าการตัดสินใจวินิจฉัยสอดคล้องกับหลักการพื้นฐานของอุณหพลศาสตร์
+        เพื่อตอบสนองต่อความท้าทายเหล่านี้ เราได้เสนอวิธีการ ThermoRF โดยการรวมแบบจำลองเชิงกลไกที่ใช้ฟิสิกส์เข้ากับเทคนิคความสามารถในการอธิบายขั้นสูง และใช้แบบจำลองการจำลองที่มีความแม่นยำสูงเพื่อแก้ปัญหาการขาดแคลนข้อมูล เรารับประกันว่าการตัดสินใจวินิจฉัยสอดคล้องกับหลักการพื้นฐานของอุณหพลศาสตร์
        </p>
       </div>
      </div>
@@ -526,12 +526,12 @@
        </ol>
       </div>
       <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <img alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
        <p class="subtitle is-6">
         <strong>
          รูปที่ 1:
         </strong>
-        สถาปัตยกรรมของวิธีการ TSRF
+        สถาปัตยกรรมของวิธีการ ThermoRF
        </p>
       </div>
      </div>

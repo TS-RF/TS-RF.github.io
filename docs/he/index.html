@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: מחקר בנושא אבחון תקלות מוסבר למנועי דיזל ימיים" property="og:title"/>
+  <meta content="ThermoRF: מחקר בנושא אבחון תקלות מוסבר למנועי דיזל ימיים" property="og:title"/>
   <meta content="שילוב של סימולציה תרמודינמית ואלגוריתמי יער אקראי (Random Forest) להצגת גישת למידת מכונה מודעת-פיזיקה (PIML) ובינה מלאכותית מוסברת לניהול בריאות המנוע הימי." property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
@@ -15,7 +15,7 @@
   <meta content="מנוע דיזל ימי, אבחון תקלות, יער אקראי, SHAP, בינה מלאכותית מוסברת, למידת מכונה מודעת-פיזיקה, PIML, מודל מכניסטי, יצירת נתונים סינתטיים, תחזוקה חזויה, סימולציה תרמודינמית, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   TSRF: מחקר בנושא אבחון תקלות מוסבר למנועי דיזל ימיים
+   ThermoRF: מחקר בנושא אבחון תקלות מוסבר למנועי דיזל ימיים
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -374,7 +374,7 @@
        <div class="column has-text-centered">
         <div class="publication-links">
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../ThermoRF.pdf" target="_blank">
            <span class="icon">
             <i class="fas fa-file-pdf">
             </i>
@@ -385,7 +385,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF" target="_blank">
            <span class="icon">
             <i class="fab fa-github">
             </i>
@@ -396,7 +396,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF/releases/tag/dataset" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -424,7 +424,7 @@
        <p>
         שיטות מסורתיות לאבחון חכם של תקלות במנועי דיזל ימיים סובלות לעיתים קרובות מיכולת הכללה ירודה בשל המחסור בדוגמאות אימון של תקלות, ומרמת הסבר נמוכה בשל חוסר שילוב מספק של ידע מוקדם על מנגנוני הכשל. כדי להתמודד עם בעיות אלו, מאמר זה מציע שיטת
         <strong>
-         יער אקראי בסיוע סימולציה תרמודינמית (TSRF)
+         יער אקראי בסיוע סימולציה תרמודינמית (ThermoRF)
         </strong>
         .
        </p>
@@ -432,7 +432,7 @@
         שיטה זו חושפת את מאפייני התפתחות התקלות באמצעות סימולציה תרמודינמית ומשלבת אותם כידע מוקדם בתכנון המודל לאבחון תקלות חכם. תחילה, פותחו חמישה מודלים תרמודינמיים של תקלות על ידי כוונון עדין של פרמטרים בסיסיים במערכת כדי לדמות את המאפיינים המובהקים של כשלים שונים. לאחר מכן, בהתבסס על תוצאות הסימולציה המספרית, זוהו אינדיקטורים תרמודינמיים פוטנציאליים המאפיינים את ההתדרדרות של רכיבי תא הבעירה.
        </p>
        <p>
-        בחירת מאפיינים בוצעה על ידי חישוב ערכי SHapley Additive exPlanations (SHAP), תוך שמירה רק על משתנים בעלי מתאם מובהק למצב התקלה. לבסוף, מצב הבריאות של תא הבעירה הוערך באמצעות הפרמטרים שנבחרו. תוצאות הניסוי מראות כי שיטת TSRF המוצעת מפגינה ביצועי סיווג מצוינים, עם דיוק ממוצע של 99.07% על סט נתוני התקלות.
+        בחירת מאפיינים בוצעה על ידי חישוב ערכי SHapley Additive exPlanations (SHAP), תוך שמירה רק על משתנים בעלי מתאם מובהק למצב התקלה. לבסוף, מצב הבריאות של תא הבעירה הוערך באמצעות הפרמטרים שנבחרו. תוצאות הניסוי מראות כי שיטת ThermoRF המוצעת מפגינה ביצועי סיווג מצוינים, עם דיוק ממוצע של 99.07% על סט נתוני התקלות.
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -484,7 +484,7 @@
         </li>
        </ul>
        <p>
-        כדי להתמודד עם אתגרים אלו, הצענו את שיטת TSRF. על ידי מיזוג מודלים מכניסטיים מבוססי-פיזיקה עם טכניקות הסבר מתקדמות ושימוש במודלים של סימולציה בנאמנות גבוהה כדי לפתור את בעיית המחסור בנתונים, אנו מבטיחים שהחלטות האבחון תואמות לעקרונות תרמודינמיים בסיסיים.
+        כדי להתמודד עם אתגרים אלו, הצענו את שיטת ThermoRF. על ידי מיזוג מודלים מכניסטיים מבוססי-פיזיקה עם טכניקות הסבר מתקדמות ושימוש במודלים של סימולציה בנאמנות גבוהה כדי לפתור את בעיית המחסור בנתונים, אנו מבטיחים שהחלטות האבחון תואמות לעקרונות תרמודינמיים בסיסיים.
        </p>
       </div>
      </div>
@@ -527,12 +527,12 @@
        </ol>
       </div>
       <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <img alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
        <p class="subtitle is-6">
         <strong>
          איור 1:
         </strong>
-        ארכיטקטורת שיטת TSRF.
+        ארכיטקטורת שיטת ThermoRF.
        </p>
       </div>
      </div>
@@ -1048,7 +1048,7 @@ plt.show()</code></pre>
       <i class="fas fa-quote-left">
       </i>
      </span>
-     אם מצאתם עבודה זו מועילה למחקר שלכם, אנא שקלו לצטט אותה 😊
+     אם מצאתם עבודה זו מועילה למחקר שלכם, אנא שקלו לקרוא את המאמר הבא 😊
     </div>
     <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
      BibTeX

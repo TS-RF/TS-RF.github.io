@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: Studio sulla diagnostica spiegabile dei guasti nei motori diesel marini" property="og:title"/>
+  <meta content="ThermoRF: Studio sulla diagnostica spiegabile dei guasti nei motori diesel marini" property="og:title"/>
   <meta content="Combinando la simulazione termodinamica con algoritmi Random Forest, si propone un metodo di apprendimento automatico informato dalla fisica (PIML) e di IA spiegabile per la gestione dello stato di salute dei motori marini." property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
@@ -15,7 +15,7 @@
   <meta content="Motore diesel marino, Diagnostica dei guasti, Random Forest, SHAP, IA spiegabile, Apprendimento automatico informato dalla fisica, PIML, Modello meccanicistico, Generazione di dati sintetici, Manutenzione predittiva, Simulazione termodinamica, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   TSRF: Studio sulla diagnostica spiegabile dei guasti nei motori diesel marini
+   ThermoRF: Studio sulla diagnostica spiegabile dei guasti nei motori diesel marini
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -374,7 +374,7 @@
        <div class="column has-text-centered">
         <div class="publication-links">
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../ThermoRF.pdf" target="_blank">
            <span class="icon">
             <i class="fas fa-file-pdf">
             </i>
@@ -385,7 +385,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF" target="_blank">
            <span class="icon">
             <i class="fab fa-github">
             </i>
@@ -396,7 +396,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF/releases/tag/dataset" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -424,7 +424,7 @@
        <p>
         I metodi tradizionali di diagnostica intelligente dei guasti per motori diesel marini soffrono spesso di una scarsa capacità di generalizzazione dovuta alla mancanza di campioni di addestramento sui guasti, e di una scarsa spiegabilità poiché non integrano sufficientemente la conoscenza a priori sui meccanismi di guasto. Per affrontare questi problemi, questo articolo propone un metodo
         <strong>
-         Random Forest Assistito da Simulazione Termodinamica (TSRF)
+         Random Forest Assistito da Simulazione Termodinamica (ThermoRF)
         </strong>
         .
        </p>
@@ -432,7 +432,7 @@
         Questo metodo rivela le caratteristiche di evoluzione dei guasti attraverso la simulazione termodinamica e le integra come conoscenza a priori nella progettazione del modello di diagnostica intelligente. In primo luogo, sono stati sviluppati cinque modelli termodinamici di guasto regolando finemente i parametri di base del sistema per simulare le caratteristiche significative di diversi malfunzionamenti. Successivamente, sulla base dei risultati della simulazione numerica, sono stati identificati potenziali indicatori termodinamici che caratterizzano il degrado dei componenti della camera di combustione.
        </p>
        <p>
-        È stata effettuata una selezione delle caratteristiche calcolando i valori SHapley Additive exPlanations (SHAP), conservando solo le variabili con una correlazione significativa con lo stato del guasto. Infine, lo stato di salute della camera di combustione è stato valutato utilizzando i parametri selezionati. I risultati sperimentali mostrano che il metodo TSRF proposto presenta eccellenti prestazioni di classificazione, con un'accuratezza media del 99,07% sul set di dati dei guasti.
+        È stata effettuata una selezione delle caratteristiche calcolando i valori SHapley Additive exPlanations (SHAP), conservando solo le variabili con una correlazione significativa con lo stato del guasto. Infine, lo stato di salute della camera di combustione è stato valutato utilizzando i parametri selezionati. I risultati sperimentali mostrano che il metodo ThermoRF proposto presenta eccellenti prestazioni di classificazione, con un'accuratezza media del 99,07% sul set di dati dei guasti.
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -484,7 +484,7 @@
         </li>
        </ul>
        <p>
-        Per affrontare queste sfide, abbiamo proposto il metodo TSRF. Fondendo modelli meccanicistici basati sulla fisica con tecniche avanzate di spiegabilità e utilizzando modelli di simulazione ad alta fedeltà per risolvere il problema della scarsità di dati, garantiamo che le decisioni diagnostiche siano conformi ai principi termodinamici fondamentali.
+        Per affrontare queste sfide, abbiamo proposto il metodo ThermoRF. Fondendo modelli meccanicistici basati sulla fisica con tecniche avanzate di spiegabilità e utilizzando modelli di simulazione ad alta fedeltà per risolvere il problema della scarsità di dati, garantiamo che le decisioni diagnostiche siano conformi ai principi termodinamici fondamentali.
        </p>
       </div>
      </div>
@@ -527,12 +527,12 @@
        </ol>
       </div>
       <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <img alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
        <p class="subtitle is-6">
         <strong>
          Fig. 1:
         </strong>
-        Architettura del metodo TSRF.
+        Architettura del metodo ThermoRF.
        </p>
       </div>
      </div>
@@ -1048,7 +1048,7 @@ plt.show()</code></pre>
       <i class="fas fa-quote-left">
       </i>
      </span>
-     Se trovi questo lavoro utile per la tua ricerca, ti preghiamo di considerare una citazione 😊
+     Se trovi questo lavoro utile per la tua ricerca, ti preghiamo di leggere il seguente articolo 😊
     </div>
     <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">
      BibTeX

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   
@@ -6,7 +6,7 @@
   <link rel="alternate" hreflang="zh-CN" href="https://ts-rf.github.io/zh/" />
   <link rel="alternate" hreflang="x-default" href="https://ts-rf.github.io/" />
   
-  <meta property="og:title" content="TSRF: Explainable Fault Diagnosis for Marine Diesel Engines">
+  <meta property="og:title" content="ThermoRF: Explainable Fault Diagnosis for Marine Diesel Engines">
   <meta property="og:description" content="Combining thermodynamic simulation with SHAP to achieve explainable AI for marine engine health management.">
   <meta property="og:image" content="https://ts-rf.github.io/static/images/fig1_structure.jpg"> <meta property="og:url" content="https://ts-rf.github.io/">
   <meta property="og:type" content="website">
@@ -14,10 +14,10 @@
   
   <meta charset="utf-8">
   <meta name="description"
-        content="TSRF: A Physics-Informed Machine Learning (PIML) approach for Marine Diesel Engine Fault Diagnosis. Combines Thermodynamic Simulation (Mechanism Model) with Random Forest and SHAP (SHapley Additive exPlanations) to achieve Explainable AI (XAI) and solve data scarcity in Predictive Maintenance.">
+        content="ThermoRF: A Physics-Informed Machine Learning (PIML) approach for Marine Diesel Engine Fault Diagnosis. Combines Thermodynamic Simulation (Mechanism Model) with Random Forest and SHAP (SHapley Additive exPlanations) to achieve Explainable AI (XAI) and solve data scarcity in Predictive Maintenance.">
   <meta name="keywords" content="Marine Diesel Engine, Fault Diagnosis, Random Forest, SHAP, Explainable AI, XAI, Physics-Informed Machine Learning, PIML, Mechanism Model, Synthetic Data Generation, Predictive Maintenance, Thermodynamic Simulation, AVL BOOST">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TSRF: Explainable Fault Diagnosis for Marine Diesel Engines</title>
+  <title>ThermoRF: Explainable Fault Diagnosis for Marine Diesel Engines</title>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
@@ -312,7 +312,7 @@
           <div class="column has-text-centered">
             <div class="publication-links">
               <span class="link-block">
-                <a href="./TSRF.pdf"
+                <a href="./ThermoRF.pdf"
                    class="button is-normal is-rounded is-dark hover-card" 
                    target="_blank">
                   <span class="icon">
@@ -322,7 +322,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://github.com/TS-RF/TSRF"
+                <a href="https://github.com/TS-RF/ThermoRF"
                    target="_blank"
                    class="button is-normal is-rounded is-dark hover-card">
                   <span class="icon">
@@ -332,7 +332,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://github.com/TS-RF/TSRF/releases/tag/dataset"
+                <a href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset"
                    target="_blank"
                    class="button is-normal is-rounded is-dark hover-card">
                   <span class="icon">
@@ -359,13 +359,13 @@
         <div class="content has-text-justified reveal delay-1">
           <p>
             Aiming at the challenges that traditional intelligent fault diagnosis methods of marine diesel engines often suffer low generalizability due to the lack of fault training samples, as well as poor explainability due to the insufficient incorporation of domain knowledge on fault mechanism, this paper develops a 
-            <strong>Thermodynamic Simulation-assisted Random Forest (TSRF)</strong>.
+            <strong>Thermodynamic Simulation-assisted Random Forest (ThermoRF)</strong>.
           </p>
           <p>
             The method reveals fault characteristics through thermodynamic simulations and incorporates them as prior knowledge when designing the intelligent fault diagnosis model. Firstly, five thermodynamic fault models are developed by fine-tuning the essential system parameters to correspond with the distinct attributes of different faults. Then, potential thermodynamic indicators of combustion chamber component degradation are identified through numerical simulation results.
           </p>
           <p>
-            By calculating SHapley Additive explanations (SHAP) values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed TSRF achieved exceptional classification performance, illustrating a mean accuracy of 99.07% on the fault dataset.
+            By calculating SHapley Additive explanations (SHAP) values, a parameter selection process is conducted to retain only those variables demonstrating significant correlations with fault states. Finally, the selected parameters are leveraged to assess the condition of the combustion chamber. The proposed ThermoRF achieved exceptional classification performance, illustrating a mean accuracy of 99.07% on the fault dataset.
           </p>
 
           <div class="keywords-container" style="margin-top: 2rem;">
@@ -399,7 +399,7 @@
             <li><strong>The "Black Box" Problem:</strong> Since deep learning models typically lack transparency, engineers find it difficult to trust them without an explanation of the physical causality behind a fault. This opacity is particularly critical in the shipping industry, which is subject to rigorous oversight by classification societies. If an AI misdiagnosis precipitates a catastrophic failure like cylinder scuffing or a crankshaft fracture, and the system cannot identify whether the error stemmed from data bias, algorithmic flaws, or sensor drift, such untraceability is unacceptable in maritime accident investigations.</li>
           </ul>
           <p>
-            To address these challenges, we propose the TSRF method. This approach integrates physics-based mechanistic models with advanced explainability techniques. By leveraging high-fidelity simulation models to generate synthetic data, we effectively resolve the issue of data scarcity and ensure that diagnostic decisions adhere to fundamental thermodynamic principles.
+            To address these challenges, we propose the ThermoRF method. This approach integrates physics-based mechanistic models with advanced explainability techniques. By leveraging high-fidelity simulation models to generate synthetic data, we effectively resolve the issue of data scarcity and ensure that diagnostic decisions adhere to fundamental thermodynamic principles.
           </p>
         </div>
       </div>
@@ -424,9 +424,9 @@
         </div>
         
         <div class="has-text-centered reveal delay-2">
-          <img src="./static/images/fig1_structure.jpg" class="hover-card" alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" style="width:100%; height:auto; border-radius: 10px;">
+          <img src="./static/images/fig1_structure.jpg" class="hover-card" alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" style="width:100%; height:auto; border-radius: 10px;">
           <p class="subtitle is-6">
-            <strong>Figure 1:</strong> The structure of the proposed TSRF method.
+            <strong>Figure 1:</strong> The structure of the proposed ThermoRF method.
           </p>
         </div>
       </div>
@@ -850,7 +850,7 @@ plt.show()</code></pre>
       <span class="icon is-small" style="margin-right: 0.5rem; color: #3273dc;">
         <i class="fas fa-quote-left"></i>
       </span>
-      If you find this work useful for your research, please consider citing 😊
+      If you find this work useful for your research, please consider reading the following paper 😊
     </div>
 
     <h4 class="title is-5 is-size-6-mobile" style="margin-bottom: 0.5rem; color: #666;">BibTeX</h4>

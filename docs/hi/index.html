@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="hi">
  <head>
   <link href="https://ts-rf.github.io/" hreflang="en" rel="alternate"/>
   <link href="https://ts-rf.github.io/zh/" hreflang="zh-CN" rel="alternate"/>
   <link href="https://ts-rf.github.io/" hreflang="x-default" rel="alternate"/>
-  <meta content="TSRF: समुद्री डीजल इंजनों के लिए व्याख्या योग्य दोष निदान पर शोध" property="og:title"/>
+  <meta content="ThermoRF: समुद्री डीजल इंजनों के लिए व्याख्या योग्य दोष निदान पर शोध" property="og:title"/>
   <meta content="थर्मोडायनामिक सिमुलेशन और रैंडम फॉरेस्ट एल्गोरिदम को मिलाकर, समुद्री इंजन स्वास्थ्य प्रबंधन के लिए एक भौतिकी-सूचित मशीन लर्निंग (PIML) और व्याख्या योग्य AI पद्धति प्रस्तावित की गई है।" property="og:description"/>
   <meta content="https://ts-rf.github.io/static/images/fig1_structure.jpg" property="og:image"/>
   <meta content="https://ts-rf.github.io/" property="og:url"/>
@@ -15,7 +15,7 @@
   <meta content="समुद्री डीजल इंजन, दोष निदान, रैंडम फॉरेस्ट, SHAP, व्याख्या योग्य AI, भौतिकी-सूचित मशीन लर्निंग, PIML, यांत्रिक मॉडल, सिंथेटिक डेटा जनरेशन, प्रेडिक्टिव मेंटेनेंस, थर्मोडायनामिक सिमुलेशन, AVL BOOST" name="keywords"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   TSRF: समुद्री डीजल इंजनों के लिए व्याख्या योग्य दोष निदान पर शोध
+   ThermoRF: समुद्री डीजल इंजनों के लिए व्याख्या योग्य दोष निदान पर शोध
   </title>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
   </script>
@@ -374,7 +374,7 @@
        <div class="column has-text-centered">
         <div class="publication-links">
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="../TSRF.pdf" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="../ThermoRF.pdf" target="_blank">
            <span class="icon">
             <i class="fas fa-file-pdf">
             </i>
@@ -385,7 +385,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF" target="_blank">
            <span class="icon">
             <i class="fab fa-github">
             </i>
@@ -396,7 +396,7 @@
           </a>
          </span>
          <span class="link-block">
-          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/TSRF/releases/tag/dataset" target="_blank">
+          <a class="button is-normal is-rounded is-dark hover-card" href="https://github.com/TS-RF/ThermoRF/releases/tag/dataset" target="_blank">
            <span class="icon">
             <i class="fas fa-file-csv">
             </i>
@@ -424,7 +424,7 @@
        <p>
         पारंपरिक समुद्री डीजल इंजन बुद्धिमान दोष निदान (intelligent fault diagnosis) विधियां अक्सर दोष प्रशिक्षण नमूनों की कमी के कारण खराब सामान्यीकरण क्षमता से ग्रस्त होती हैं, और विफलता तंत्र के बारे में पूर्व ज्ञान को पर्याप्त रूप से एकीकृत नहीं करने के कारण उनकी व्याख्या क्षमता (explainability) कम होती है। इन समस्याओं को हल करने के लिए, यह शोध पत्र एक
         <strong>
-         थर्मोडायनामिक सिमुलेशन-असिस्टेड रैंडम फॉरेस्ट (TSRF)
+         थर्मोडायनामिक सिमुलेशन-असिस्टेड रैंडम फॉरेस्ट (ThermoRF)
         </strong>
         विधि का प्रस्ताव करता है।
        </p>
@@ -432,7 +432,7 @@
         यह विधि थर्मोडायनामिक सिमुलेशन के माध्यम से दोष विकास विशेषताओं को प्रकट करती है और उन्हें बुद्धिमान दोष निदान मॉडल के डिजाइन में पूर्व ज्ञान के रूप में एकीकृत करती है। सबसे पहले, विभिन्न विफलताओं की महत्वपूर्ण विशेषताओं को अनुकरण करने के लिए सिस्टम के बुनियादी मापदंडों को ठीक करके पांच थर्मोडायनामिक दोष मॉडल विकसित किए गए। इसके बाद, संख्यात्मक सिमुलेशन परिणामों के आधार पर, दहन कक्ष घटकों के क्षरण (degradation) को चिह्नित करने वाले संभावित थर्मोडायनामिक संकेतकों की पहचान की गई।
        </p>
        <p>
-        SHapley Additive exPlanations (SHAP) मानों की गणना करके फ़ीचर चयन (feature selection) किया गया, जिसमें केवल उन चर को रखा गया जिनका दोष स्थिति के साथ महत्वपूर्ण सहसंबंध है। अंत में, चयनित मापदंडों का उपयोग करके दहन कक्ष की स्वास्थ्य स्थिति का मूल्यांकन किया गया। प्रायोगिक परिणाम बताते हैं कि प्रस्तावित TSRF विधि उत्कृष्ट वर्गीकरण प्रदर्शन प्रदर्शित करती है, जो दोष डेटासेट पर 99.07% की औसत सटीकता प्राप्त करती है।
+        SHapley Additive exPlanations (SHAP) मानों की गणना करके फ़ीचर चयन (feature selection) किया गया, जिसमें केवल उन चर को रखा गया जिनका दोष स्थिति के साथ महत्वपूर्ण सहसंबंध है। अंत में, चयनित मापदंडों का उपयोग करके दहन कक्ष की स्वास्थ्य स्थिति का मूल्यांकन किया गया। प्रायोगिक परिणाम बताते हैं कि प्रस्तावित ThermoRF विधि उत्कृष्ट वर्गीकरण प्रदर्शन प्रदर्शित करती है, जो दोष डेटासेट पर 99.07% की औसत सटीकता प्राप्त करती है।
        </p>
        <div class="keywords-container" style="margin-top: 2rem;">
         <span class="keyword-label">
@@ -484,7 +484,7 @@
         </li>
        </ul>
        <p>
-        इन चुनौतियों का सामना करने के लिए, हमने TSRF विधि का प्रस्ताव दिया। भौतिकी-आधारित यांत्रिक मॉडल को उन्नत व्याख्या तकनीकों के साथ मिलाकर और डेटा की कमी की समस्या को हल करने के लिए उच्च-निष्ठा सिमुलेशन मॉडल का उपयोग करके, हम यह सुनिश्चित करते हैं कि निदान निर्णय थर्मोडायनामिक्स के मौलिक सिद्धांतों के अनुरूप हों।
+        इन चुनौतियों का सामना करने के लिए, हमने ThermoRF विधि का प्रस्ताव दिया। भौतिकी-आधारित यांत्रिक मॉडल को उन्नत व्याख्या तकनीकों के साथ मिलाकर और डेटा की कमी की समस्या को हल करने के लिए उच्च-निष्ठा सिमुलेशन मॉडल का उपयोग करके, हम यह सुनिश्चित करते हैं कि निदान निर्णय थर्मोडायनामिक्स के मौलिक सिद्धांतों के अनुरूप हों।
        </p>
       </div>
      </div>
@@ -527,12 +527,12 @@
        </ol>
       </div>
       <div class="has-text-centered reveal delay-2">
-       <img alt="Structure of TSRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
+       <img alt="Structure of ThermoRF method combining Thermodynamic Simulation and Random Forest for Explainable AI" class="hover-card" src="../static/images/fig1_structure.jpg" style="width:100%; height:auto; border-radius: 10px;"/>
        <p class="subtitle is-6">
         <strong>
          चित्र 1:
         </strong>
-        TSRF विधि की वास्तुकला।
+        ThermoRF विधि की वास्तुकला।
        </p>
       </div>
      </div>
